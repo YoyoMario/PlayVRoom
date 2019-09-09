@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.playvroom.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "D:\\Razvoj\\Unity\\PlayVRoom\\PlayVRoom\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "PlayVRoom [Testing]"
+        }
+      }
+    }
+  ]
+}
