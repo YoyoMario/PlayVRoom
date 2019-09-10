@@ -26,7 +26,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //    (transform.forward * _objectPositionDifference.z) +
                 //    (transform.up * _objectPositionDifference.y) +
                 //    (transform.right * _objectPositionDifference.x);
-                Vector3 targetVelocity = positionDelta * AttachedPositionMagic * Time.fixedDeltaTime;
                 Rigidbody.velocity = positionDelta * AttachedPositionMagic * Time.fixedDeltaTime;
 
                 //Rigidbody update
@@ -44,7 +43,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                 {
                     Rigidbody.angularVelocity = wantedRotation;
-                    //_currentInteractableObject.Rigidbody.angularVelocity = Vector3.MoveTowards(_currentInteractableObject.Rigidbody.angularVelocity, wantedRotation, 20f);
                 }
             }
         }

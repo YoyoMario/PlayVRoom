@@ -24,6 +24,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private float _initialPivotRotat;
         private Vector3 _initialPivotPosition;
         private Quaternion _maxAngleFinalRotation;
+        private Quaternion _lastHandledRotation; //for collisions if something hits this lever.
 
         public override void Awake()
         {
@@ -32,6 +33,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Rigidbody.centerOfMass = Vector3.zero;
 
             _initialRotation = Rigidbody.rotation;
+            _lastHandledRotation = Rigidbody.rotation;
             _initialForwardDirection = Rigidbody.transform.forward;
             _initialPivotPosition = Rigidbody.position;
             _initialPivotRotat = Rigidbody.transform.localRotation.eulerAngles.x;
@@ -39,7 +41,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private void FixedUpdate()
         {
-            Rigidbody.position = _initialPivotPosition;
             _angularVelocityDirection = Rigidbody.transform.right;
 
             if (Picked && Hand)
@@ -59,9 +60,18 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //apply angular velocity in desired direction * strength
                 Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * _angularVelocityStrength;
             }
+            else
+            {
+                //handling situation if user takes another collider and smacks it on our lever
+                Rigidbody.angularVelocity = Vector3.zero;
+                Rigidbody.velocity = Vector3.zero;
+
+                Rigidbody.position = _initialPivotPosition;
+                Rigidbody.rotation = _lastHandledRotation;
+            }
 
             //limiting rotation angle
-            if(_rotationAmount >= _maxAngle && _cross.x > 0)
+            if (_rotationAmount >= _maxAngle && _cross.x > 0)
             {
                 _maxAngleFinalRotation = _initialRotation * Quaternion.Euler(new Vector3(-_maxAngle, 0, 0));
                 Rigidbody.angularVelocity = Vector3.zero;
@@ -79,7 +89,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             base.OnDrop(controllerVelocity);
 
-            Rigidbody.angularVelocity = Vector3.zero;
+            //recording the lever rotation at the moment when user leaves interacting
+            _lastHandledRotation = Rigidbody.rotation;
         }
     } 
 }
