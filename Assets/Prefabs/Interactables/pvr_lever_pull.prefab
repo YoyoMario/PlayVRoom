@@ -469,7 +469,7 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
-  _angularVelocityStrength: -100
+  _pullStrength: 40
   _minAngle: -30
   _maxAngle: 30
 --- !u!1 &5106315912536085626
