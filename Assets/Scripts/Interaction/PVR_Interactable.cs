@@ -88,31 +88,32 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             }
         }
 
-        IEnumerator ForceTowardsPlayer(Transform controller)
-        {
-            Vector3 targetPosition = controller.position;
-            float minDistance = .45f;
-            float vectorUpMultiplier = 0.3f;
-            float velocityMultiplier = 5;
-            float maxVelocity = 20;
-            float minVelocity = 2.5f;
-            float currentDistanceFromController = Vector3.Distance(targetPosition, transform.position);
+        //Delete if unused
+        //IEnumerator ForceTowardsPlayer(Transform controller)
+        //{
+        //    Vector3 targetPosition = controller.position;
+        //    float minDistance = .45f;
+        //    float vectorUpMultiplier = 0.3f;
+        //    float velocityMultiplier = 5;
+        //    float maxVelocity = 20;
+        //    float minVelocity = 2.5f;
+        //    float currentDistanceFromController = Vector3.Distance(targetPosition, transform.position);
 
-            while (currentDistanceFromController > minDistance)
-            {
-                Vector3 dir = targetPosition - transform.position;
-                dir += Vector3.up * vectorUpMultiplier;
-                dir = dir.normalized;
-                float velMultiplier = currentDistanceFromController * currentDistanceFromController * velocityMultiplier;
-                velMultiplier = Mathf.Clamp(velMultiplier, minVelocity, maxVelocity);
-                Rigidbody.velocity = dir * velMultiplier;
+        //    while (currentDistanceFromController > minDistance)
+        //    {
+        //        Vector3 dir = targetPosition - transform.position;
+        //        dir += Vector3.up * vectorUpMultiplier;
+        //        dir = dir.normalized;
+        //        float velMultiplier = currentDistanceFromController * currentDistanceFromController * velocityMultiplier;
+        //        velMultiplier = Mathf.Clamp(velMultiplier, minVelocity, maxVelocity);
+        //        Rigidbody.velocity = dir * velMultiplier;
 
-                currentDistanceFromController = Vector3.Distance(targetPosition, transform.position);
-                yield return null;
-            }
+        //        currentDistanceFromController = Vector3.Distance(targetPosition, transform.position);
+        //        yield return null;
+        //    }
 
-            _forceTowardsPlayer_Coroutine = null;
-        }
+        //    _forceTowardsPlayer_Coroutine = null;
+        //}
 
     } 
 }
