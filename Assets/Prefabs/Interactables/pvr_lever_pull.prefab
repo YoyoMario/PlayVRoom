@@ -469,7 +469,7 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
-  _angularVelocityStrength: -20
+  _angularVelocityStrength: -100
   _minAngle: -30
   _maxAngle: 30
 --- !u!1 &5106315912536085626
@@ -497,7 +497,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5106315912536085626}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 10.75, y: 6, z: 12.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -564,6 +564,7 @@ GameObject:
   - component: {fileID: 5093142434851016566}
   - component: {fileID: 5083303778745945632}
   - component: {fileID: 5106438141553892525}
+  - component: {fileID: 3362152506347153255}
   m_Layer: 10
   m_Name: SM_Switch_Lever_Stick_01
   m_TagString: Vr_Interactable
@@ -644,3 +645,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.036159527, y: 0.2851829, z: 0.03615961}
   m_Center: {x: 0.00000015832488, y: 0.15310511, z: -0.0000001713634}
+--- !u!114 &3362152506347153255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5106438141553892524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cbe8ca5396f8e43b2dc059a953b7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineMaterial: {fileID: 0}
+  Mesh: {fileID: 0}
+  Picked: 0
+  Rigidbody: {fileID: 0}
+  Hand: {fileID: 0}
+  SeenByCamera: 0
+  InteractableObject: {fileID: 5105377849645070274}

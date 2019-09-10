@@ -74,5 +74,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Rigidbody.rotation = _maxAngleFinalRotation;
             }
         }
+
+        public override void OnDrop(Vector3 controllerVelocity)
+        {
+            base.OnDrop(controllerVelocity);
+
+            Rigidbody.angularVelocity = Vector3.zero;
+        }
     } 
 }
