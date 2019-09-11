@@ -57,6 +57,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 _initialPosition.y = _clickedPosition;
                 Rigidbody.transform.localPosition = _initialPosition;
             }
+
+            //Fixing the issue where you can push the button sideways
+            Rigidbody.transform.localPosition = new Vector3(_initialPosition.x, Rigidbody.transform.localPosition.y, _initialPosition.z);
         }
     } 
 }
