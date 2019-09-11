@@ -16,17 +16,19 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private void FixedUpdate()
         {
             //Hold object
-            if (Hand)
+            if (Picked && Hand)
             {
                 //position
-                Vector3 positionDelta = Vector3.zero;
-                positionDelta = Hand.Rigidbody.position - Rigidbody.position;
+                Vector3 dir = Hand.Rigidbody.position - Rigidbody.position;
+                Vector3 velocityDir = dir * AttachedPositionMagic * Time.fixedDeltaTime;
+                Rigidbody.velocity = velocityDir;
+                //Vector3 positionDelta = Hand.Rigidbody.position - Rigidbody.position; ;
                 //positionDelta =
                 //    positionDelta +
                 //    (transform.forward * _objectPositionDifference.z) +
                 //    (transform.up * _objectPositionDifference.y) +
                 //    (transform.right * _objectPositionDifference.x);
-                Rigidbody.velocity = positionDelta * AttachedPositionMagic * Time.fixedDeltaTime;
+                //Rigidbody.velocity = positionDelta * AttachedPositionMagic * Time.fixedDeltaTime;
 
                 //Rigidbody update
                 Rigidbody.maxAngularVelocity = 100f;

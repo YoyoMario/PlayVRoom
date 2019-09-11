@@ -10,6 +10,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public Material OutlineMaterial;
         [Header("References from object it self")]
         public MeshRenderer Mesh;
+        public Collider Collider;
         [Header("Added runtime")]
         [Header("-----------------------")]
         public bool Picked;
@@ -23,6 +24,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private Material _outlineMaterialAdded;
         private Coroutine _forceTowardsPlayer_Coroutine;
+        private PhysicMaterial _originalPhysicsMaterial;
 
         public virtual void Awake()
         {
@@ -70,8 +72,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Picked = true;
             Hand = pVR_Grab_Rigidbody_Object;
             Rigidbody.isKinematic = false;
+            if (Collider)
+            {
+                _originalPhysicsMaterial = Collider.material;
+                Collider.material = null;
+            }
 
-            if(OnPickAction != null)
+            if (OnPickAction != null)
             {
                 OnPickAction.Invoke();
             }
@@ -81,6 +88,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             Picked = false;
             Hand = null;
+
+            if (Collider)
+            {
+                Collider.material = _originalPhysicsMaterial;
+            }
 
             if (OnDropAction != null)
             {
