@@ -820,9 +820,9 @@ GameObject:
   - component: {fileID: 1615409945729264640}
   - component: {fileID: 1615409945729264643}
   - component: {fileID: 1615409945729264642}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: moving_part
-  m_TagString: Untagged
+  m_TagString: Vr_Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -929,8 +929,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b252b3bff571b3a468c15e9c552696a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineMaterial: {fileID: 0}
-  Mesh: {fileID: 0}
+  OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
+  Mesh: {fileID: 1601975047902399477}
+  Collider: {fileID: 1615409945729264640}
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}

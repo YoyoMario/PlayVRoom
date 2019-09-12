@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 4390926092587210195}
   - component: {fileID: 4390926092587210192}
   - component: {fileID: 4390926092587210193}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: moving_part
-  m_TagString: Untagged
+  m_TagString: Vr_Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,8 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b252b3bff571b3a468c15e9c552696a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineMaterial: {fileID: 0}
-  Mesh: {fileID: 0}
+  OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
+  Mesh: {fileID: 4375344741523965566}
+  Collider: {fileID: 4390926092587210195}
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -635,7 +636,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6235775461753762006}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.75, y: 6, z: 11.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
