@@ -22,7 +22,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             Rigidbody.mass = 0.1f;
 
-            _initialPosition = transform.localPosition;
+            _initialPosition = Transform.localPosition;
         }
         
         public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool touchpadTouching)
@@ -40,26 +40,26 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private void FixedUpdate()
         {
             //Move button up
-            if(Rigidbody.transform.localPosition.y < _unclickedPosition)
+            if(Transform.localPosition.y < _unclickedPosition)
             {
-                Rigidbody.velocity = Rigidbody.transform.up * _buttonVelocityReturn;
+                Rigidbody.velocity = Transform.up * _buttonVelocityReturn;
             }
             else //Stop moving the button up if we're at the peak
             {
                 Rigidbody.velocity = Vector3.zero;
                 _initialPosition.y = _unclickedPosition;
-                Rigidbody.transform.localPosition = _initialPosition;
+                Transform.localPosition = _initialPosition;
             }
 
             //if we are below the minimum treshold hold the button there
-            if(Rigidbody.transform.localPosition.y < _clickedPosition)
+            if(Transform.localPosition.y < _clickedPosition)
             {
                 _initialPosition.y = _clickedPosition;
-                Rigidbody.transform.localPosition = _initialPosition;
+                Transform.localPosition = _initialPosition;
             }
 
             //Fixing the issue where you can push the button sideways
-            Rigidbody.transform.localPosition = new Vector3(_initialPosition.x, Rigidbody.transform.localPosition.y, _initialPosition.z);
+            Transform.localPosition = new Vector3(_initialPosition.x, Transform.localPosition.y, _initialPosition.z);
         }
     } 
 }

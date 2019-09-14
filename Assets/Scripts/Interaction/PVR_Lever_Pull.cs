@@ -34,31 +34,31 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Rigidbody.isKinematic = false;
             Rigidbody.constraints = RigidbodyConstraints.None;
 
-            _initialRotation = Rigidbody.rotation;
-            _lastHandledRotation = Rigidbody.rotation;
-            _initialForwardDirection = Rigidbody.transform.forward;
-            _initialPivotPosition = Rigidbody.position;
-            _initialPivotRotat = Rigidbody.transform.localRotation.eulerAngles.x;
+            _initialRotation = Rotation;
+            _lastHandledRotation = Rotation;
+            _initialForwardDirection = Transform.forward;
+            _initialPivotPosition = Position;
+            _initialPivotRotat = Transform.localRotation.eulerAngles.x;
         }
 
         private void FixedUpdate()
         {
-            _angularVelocityDirection = Rigidbody.transform.right;
+            _angularVelocityDirection = Transform.right;
 
             if (Picked && Hand)
             {
                 //Calculating angle from center
-                _crossFromInitialDirection = Vector3.Cross(_initialForwardDirection, Rigidbody.position - Hand.Rigidbody.position);
-                _crossFromInitialDirection = transform.InverseTransformDirection(_crossFromInitialDirection);
+                _crossFromInitialDirection = Vector3.Cross(_initialForwardDirection, Position - Hand.Rigidbody.position);
+                _crossFromInitialDirection = Transform.InverseTransformDirection(_crossFromInitialDirection);
                 //calculate orientation since default position
-                _rotationAmount = Rigidbody.transform.localRotation.eulerAngles.x - _initialPivotRotat;
+                _rotationAmount = Transform.localRotation.eulerAngles.x - _initialPivotRotat;
                 if (_crossFromInitialDirection.x < 0)
                 {
                     _rotationAmount *= -1;
                 }
                 //Calculate amount to move and in which direction
-                _cross = Vector3.Cross(Rigidbody.transform.forward, Rigidbody.position - Hand.Rigidbody.position);
-                _cross = transform.InverseTransformDirection(_cross);
+                _cross = Vector3.Cross(Transform.forward, Position - Hand.Rigidbody.position);
+                _cross = Transform.InverseTransformDirection(_cross);
                 //apply angular velocity in desired direction * strength
                 Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * -ControllerPhysics.LeverPullAngularVelocityStrength;
             }
@@ -92,7 +92,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             base.OnDrop(controllerVelocity);
 
             //recording the lever rotation at the moment when user leaves interacting
-            _lastHandledRotation = Rigidbody.rotation;
+            _lastHandledRotation = Rotation;
         }
     } 
 }

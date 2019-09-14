@@ -16,7 +16,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             if (Picked && Hand)
             {
                 //position
-                Vector3 dir = Hand.Rigidbody.position - Rigidbody.position;
+                Vector3 dir = Hand.Rigidbody.position - Position;
                 dir =
                     dir +
                     (Hand.transform.forward * ObjectPositionDifference.z) +
@@ -27,7 +27,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
                 //rotation
                 Quaternion finalRotation = Hand.Rigidbody.rotation * ObjectRotationDifference;
-                Quaternion rotationDelta = finalRotation * /*Hand.Rigidbody.rotation **/ Quaternion.Inverse(Rigidbody.rotation);
+                Quaternion rotationDelta = finalRotation * /*Hand.Rigidbody.rotation **/ Quaternion.Inverse(Rotation);
                 rotationDelta.ToAngleAxis(out _angle, out _axis);
                 if (_angle >= 180)
                 {

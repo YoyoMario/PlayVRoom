@@ -13,14 +13,15 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private void FixedUpdate()
         {
             //Get right vector, the one where we apply angular velocity
-            _angularVelocityDirection = transform.right;
+            _angularVelocityDirection = Transform.right;
 
             if(Picked && Hand)
             {
                 //calculate cross vector so we know if hand is below or above the crate Z axis
-                _cross = Vector3.Cross(transform.forward, transform.position - Hand.Rigidbody.position);
+                _cross = Vector3.Cross(Transform.forward, Transform.position - Hand.Rigidbody.position);
                 //turn that into local coordinate space
-                _cross = transform.InverseTransformDirection(_cross);
+                _cross = Transform.InverseTransformDirection(_cross);
+                //offset the controller position so it doesn't try to go up or down if your hand is not aligned with the Z axis of the chest
                 _cross -= _initialCross;
                 //apply angular velocity in the desired direction * strength
                 Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * -ControllerPhysics.RotationVelocityMagic;
@@ -32,9 +33,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             base.OnPick(pVR_Grab_Rigidbody_Object, matchRotationAndPosition);
 
             //calculate cross vector so we know if hand is below or above the crate Z axis
-            _initialCross = Vector3.Cross(transform.forward, transform.position - Hand.Rigidbody.position);
+            _initialCross = Vector3.Cross(Transform.forward, Transform.position - Hand.Rigidbody.position);
             //turn that into local coordinate space
-            _initialCross = transform.InverseTransformDirection(_initialCross);
+            _initialCross = Transform.InverseTransformDirection(_initialCross);
         }
     } 
 }

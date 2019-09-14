@@ -17,7 +17,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("-----------------------")]
         public ControllerPhysics ControllerPhysics;
         public bool Picked;
-        public Rigidbody Rigidbody;
+        [SerializeField] private Rigidbody _rigidbody;
         public PVR_Hand Hand;
         public bool SeenByCamera;
 
@@ -45,10 +45,40 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 return _objectPositionDifference;
             }
         }
+        //USed like this because we can now set offset to the pivot of the objects that have handle points
+        public Vector3 Position
+        {
+            get
+            {
+                return _rigidbody.position;
+            }
+        }
+        //USed like this because we can now set offset to the pivot of the objects that have handle points
+        public Quaternion Rotation
+        {
+            get
+            {
+                return _rigidbody.rotation;
+            }
+        }
+        public Transform Transform
+        {
+            get
+            {
+                return transform;
+            }
+        }
+        public Rigidbody Rigidbody
+        {
+            get
+            {
+                return _rigidbody;
+            }
+        }
 
         public virtual void Awake()
         {
-            Rigidbody = GetComponent<Rigidbody>();
+            _rigidbody = GetComponent<Rigidbody>();
             ControllerPhysics = Resources.Load("ControllerPhysics") as ControllerPhysics;
         }
 
@@ -92,14 +122,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             
             Picked = true;
             Hand = pVR_Grab_Rigidbody_Object;
-            Rigidbody.isKinematic = false;
-            Rigidbody.maxAngularVelocity = ControllerPhysics.MaxAngularVelocity;
+            _rigidbody.isKinematic = false;
+            _rigidbody.maxAngularVelocity = ControllerPhysics.MaxAngularVelocity;
 
             //We don't want to position objects right if we grab them by the force
             if (matchRotationAndPosition)
             {
-                _objectRotationDifference = Quaternion.Inverse(Hand.Rigidbody.rotation) * Rigidbody.rotation;
-                _objectPositionDifference = Hand.transform.InverseTransformDirection(Rigidbody.position - Hand.Rigidbody.position);
+                _objectRotationDifference = Quaternion.Inverse(Hand.Rigidbody.rotation) * _rigidbody.rotation;
+                _objectPositionDifference = Hand.transform.InverseTransformDirection(_rigidbody.position - Hand.Rigidbody.position);
             }
             
             if (Colliders.Length > 0)
@@ -123,7 +153,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Picked = false;
             Hand = null;
 
-            Rigidbody.maxAngularVelocity = ControllerPhysics.DefaultAngularVelocity;
+            _rigidbody.maxAngularVelocity = ControllerPhysics.DefaultAngularVelocity;
 
             _objectRotationDifference = Quaternion.Euler(0, 0, 0);
             _objectPositionDifference = Vector3.zero;

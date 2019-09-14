@@ -25,20 +25,20 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Rigidbody.isKinematic = false;
             Rigidbody.constraints = RigidbodyConstraints.None;
 
-            _initialRotation = Rigidbody.rotation;
-            _lastHandledPosition = Rigidbody.position;
+            _initialRotation = Rotation;
+            _lastHandledPosition = Position;
         }
 
         private void FixedUpdate()
         {
-            _velocityDirection = Rigidbody.transform.up;
-            _deltaMovement = Rigidbody.transform.localPosition.z * -1; //-1 just to get right orientation with the cross product
+            _velocityDirection = Transform.up;
+            _deltaMovement = Transform.localPosition.z * -1; //-1 just to get right orientation with the cross product
             Rigidbody.rotation = _initialRotation;
 
             if (Picked && Hand)
             {
-                _cross = Vector3.Cross(Rigidbody.transform.forward, Rigidbody.position - Hand.Rigidbody.position);
-                _cross = transform.InverseTransformDirection(_cross);
+                _cross = Vector3.Cross(Transform.forward, Position - Hand.Rigidbody.position);
+                _cross = Transform.InverseTransformDirection(_cross);
                 Rigidbody.velocity = _velocityDirection * _cross.x * ControllerPhysics.LeverSlideVelocityStrength;
             }
             else
@@ -55,14 +55,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.velocity = Vector3.zero;
 
-                Rigidbody.transform.localPosition = new Vector3(0, 0, _minMovement);
+                Transform.localPosition = new Vector3(0, 0, _minMovement);
             }
             else if (_deltaMovement <= _minMovement && _cross.x < 0)
             {
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.velocity = Vector3.zero;
 
-                Rigidbody.transform.localPosition = new Vector3(0, 0, _maxMovement);
+                Transform.localPosition = new Vector3(0, 0, _maxMovement);
             }
         }
 
@@ -71,7 +71,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             base.OnDrop(controllerVelocity);
 
             //record the lever position at the moment when user leaves interacting
-            _lastHandledPosition = Rigidbody.position;
+            _lastHandledPosition = Position;
         }
     } 
 }
