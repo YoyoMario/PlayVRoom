@@ -19,7 +19,7 @@ TagManager:
   - PostProcessing
   - Vr_Hand
   - Vr_Interactable
-  - 
+  - Vr_Hand_Collider
   - 
   - 
   - 

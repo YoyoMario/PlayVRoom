@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using MarioHaberle.PlayVRoom.ScriptableObjects;
+
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
     public class PVR_Interactable : MonoBehaviour
@@ -10,9 +12,10 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public Material OutlineMaterial;
         [Header("References from object it self")]
         public MeshRenderer Mesh;
-        public Collider Collider;
+        public Collider[] Colliders;
         [Header("Added runtime")]
         [Header("-----------------------")]
+        public ControllerPhysics ControllerPhysics;
         public bool Picked;
         public Rigidbody Rigidbody;
         public PVR_Hand Hand;
@@ -22,13 +25,31 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public event PVR_Interactable_Action OnPickAction;
         public event PVR_Interactable_Action OnDropAction;
 
+        private Quaternion _objectRotationDifference;
+        private Vector3 _objectPositionDifference;
         private Material _outlineMaterialAdded;
         private Coroutine _forceTowardsPlayer_Coroutine;
-        private PhysicMaterial _originalPhysicsMaterial;
+        private PhysicMaterial[] _originalPhysicsMaterials;
+
+        public Quaternion ObjectRotationDifference
+        {
+            get
+            {
+                return _objectRotationDifference;
+            }
+        }
+        public Vector3 ObjectPositionDifference
+        {
+            get
+            {
+                return _objectPositionDifference;
+            }
+        }
 
         public virtual void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
+            ControllerPhysics = Resources.Load("ControllerPhysics") as ControllerPhysics;
         }
 
         public virtual void OnHoverStart()
@@ -72,10 +93,19 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Picked = true;
             Hand = pVR_Grab_Rigidbody_Object;
             Rigidbody.isKinematic = false;
-            if (Collider)
+            Rigidbody.maxAngularVelocity = ControllerPhysics.MaxAngularVelocity;
+
+            _objectRotationDifference = Quaternion.Inverse(Hand.Rigidbody.rotation) * Rigidbody.rotation;
+            _objectPositionDifference = Hand.transform.InverseTransformDirection(Rigidbody.position - Hand.Rigidbody.position);
+            
+            if (Colliders.Length > 0)
             {
-                _originalPhysicsMaterial = Collider.material;
-                Collider.material = null;
+                _originalPhysicsMaterials = new PhysicMaterial[Colliders.Length];
+                for(int i = 0; i < _originalPhysicsMaterials.Length; i++)
+                {
+                    _originalPhysicsMaterials[i] = Colliders[i].material;
+                    Colliders[i].material = null;                   
+                }
             }
 
             if (OnPickAction != null)
@@ -89,9 +119,17 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Picked = false;
             Hand = null;
 
-            if (Collider)
+            Rigidbody.maxAngularVelocity = ControllerPhysics.DefaultAngularVelocity;
+
+            _objectRotationDifference = Quaternion.Euler(0, 0, 0);
+            _objectPositionDifference = Vector3.zero;
+
+            if (Colliders.Length > 0)
             {
-                Collider.material = _originalPhysicsMaterial;
+                for (int i = 0; i < _originalPhysicsMaterials.Length; i++)
+                {
+                    Colliders[i].material = _originalPhysicsMaterials[i];
+                }
             }
 
             if (OnDropAction != null)

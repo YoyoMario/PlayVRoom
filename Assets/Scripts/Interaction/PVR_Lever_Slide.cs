@@ -7,7 +7,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
     public class PVR_Lever_Slide : PVR_Interactable
     {
         [Header("-----------------------------")]
-        [SerializeField] private float _pullStrength = -40f;
         [SerializeField] private float _maxMovement = 0.03f;
         [SerializeField] private float _minMovement = -0.03f;
 
@@ -40,7 +39,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 _cross = Vector3.Cross(Rigidbody.transform.forward, Rigidbody.position - Hand.Rigidbody.position);
                 _cross = transform.InverseTransformDirection(_cross);
-                Rigidbody.velocity = _velocityDirection * _cross.x * _pullStrength;
+                Rigidbody.velocity = _velocityDirection * _cross.x * ControllerPhysics.LeverSlideVelocityStrength;
             }
             else
             {

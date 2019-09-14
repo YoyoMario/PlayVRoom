@@ -25,6 +25,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -125,6 +126,14 @@ MonoBehaviour:
   _raycastDistance: 20
   _raycastSphereRadius: 0.175
   _raycastAssistTimer: 0.8
+  _positionVelocityMultiplier: 2200
+  _rotationVelocityMultiplier: 30
+  _positionOffset: {x: 0, y: -0.03, z: 0.01}
+  _handColliderRadius: 0.1
+  _showMesh: 0
+  _handRigidbody: {fileID: 0}
+  _handCollider: {fileID: 0}
+  _layerNameHandCollider: Vr_Hand_Collider
   _currentInteractableObject: {fileID: 0}
   _touching: []
   _raycastedObject: {fileID: 0}
@@ -184,6 +193,14 @@ MonoBehaviour:
   _raycastDistance: 20
   _raycastSphereRadius: 0.175
   _raycastAssistTimer: 0.8
+  _positionVelocityMultiplier: 2200
+  _rotationVelocityMultiplier: 30
+  _positionOffset: {x: 0, y: -0.03, z: 0.01}
+  _handColliderRadius: 0.1
+  _showMesh: 0
+  _handRigidbody: {fileID: 0}
+  _handCollider: {fileID: 0}
+  _layerNameHandCollider: Vr_Hand_Collider
   _currentInteractableObject: {fileID: 0}
   _touching: []
   _raycastedObject: {fileID: 0}
@@ -203,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.484
+      value: 11.51
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -211,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13
+      value: 12.48
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.x
@@ -219,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.z
@@ -227,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_RootOrder
@@ -239,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

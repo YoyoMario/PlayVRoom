@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5869428415933719027}
   - component: {fileID: 5841832761758179311}
   - component: {fileID: 5852194496614645929}
-  - component: {fileID: 5874873519204941001}
   - component: {fileID: 4189788211726608571}
   - component: {fileID: 205957583571394432}
+  - component: {fileID: 1958724348}
   m_Layer: 10
   m_Name: pvr_primitive_cube_03
   m_TagString: Vr_Interactable
@@ -81,20 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5874873519204941001
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5864190548444053239}
-  m_Material: {fileID: 13400000, guid: 6c4fe565fada4a84aa89eeed19a0890c, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 10d475a0f15b31443aa032c25648465b, type: 3}
 --- !u!54 &4189788211726608571
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,8 +111,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
   Mesh: {fileID: 5852194496614645929}
-  Collider: {fileID: 5874873519204941001}
+  Colliders:
+  - {fileID: 1958724348}
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
+--- !u!65 &1958724348
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5864190548444053239}
+  m_Material: {fileID: 13400000, guid: 6c4fe565fada4a84aa89eeed19a0890c, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1.0000001}
+  m_Center: {x: 0, y: 0, z: 0}

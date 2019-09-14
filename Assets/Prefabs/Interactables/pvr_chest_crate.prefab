@@ -203,7 +203,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
   Mesh: {fileID: 6800527554285891647}
-  Collider: {fileID: 0}
+  Colliders:
+  - {fileID: 6788141106819237210}
+  - {fileID: 6788141107436701447}
+  - {fileID: 6788141106931121770}
+  - {fileID: 6788141107459481739}
+  - {fileID: 6788141107922951462}
+  - {fileID: 6788141106966979367}
+  - {fileID: 6788141107564598612}
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -318,7 +325,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.22, z: -0.24}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0077801375, y: -0.00800021, z: 0.0120872855}
+  m_ConnectedAnchor: {x: -0.007780078, y: -0.0079999715, z: 0.012087166}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -449,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
-  Collider: {fileID: 0}
+  Colliders: []
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -562,7 +569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
-  Collider: {fileID: 0}
+  Colliders: []
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -675,7 +682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
-  Collider: {fileID: 0}
+  Colliders: []
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -915,7 +922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
-  Collider: {fileID: 0}
+  Colliders: []
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -1028,7 +1035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
-  Collider: {fileID: 0}
+  Colliders: []
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -1141,7 +1148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
-  Collider: {fileID: 0}
+  Colliders: []
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -1438,7 +1445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
-  Collider: {fileID: 0}
+  Colliders: []
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}

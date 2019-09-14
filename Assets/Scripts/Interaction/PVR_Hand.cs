@@ -25,6 +25,16 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private float _raycastSphereRadius;
         [SerializeField] private float _raycastAssistTimer;
 
+        [Header("Hand collider settings")]
+        [SerializeField] private float _positionVelocityMultiplier = 2200;
+        [SerializeField] private float _rotationVelocityMultiplier = 30f;
+        [SerializeField] private Vector3 _positionOffset;
+        [SerializeField] private float _handColliderRadius = 0.15f;
+        [SerializeField] private bool _showMesh = false;
+        [SerializeField] private Rigidbody _handRigidbody;
+        [SerializeField] private Collider _handCollider;
+        [SerializeField] private string _layerNameHandCollider; //we want hands colliders to be interactable only and ONLY with interactable objects, that way we can put our hands under the table and hit objects from the bottom
+
         [Header("Info")]
         [SerializeField] private PVR_Interactable _currentInteractableObject;
         [SerializeField] private List<PVR_Interactable> _touching;
@@ -42,9 +52,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         Ray ray;
         RaycastHit _raycastHitInteractable;
         Coroutine _raycastAssist;
-
-        private Quaternion _objectRotationDifference; //Rotation difference on grab, so it does not rotate once you pick it up (to 0,0,0).
-        private Vector3 _objectPositionDifference; //Position difference so it doesn't always snap to middle of our joystick and object.
 
         //Controller velocity
         private List<Vector3> _currentFrame_position;
@@ -133,17 +140,25 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _rigidbody.useGravity = false;
 
             //Interaction layers setup
-            int vrHandLayer = LayerMask.NameToLayer(_vrHandsLayer);
-            int vrInteractionLayer = LayerMask.NameToLayer(_vrInteractableLayer);
-            for(int i = 1; i <= 31; i++) //Unity supports 31 layers, and leave default layer intact
+            int layerNameHandLayer = LayerMask.NameToLayer(_vrHandsLayer);
+            int layerNameVrInteractionLayer = LayerMask.NameToLayer(_vrInteractableLayer);
+            int layerNameHandCollider = LayerMask.NameToLayer(_layerNameHandCollider);
+            for(int i = 0; i <= 31; i++) //Unity supports 31 layers
             {
-                Physics.IgnoreLayerCollision(i, vrHandLayer, true);
-                Physics.IgnoreLayerCollision(i, vrInteractionLayer, true);
+                //leave default layer intact for this purpose
+                if (i != 0)
+                {
+                    Physics.IgnoreLayerCollision(i, layerNameHandLayer, true);
+                    Physics.IgnoreLayerCollision(i, layerNameVrInteractionLayer, true);
+                }                
+                Physics.IgnoreLayerCollision(i, layerNameHandCollider, true);
             }
             //Allow physics interaction between hand layer and vr interactable object
-            Physics.IgnoreLayerCollision(vrHandLayer, vrInteractionLayer, false);
-            Physics.IgnoreLayerCollision(vrInteractionLayer, vrInteractionLayer, false);
-            
+            Physics.IgnoreLayerCollision(layerNameHandLayer, layerNameVrInteractionLayer, false);
+            Physics.IgnoreLayerCollision(layerNameVrInteractionLayer, layerNameVrInteractionLayer, false);
+            //Allow physics interactio nbetween hand collider layer and vr interactable layer, and it self ofcourse
+            Physics.IgnoreLayerCollision(layerNameHandCollider, layerNameVrInteractionLayer, false);            
+            Physics.IgnoreLayerCollision(layerNameHandCollider, layerNameHandCollider, false);            
 
             //Initialize trigger collider
             _objectDetectionTrigger = GetComponent<SphereCollider>();
@@ -178,6 +193,25 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 _forceEffectHelper.transform.rotation = Quaternion.Euler(0, 90, 90);
             }
+
+
+            //Create hand collider
+            GameObject tmpGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            tmpGo.layer = LayerMask.NameToLayer(_layerNameHandCollider);
+
+            if (!_showMesh)
+            {
+                Destroy(tmpGo.GetComponent<MeshFilter>());
+                Destroy(tmpGo.GetComponent<MeshRenderer>());
+            }
+            tmpGo.name = "HandCollider-" + transform.name.ToString();
+            tmpGo.transform.localScale = Vector3.one * _handColliderRadius;
+            _handRigidbody = tmpGo.AddComponent<Rigidbody>();
+            _handRigidbody.useGravity = false;
+            _handRigidbody.position = transform.position;
+            _handCollider = tmpGo.GetComponent<BoxCollider>();
+            _handCollider.enabled = false;
+            DisableHandColliders();
         }
 
         public void OnEnable()
@@ -212,6 +246,31 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Star wars force effect raycasting
             ForceEffectRaycast();
+
+            //Hand collider for fist
+            //position
+            Vector3 positionDelta = transform.position - _handRigidbody.position;
+            positionDelta =
+                positionDelta +
+                (transform.forward * _positionOffset.z) +
+                (transform.up * _positionOffset.y) +
+                (transform.right * _positionOffset.x);
+            Vector3 velocityDir = positionDelta * _positionVelocityMultiplier * Time.fixedDeltaTime;
+            _handRigidbody.velocity = velocityDir;
+            //otation
+            Quaternion rotationDelta = transform.rotation * Quaternion.Inverse(_handRigidbody.rotation);
+            float angle;
+            Vector3 axis;
+            rotationDelta.ToAngleAxis(out angle, out axis);
+            if (angle >= 180)
+            {
+                angle -= 360;
+            }
+            Vector3 wantedRotation = (Time.fixedDeltaTime * angle * axis) * _rotationVelocityMultiplier;
+            if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
+            {
+                _handRigidbody.angularVelocity = wantedRotation;
+            }
         }
 
         /// <summary>
@@ -395,6 +454,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             if (_touching.Count == 0)
             {
+                EnableHandColliders();
                 return;
             }
 
@@ -407,9 +467,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Getting the last touched object
             _currentInteractableObject = _touching[_touching.Count - 1];
-            //Match rotation and position
-            _objectRotationDifference = Quaternion.Inverse(_rigidbody.rotation) * _currentInteractableObject.Rigidbody.rotation;
-            _objectPositionDifference = transform.InverseTransformDirection(_currentInteractableObject.Rigidbody.position - _rigidbody.position);
             //Update picked object
             _currentInteractableObject.OnPick(this);
             //Disable this trigger so we don't interact with this controller anymore whilst holding
@@ -420,11 +477,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             if (!_currentInteractableObject)
             {
+                DisableHandColliders();
                 return;
             }
-
-            _objectRotationDifference = Quaternion.Euler(0, 0, 0);
-            _objectPositionDifference = Vector3.zero;
 
             _currentInteractableObject.OnDrop(_averageVelocity);
             ForceDrop();
@@ -459,9 +514,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Getting the last touched object
             _currentInteractableObject = _raycastedObject.GetComponent<PVR_Interactable>();
-            //Match rotation and position
-            _objectRotationDifference = Quaternion.Inverse(_rigidbody.rotation) * _currentInteractableObject.Rigidbody.rotation;
-            //_objectPositionDifference = transform.InverseTransformDirection(_currentInteractableObject.Rigidbody.position - _rigidbody.position); //no need for position because it's gonna be offset then...
             //Update picked object
             _currentInteractableObject.OnPick(this);
             //Disable this trigger so we don't interact with this controller anymore whilst holding
@@ -476,6 +528,16 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private void OnTouchpadRelease(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
             _touchpadTouching = false;
+        }
+
+        private void EnableHandColliders()
+        {
+            _handCollider.enabled = true;
+        }
+
+        private void DisableHandColliders()
+        {
+            _handCollider.enabled = false;
         }
 
     }

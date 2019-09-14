@@ -8,7 +8,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
     {
         [Header("Settings")]
         [Header("-----------------------")]        
-        [SerializeField] private float _pullStrength = 40f;
         [SerializeField] private float _minAngle = -30;
         [SerializeField] private float _maxAngle = 30;
 
@@ -61,7 +60,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 _cross = Vector3.Cross(Rigidbody.transform.forward, Rigidbody.position - Hand.Rigidbody.position);
                 _cross = transform.InverseTransformDirection(_cross);
                 //apply angular velocity in desired direction * strength
-                Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * -_pullStrength;
+                Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * -ControllerPhysics.LeverPullAngularVelocityStrength;
             }
             else
             {

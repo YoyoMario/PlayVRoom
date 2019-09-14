@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7324120642042013912}
   - component: {fileID: 1230707000818498974}
   - component: {fileID: 7439104798862783921}
-  - component: {fileID: 3815353230450029313}
+  - component: {fileID: 837390110998020059}
   - component: {fileID: 7403322290525200445}
   - component: {fileID: 3922907429145808561}
   m_Layer: 10
@@ -81,8 +81,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3815353230450029313
-MeshCollider:
+--- !u!135 &837390110998020059
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,10 +91,9 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: a38cc50c4429e084ebf04f7847c20294, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: f075b687cfe5d8542809ed6920a98f3e, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0.000000029802322}
 --- !u!54 &7403322290525200445
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,7 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
   Mesh: {fileID: 7439104798862783921}
-  Collider: {fileID: 3815353230450029313}
+  Colliders:
+  - {fileID: 837390110998020059}
   Picked: 0
   Rigidbody: {fileID: 0}
   Hand: {fileID: 0}

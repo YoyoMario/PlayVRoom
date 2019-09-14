@@ -7,9 +7,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
     [RequireComponent(typeof(Rigidbody))]
     public class PVR_Rigidbody_Object : PVR_Interactable
     {
-        private static float AttachedPositionMagic = 2000f;
-        private static float AttachedRotationMagic = 50f;
-
         private float _angle;
         private Vector3 _axis;
 
@@ -20,28 +17,23 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 //position
                 Vector3 dir = Hand.Rigidbody.position - Rigidbody.position;
-                Vector3 velocityDir = dir * AttachedPositionMagic * Time.fixedDeltaTime;
+                dir =
+                    dir +
+                    (Hand.transform.forward * ObjectPositionDifference.z) +
+                    (Hand.transform.up * ObjectPositionDifference.y) +
+                    (Hand.transform.right * ObjectPositionDifference.x);
+                Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
                 Rigidbody.velocity = velocityDir;
-                //Vector3 positionDelta = Hand.Rigidbody.position - Rigidbody.position; ;
-                //positionDelta =
-                //    positionDelta +
-                //    (transform.forward * _objectPositionDifference.z) +
-                //    (transform.up * _objectPositionDifference.y) +
-                //    (transform.right * _objectPositionDifference.x);
-                //Rigidbody.velocity = positionDelta * AttachedPositionMagic * Time.fixedDeltaTime;
-
-                //Rigidbody update
-                Rigidbody.maxAngularVelocity = 100f;
 
                 //rotation
-                //Quaternion finalRotation = _rigidbody.rotation * _objectRotationDifference;
-                Quaternion rotationDelta = /*finalRotation **/ Hand.Rigidbody.rotation * Quaternion.Inverse(Rigidbody.rotation);
+                Quaternion finalRotation = Hand.Rigidbody.rotation * ObjectRotationDifference;
+                Quaternion rotationDelta = finalRotation * /*Hand.Rigidbody.rotation **/ Quaternion.Inverse(Rigidbody.rotation);
                 rotationDelta.ToAngleAxis(out _angle, out _axis);
                 if (_angle >= 180)
                 {
                     _angle -= 360;
                 }
-                Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * AttachedRotationMagic;
+                Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * ControllerPhysics.RotationVelocityMagic;
                 if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                 {
                     Rigidbody.angularVelocity = wantedRotation;

@@ -23,7 +23,7 @@ namespace MarioHaberle.PlayVRoom.VR.Hologram
         [Header("Info - Current Object")]
         [SerializeField] private GameObject _currentObject;
         [SerializeField] private PVR_Interactable _currentInteractable;
-        [SerializeField] private Collider _currentCollider;
+        [SerializeField] private Collider[] _currentColliders;
         [SerializeField] private Rigidbody _currentRigidbody;
         [SerializeField] private MeshRenderer _currentMeshRenderer;
         [SerializeField] private Material _currentHologramMaterial;
@@ -64,7 +64,7 @@ namespace MarioHaberle.PlayVRoom.VR.Hologram
         {
             _currentObject = Instantiate(_objectToCreate[Random.Range(0, _objectToCreate.Length -1)], _spawnPoint.position, _spawnPoint.rotation, null);
             _currentInteractable = _currentObject.GetComponent<PVR_Interactable>();
-            _currentCollider = _currentObject.GetComponent<Collider>();
+            _currentColliders = _currentInteractable.Colliders;
             _currentRigidbody = _currentObject.GetComponent<Rigidbody>();
             _currentMeshRenderer = _currentObject.GetComponent<MeshRenderer>();
 
@@ -82,7 +82,10 @@ namespace MarioHaberle.PlayVRoom.VR.Hologram
             _currentHologramMaterial.SetFloat("_TimeRandomisation", Random.Range(0,360)); //Setting time offset for different object holo effect
             _currentHologramMaterial.SetColor("_MainColor", _currentMainMaterial.GetColor("_BaseColor"));
 
-            _currentCollider.isTrigger = true;
+            foreach(Collider collider in _currentColliders)
+            {
+                collider.isTrigger = true;
+            }
             _currentRigidbody.isKinematic = true;
             DisplayEffect_Coroutine = StartCoroutine(DisplayEffect());
             GlitchEffect_Coroutine =  StartCoroutine(GlitchEffect());
@@ -92,7 +95,10 @@ namespace MarioHaberle.PlayVRoom.VR.Hologram
  
         private void OnCurrentObjectPicked()
         {
-            _currentCollider.isTrigger = false;
+            foreach (Collider collider in _currentColliders)
+            {
+                collider.isTrigger = false;
+            }
             BlendHologramWithRealMaterial_Coroutine = StartCoroutine(BlendHologramWithRealMaterial());
         }
 
@@ -103,7 +109,7 @@ namespace MarioHaberle.PlayVRoom.VR.Hologram
             Destroy(_currentObject);
             _currentObject = null;
             _currentInteractable = null;
-            _currentCollider = null;
+            _currentColliders = new Collider[0];
             _currentRigidbody = null;
             _currentMeshRenderer = null;
             _currentHologramMaterial = null;

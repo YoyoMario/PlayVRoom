@@ -7,8 +7,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
     public class PVR_Grab_Chest : PVR_Interactable
     {
         [Header("-----------------------------------")]
-        [SerializeField] private float _angularVelocityStrength = 10;
-
         private Vector3 _angularVelocityDirection;
         private Vector3 _cross;
 
@@ -24,7 +22,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //turn that into local coordinate space
                 _cross = transform.InverseTransformDirection(_cross);
                 //apply angular velocity in the desired direction * strength
-                Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * -_angularVelocityStrength;
+                Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * -ControllerPhysics.RotationVelocityMagic;
             }            
         }
     } 
