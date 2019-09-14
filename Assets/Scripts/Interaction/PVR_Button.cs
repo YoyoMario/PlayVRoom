@@ -25,7 +25,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _initialPosition = transform.localPosition;
         }
         
-        public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object)
+        public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool touchpadTouching)
         {
             //base.OnPick(pVR_Grab_Rigidbody_Object);
             return;

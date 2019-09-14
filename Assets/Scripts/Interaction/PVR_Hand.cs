@@ -103,13 +103,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 return _currentInteractableObject;
             }
         }
-        //public List<PVR_Interactable> Touching
-        //{
-        //    get
-        //    {
-        //        return _touching;
-        //    }
-        //}
         public int TouchingCount
         {
             get
@@ -117,20 +110,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 return _touching.Count;
             }
         }
-        //public RaycastHit RaycastHit
-        //{
-        //    get
-        //    {
-        //        return _raycastHitInteractable;
-        //    }
-        //}
-        //public RaycastHit RaycastHitWallDetection
-        //{
-        //    get
-        //    {
-        //        return _raycastHitWallDetection;
-        //    }
-        //}
 
         #endregion
 
@@ -468,9 +447,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             //Getting the last touched object
             _currentInteractableObject = _touching[_touching.Count - 1];
             //Update picked object
-            _currentInteractableObject.OnPick(this);
+            _currentInteractableObject.OnPick(this, true);
             //Disable this trigger so we don't interact with this controller anymore whilst holding
             _objectDetectionTrigger.enabled = false;
+            //Disabling hand colliders if they were active.
+            DisableHandColliders();
         }
 
         private void OnDropClick(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
@@ -515,9 +496,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             //Getting the last touched object
             _currentInteractableObject = _raycastedObject.GetComponent<PVR_Interactable>();
             //Update picked object
-            _currentInteractableObject.OnPick(this);
+            _currentInteractableObject.OnPick(this, false);
             //Disable this trigger so we don't interact with this controller anymore whilst holding
             _objectDetectionTrigger.enabled = false;
+            //Disabling hand colliders if they were active.
+            DisableHandColliders();
         }
 
         private void OnTouchpadTouch(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)

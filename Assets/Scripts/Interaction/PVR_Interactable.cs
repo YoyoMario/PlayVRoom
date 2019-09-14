@@ -81,7 +81,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         }
 
 
-        public virtual void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object)
+        public virtual void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool matchRotationAndPosition = false)
         {
             OnHoverEnd();
 
@@ -95,8 +95,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Rigidbody.isKinematic = false;
             Rigidbody.maxAngularVelocity = ControllerPhysics.MaxAngularVelocity;
 
-            _objectRotationDifference = Quaternion.Inverse(Hand.Rigidbody.rotation) * Rigidbody.rotation;
-            _objectPositionDifference = Hand.transform.InverseTransformDirection(Rigidbody.position - Hand.Rigidbody.position);
+            //We don't want to position objects right if we grab them by the force
+            if (matchRotationAndPosition)
+            {
+                _objectRotationDifference = Quaternion.Inverse(Hand.Rigidbody.rotation) * Rigidbody.rotation;
+                _objectPositionDifference = Hand.transform.InverseTransformDirection(Rigidbody.position - Hand.Rigidbody.position);
+            }
             
             if (Colliders.Length > 0)
             {
