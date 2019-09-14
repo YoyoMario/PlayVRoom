@@ -13,6 +13,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("References from object it self")]
         public MeshRenderer Mesh;
         public Collider[] Colliders;
+        [Header("References from object it self - not necessary")]
+        public Transform HandPosition;
         [Header("Added runtime")]
         [Header("-----------------------")]
         public ControllerPhysics ControllerPhysics;
@@ -50,7 +52,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             get
             {
-                return _rigidbody.position;
+                if(HandPosition == null)
+                {
+                    return _rigidbody.position;
+                }
+                else
+                {
+                    return HandPosition.position;
+                }
             }
         }
         //USed like this because we can now set offset to the pivot of the objects that have handle points
@@ -58,8 +67,16 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             get
             {
-                return _rigidbody.rotation;
+                if(HandPosition == null)
+                {
+                    return _rigidbody.rotation;
+                }
+                else
+                {
+                    return HandPosition.rotation;
+                }                
             }
+
         }
         public Transform Transform
         {
