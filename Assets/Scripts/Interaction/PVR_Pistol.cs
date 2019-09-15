@@ -10,8 +10,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
     {
         [Header("-------------------------------")]
         [SerializeField] private SteamVR_Action_Boolean _triggerPress;
-        [Header("Settings")]
         [SerializeField] private float _cooldownSpeed = 1;
+        [Header("Shell settings")]
+        [SerializeField] private Transform _shellEjectPosition;
+        [SerializeField] private GameObject _prefabShell;
+        [SerializeField] private float _shellForce = 1;
+        [SerializeField] private float _shellRandomRotationAmount = 15;
         [Header("Recoil settings")]
         [SerializeField] private float _sliderMovementAmount = 0.5f;
         [SerializeField] private Transform _pistolSlider;
@@ -19,7 +23,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private float _angle;
         private Vector3 _axis;
 
-        private Vector3 _initialPistolPosition;
+        private Quaternion _initialShellEjectRotation;
 
         private Vector3 _initialSliderPosition;
         private Vector3 _endSliderPosition;
@@ -28,8 +32,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private void Start()
         {
+            _initialShellEjectRotation = _shellEjectPosition.localRotation;
             _initialSliderPosition = _pistolSlider.localPosition;
-            _endSliderPosition = _initialSliderPosition - (_pistolSlider.forward * _sliderMovementAmount);
+            _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
         }
 
         private void FixedUpdate()
@@ -48,7 +53,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     (Hand.transform.right * ObjectPositionDifference.x);
                 }
                 Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
-                Rigidbody.velocity = velocityDir;
+                Rigidbody.velocity = velocityDir + SteamHand.GetTrackedObjectVelocity();
 
                 //rotation
                 Quaternion finalRotation;
@@ -70,14 +75,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * ControllerPhysics.RotationVelocityMagic;
                 if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                 {
-                    Rigidbody.angularVelocity = wantedRotation;
+                    Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
                 }
             }
 
             //Cooldown
             if(_cooldown >= 0)
             {
-                _cooldown -= Time.deltaTime * _cooldownSpeed;
+                _cooldown -= Time.fixedDeltaTime * _cooldownSpeed;
                 _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
             }
         }
@@ -112,6 +117,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             _pistolSlider.localPosition = _endSliderPosition;
             _cooldown = _cooldownValue;
+
+            _shellEjectPosition.localRotation = _initialShellEjectRotation * Quaternion.Euler(Vector3.up * Random.Range(-_shellRandomRotationAmount, _shellRandomRotationAmount));
+
+            GameObject tmpShell = Instantiate(_prefabShell, _shellEjectPosition.position, _shellEjectPosition.rotation);
+            Rigidbody tmpRbShell = tmpShell.GetComponent<Rigidbody>();
+            tmpRbShell.AddForce(_shellEjectPosition.right * _shellForce);
         }
 
         private void OnTriggerRelease(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)

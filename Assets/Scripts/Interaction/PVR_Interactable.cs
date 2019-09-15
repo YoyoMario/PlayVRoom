@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 using MarioHaberle.PlayVRoom.ScriptableObjects;
 
@@ -21,6 +22,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public bool Picked;
         [SerializeField] private Rigidbody _rigidbody;
         public PVR_Hand Hand;
+        public Hand SteamHand;
         public bool SeenByCamera;
 
         public delegate void PVR_Interactable_Action();
@@ -139,6 +141,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             
             Picked = true;
             Hand = pVR_Grab_Rigidbody_Object;
+            SteamHand = Hand.GetComponent<Hand>();
             _rigidbody.isKinematic = false;
             _rigidbody.maxAngularVelocity = ControllerPhysics.MaxAngularVelocity;
 

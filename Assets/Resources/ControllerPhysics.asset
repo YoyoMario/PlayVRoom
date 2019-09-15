@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c59ff31a7cd754194abc84ac840e77, type: 3}
   m_Name: ControllerPhysics
   m_EditorClassIdentifier: 
-  PositionVelocityMagic: 4000
-  RotationVelocityMagic: 50
-  DefaultAngularVelocity: 10
-  MaxAngularVelocity: 100
+  PositionVelocityMagic: 2500
+  RotationVelocityMagic: 30
+  DefaultAngularVelocity: 20
+  MaxAngularVelocity: 250
   LeverSlideVelocityStrength: 40
   LeverPullAngularVelocityStrength: 40

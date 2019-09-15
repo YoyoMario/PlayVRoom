@@ -26,7 +26,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     (Hand.transform.right * ObjectPositionDifference.x);
                 }                
                 Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
-                Rigidbody.velocity = velocityDir;
+                Rigidbody.velocity = velocityDir + SteamHand.GetTrackedObjectVelocity();
 
                 //rotation
                 Quaternion finalRotation;
@@ -48,7 +48,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * ControllerPhysics.RotationVelocityMagic;
                 if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                 {
-                    Rigidbody.angularVelocity = wantedRotation;
+                    Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
                 }
             }
         }
