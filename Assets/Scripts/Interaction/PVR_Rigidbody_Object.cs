@@ -17,17 +17,29 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 //position
                 Vector3 dir = Hand.Rigidbody.position - Position;
-                dir =
+                if (!HandPosition)
+                {
+                    dir =
                     dir +
                     (Hand.transform.forward * ObjectPositionDifference.z) +
                     (Hand.transform.up * ObjectPositionDifference.y) +
                     (Hand.transform.right * ObjectPositionDifference.x);
+                }                
                 Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
                 Rigidbody.velocity = velocityDir;
 
                 //rotation
-                Quaternion finalRotation = Hand.Rigidbody.rotation * ObjectRotationDifference;
-                Quaternion rotationDelta = finalRotation * /*Hand.Rigidbody.rotation **/ Quaternion.Inverse(Rotation);
+                Quaternion finalRotation;
+                Quaternion rotationDelta;
+                if (!HandPosition)
+                {
+                    finalRotation = Hand.Rigidbody.rotation * ObjectRotationDifference;
+                    rotationDelta = finalRotation * Quaternion.Inverse(Rotation);
+                }
+                else
+                {
+                    rotationDelta = Hand.Rigidbody.rotation * Quaternion.Inverse(Rotation);
+                }
                 rotationDelta.ToAngleAxis(out _angle, out _axis);
                 if (_angle >= 180)
                 {

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5852194496614645929}
   - component: {fileID: 4189788211726608571}
   - component: {fileID: 205957583571394432}
-  - component: {fileID: 542321208}
+  - component: {fileID: 4003659512731121417}
   m_Layer: 10
-  m_Name: pvr_primitive_cube_02
+  m_Name: pvr_primitive_cube
   m_TagString: Vr_Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b705b36c0a031c74bb375ee73b5ecce3, type: 2}
+  - {fileID: 2100000, guid: 673443bdcb7bf2f47be93ce60e68966f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,12 +112,14 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
   Mesh: {fileID: 5852194496614645929}
   Colliders:
-  - {fileID: 542321208}
+  - {fileID: 4003659512731121417}
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
---- !u!65 &542321208
+--- !u!65 &4003659512731121417
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

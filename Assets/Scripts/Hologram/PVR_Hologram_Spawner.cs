@@ -62,7 +62,7 @@ namespace MarioHaberle.PlayVRoom.VR.Hologram
 
         private void CreateObject()
         {
-            _currentObject = Instantiate(_objectToCreate[Random.Range(0, _objectToCreate.Length -1)], _spawnPoint.position, _spawnPoint.rotation, null);
+            _currentObject = Instantiate(_objectToCreate[Random.Range(0, _objectToCreate.Length)], _spawnPoint.position, _spawnPoint.rotation, null);
             _currentInteractable = _currentObject.GetComponent<PVR_Interactable>();
             _currentColliders = _currentInteractable.Colliders;
             _currentRigidbody = _currentObject.GetComponent<Rigidbody>();

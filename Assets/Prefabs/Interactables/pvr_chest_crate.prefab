@@ -152,7 +152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5abb3d18170c7cc4b8ce3577ef8b5ed8, type: 2}
+  - {fileID: 2100000, guid: f685a57b9da560a448bb95374a652f90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -211,11 +211,12 @@ MonoBehaviour:
   - {fileID: 6788141107922951462}
   - {fileID: 6788141106966979367}
   - {fileID: 6788141107564598612}
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
-  _angularVelocityStrength: 10
 --- !u!1 &6787546144684608005
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 6787546144684608005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.02, y: 9.978, z: 9.2}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6789766984242646471}
   - {fileID: 6788141107240376532}
@@ -277,7 +278,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5abb3d18170c7cc4b8ce3577ef8b5ed8, type: 2}
+  - {fileID: 2100000, guid: f685a57b9da560a448bb95374a652f90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -325,7 +326,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.22, z: -0.24}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.007780078, y: -0.0079999715, z: 0.012087166}
+  m_ConnectedAnchor: {x: -0.0077801375, y: -0.007999733, z: 0.0120872855}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -457,8 +458,10 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
@@ -570,8 +573,10 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
@@ -683,8 +688,10 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
@@ -923,8 +930,10 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
@@ -1036,8 +1045,10 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
@@ -1149,8 +1160,10 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
@@ -1446,8 +1459,10 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
   Picked: 0
-  Rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}

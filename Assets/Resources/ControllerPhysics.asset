@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c59ff31a7cd754194abc84ac840e77, type: 3}
   m_Name: ControllerPhysics
   m_EditorClassIdentifier: 
-  PositionVelocityMagic: 3500
+  PositionVelocityMagic: 4000
   RotationVelocityMagic: 50
   DefaultAngularVelocity: 10
   MaxAngularVelocity: 100
