@@ -75,6 +75,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         #region Getters && Setters
 
+        public SteamVR_Input_Sources InputSource
+        {
+            get
+            {
+                return _inputSource;
+            }
+        }
         public Rigidbody Rigidbody
         {
             get
