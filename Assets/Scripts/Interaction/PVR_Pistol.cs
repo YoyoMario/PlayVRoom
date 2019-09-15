@@ -5,12 +5,21 @@ using Valve.VR;
 
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
+    
     [RequireComponent(typeof(Rigidbody))]
     public class PVR_Pistol : PVR_Interactable
     {
+        private enum PistoleMode
+        {
+            SingleFire,
+            //BurstFire,
+            AutoFire
+        }
+
         [Header("-------------------------------")]
         [SerializeField] private SteamVR_Action_Boolean _triggerPress;
         [SerializeField] private float _cooldownSpeed = 1;
+        [SerializeField] private PistoleMode _pistoleMode = PistoleMode.SingleFire;
         [Header("Shell settings")]
         [SerializeField] private Transform _shellEjectPosition;
         [SerializeField] private GameObject _prefabShell;
@@ -19,6 +28,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("Recoil settings")]
         [SerializeField] private float _sliderMovementAmount = 0.5f;
         [SerializeField] private Transform _pistolSlider;
+        [Header("Info")]
+        [SerializeField] private bool _triggerState;
 
         private float _angle;
         private Vector3 _axis;
@@ -77,6 +88,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 {
                     Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
                 }
+
+                if (_pistoleMode == PistoleMode.AutoFire)
+                {
+                    Shoot();
+                }
             }
 
             //Cooldown
@@ -93,6 +109,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             _triggerPress.AddOnStateDownListener(OnTriggerPress, Hand.InputSource);
             _triggerPress.AddOnStateUpListener(OnTriggerRelease, Hand.InputSource);
+
+            _triggerState = false; //just in case if user leaves a trigger pressed
         }
 
         public override void OnDrop(Vector3 controllerVelocity)
@@ -103,18 +121,34 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             base.OnDrop(controllerVelocity);
 
             Rigidbody.velocity = controllerVelocity;
+            _triggerState = false; //just in case if user leaves a trigger pressed
         }
 
         private void OnTriggerPress(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
             Debug.Log("OnTriggerPress()");
+            _triggerState = true;
 
             //Don't fire if cooldown isn't done
-            if(_cooldown >= 0)
+            if (_cooldown >= 0)
             {
                 return;
             }
 
+            if (_pistoleMode == PistoleMode.SingleFire)
+            {
+                Shoot();
+            }
+        }
+
+        private void OnTriggerRelease(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+        {
+            Debug.Log("OnTriggerRelease()");
+            _triggerState = false;
+        }
+
+        private void Shoot()
+        {
             _pistolSlider.localPosition = _endSliderPosition;
             _cooldown = _cooldownValue;
 
@@ -123,11 +157,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             GameObject tmpShell = Instantiate(_prefabShell, _shellEjectPosition.position, _shellEjectPosition.rotation);
             Rigidbody tmpRbShell = tmpShell.GetComponent<Rigidbody>();
             tmpRbShell.AddForce(_shellEjectPosition.right * _shellForce);
-        }
-
-        private void OnTriggerRelease(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
-        {
-            Debug.Log("OnTriggerRelease()");
         }
 
     } 
