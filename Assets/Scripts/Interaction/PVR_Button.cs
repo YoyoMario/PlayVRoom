@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,17 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public float _unclickedPosition = 0.025f; //max peak position
         public float _clickedPosition = 0.002f; // min bottom position
         public float _buttonVelocityReturn = 0.2f; //to return in original position
+        [Space(20)]
+        [SerializeField] private int _clickPercentageTreshold = 75; //0% unclicked - 100% fully clicked
+        [SerializeField] private bool _clicked;
+        [Space(20)]
+        [SerializeField] AudioClip[] _audioClipPressSounds;
+        [SerializeField] AudioClip[] _audioClipReleaseSounds;
 
         private Vector3 _initialPosition;
+
+        public Action OnButtonPress;
+        public Action OnButtonRelease;
 
         public override void Awake()
         {
@@ -60,6 +70,30 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Fixing the issue where you can push the button sideways
             Transform.localPosition = new Vector3(_initialPosition.x, Transform.localPosition.y, _initialPosition.z);
+
+            //Calculate press percentage - press/release events
+            float clickAmountPercentage = 1 - ((Transform.localPosition.y - _clickedPosition) / (_unclickedPosition - _clickedPosition));
+            clickAmountPercentage *= 100;
+            if(clickAmountPercentage > _clickPercentageTreshold && !_clicked)
+            {
+                Debug.Log("Button pressed!");
+                _clicked = true;
+
+                if(OnButtonPress != null)
+                {
+                    OnButtonPress();
+                }
+            }
+            else if(clickAmountPercentage < _clickPercentageTreshold && _clicked)
+            {
+                Debug.Log("Button released!");
+                _clicked = false;
+
+                if(OnButtonRelease != null)
+                {
+                    OnButtonRelease();
+                }
+            }
         }
     } 
 }
