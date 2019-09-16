@@ -89,7 +89,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
                 }
 
-                if (_pistoleMode == PistoleMode.AutoFire)
+                if (_pistoleMode == PistoleMode.AutoFire && _triggerState && _cooldown < 0)
                 {
                     Shoot();
                 }
@@ -156,6 +156,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             GameObject tmpShell = Instantiate(_prefabShell, _shellEjectPosition.position, _shellEjectPosition.rotation);
             Rigidbody tmpRbShell = tmpShell.GetComponent<Rigidbody>();
+            tmpRbShell.velocity = Rigidbody.velocity;
             tmpRbShell.AddForce(_shellEjectPosition.right * _shellForce);
         }
 

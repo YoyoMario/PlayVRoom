@@ -112,13 +112,13 @@ MonoBehaviour:
   _triggerPress:
     actionPath: /actions/default/in/Trigger
     needsReinit: 0
-  _cooldownSpeed: 30
-  _pistoleMode: 0
+  _cooldownSpeed: 15
+  _pistoleMode: 1
   _shellEjectPosition: {fileID: 1080151645793551121}
   _prefabShell: {fileID: 4941148882523683392, guid: 56997a7d586aa954da4f2f3b49d0017f,
     type: 3}
   _shellForce: 1
-  _shellRandomRotationAmount: 20
+  _shellRandomRotationAmount: 30
   _sliderMovementAmount: 0.05
   _pistolSlider: {fileID: 1638978312218444698}
   _triggerState: 0
