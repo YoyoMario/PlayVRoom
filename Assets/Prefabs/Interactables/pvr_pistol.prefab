@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2776325933583661312}
   m_LocalRotation: {x: 0.6532817, y: 0.27059796, z: 0.27059796, w: 0.6532814}
-  m_LocalPosition: {x: 0.0192, y: 0.1112, z: 0.0746}
+  m_LocalPosition: {x: 0.037, y: 0.129, z: 0.0746}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6391799096670510732}
@@ -134,6 +134,7 @@ MonoBehaviour:
   HandPosition: {fileID: 6391799097022304336}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
@@ -142,6 +143,7 @@ MonoBehaviour:
     actionPath: /actions/default/in/Trigger
     needsReinit: 0
   _cooldownSpeed: 10
+  _pistoleMode: 0
   _shellEjectPosition: {fileID: 5491482595776440680}
   _prefabShell: {fileID: 4941148882523683392, guid: 56997a7d586aa954da4f2f3b49d0017f,
     type: 3}
@@ -149,6 +151,11 @@ MonoBehaviour:
   _shellRandomRotationAmount: 30
   _sliderMovementAmount: 0.03
   _pistolSlider: {fileID: 6393544461019340306}
+  _audioClipShot:
+  - {fileID: 8300000, guid: 3804c83285b4721498ead80b1088a86f, type: 3}
+  - {fileID: 8300000, guid: 0ec7f508d6e5f264aac345eef06d8d93, type: 3}
+  - {fileID: 8300000, guid: 35c6a04c252c55545ad95c81ddc4ce3b, type: 3}
+  _triggerState: 0
 --- !u!1 &6391799096899676839
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +267,7 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
@@ -406,6 +414,7 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
@@ -482,11 +491,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.7
       objectReference: {fileID: 0}
-    - target: {fileID: 1459174726613952, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
+    - target: {fileID: 1264200380836966, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 1264200380836966, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
+    - target: {fileID: 1459174726613952, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}

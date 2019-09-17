@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
+using MarioHaberle.PlayVRoom.Managers;
+
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
     
@@ -28,6 +30,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("Recoil settings")]
         [SerializeField] private float _sliderMovementAmount = 0.5f;
         [SerializeField] private Transform _pistolSlider;
+        [Header("Sound settings")]
+        [SerializeField] private AudioClip[] _audioClipShot;
         [Header("Info")]
         [SerializeField] private bool _triggerState;
 
@@ -41,8 +45,10 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private float _cooldownValue = 1;
         private float _cooldown;
 
-        private void Start()
+        public override void Start()
         {
+            base.Start();
+
             _initialShellEjectRotation = _shellEjectPosition.localRotation;
             _initialSliderPosition = _pistolSlider.localPosition;
             _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
@@ -158,6 +164,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Rigidbody tmpRbShell = tmpShell.GetComponent<Rigidbody>();
             tmpRbShell.velocity = Rigidbody.velocity;
             tmpRbShell.AddForce(_shellEjectPosition.right * _shellForce);
+
+            AudioClip audioClip = _audioClipShot[Random.Range((int)0, (int)_audioClipShot.Length-1)];
+            AudioManager.PlayAudio3D(audioClip, Position);
         }
 
     } 

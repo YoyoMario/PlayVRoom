@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using MarioHaberle.PlayVRoom.Managers;
+
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
     public class PVR_Button : PVR_Interactable
@@ -19,6 +21,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] AudioClip[] _audioClipReleaseSounds;
 
         private Vector3 _initialPosition;
+        private AudioManager _audioManager;
 
         public Action OnButtonPress;
         public Action OnButtonRelease;
@@ -34,7 +37,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             _initialPosition = Transform.localPosition;
         }
-        
+
+        public override void Start()
+        {
+            base.Start();
+
+            _audioManager = AudioManager.Instance;
+        }
+
         public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool touchpadTouching)
         {
             //base.OnPick(pVR_Grab_Rigidbody_Object);
@@ -79,7 +89,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Debug.Log("Button pressed!");
                 _clicked = true;
 
-                if(OnButtonPress != null)
+                //Play audio
+                AudioClip audioClip = _audioClipPressSounds[UnityEngine.Random.Range(0, _audioClipPressSounds.Length - 1)];
+                _audioManager.PlayAudio3D(audioClip, Position);
+
+                if (OnButtonPress != null)
                 {
                     OnButtonPress();
                 }
@@ -89,7 +103,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Debug.Log("Button released!");
                 _clicked = false;
 
-                if(OnButtonRelease != null)
+                //Play audio
+                AudioClip audioClip = _audioClipReleaseSounds[UnityEngine.Random.Range(0, _audioClipPressSounds.Length - 1)];
+                _audioManager.PlayAudio3D(audioClip, Position);
+
+                if (OnButtonRelease != null)
                 {
                     OnButtonRelease();
                 }

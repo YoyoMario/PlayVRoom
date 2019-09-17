@@ -23,6 +23,7 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
+Assets/Universal Sound FX/
 
 # Unity3D generated meta files
 *.pidb.meta

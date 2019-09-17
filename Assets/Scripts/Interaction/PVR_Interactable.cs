@@ -4,6 +4,7 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 
 using MarioHaberle.PlayVRoom.ScriptableObjects;
+using MarioHaberle.PlayVRoom.Managers;
 
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
@@ -20,6 +21,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("-----------------------")]
         public ControllerPhysics ControllerPhysics;
         public bool Picked;
+        public AudioManager AudioManager;
         [SerializeField] private Rigidbody _rigidbody;
         public PVR_Hand Hand;
         public Hand SteamHand;
@@ -99,6 +101,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             _rigidbody = GetComponent<Rigidbody>();
             ControllerPhysics = Resources.Load("ControllerPhysics") as ControllerPhysics;
+        }
+
+        public virtual void Start()
+        {
+            AudioManager = AudioManager.Instance;
         }
 
         public virtual void OnHoverStart()
