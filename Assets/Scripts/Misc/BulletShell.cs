@@ -48,7 +48,7 @@ namespace MarioHaberle.PlayVRoom.Misc
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (!_audioManager)
+            if (!_audioManager || _audioClipHitSound.Length == 0)
             {
                 return;
             }

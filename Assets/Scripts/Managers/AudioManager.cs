@@ -84,7 +84,7 @@ namespace MarioHaberle.PlayVRoom.Managers
         /// <param name="audioClip"></param>
         /// <param name="worldPosition"></param>
         /// <returns></returns>
-        public AudioSource PlayAudio3D(AudioClip audioClip, Vector3 worldPosition, float volume = 1f, float delay = 0f)
+        public AudioSource PlayAudio3D(AudioClip audioClip, Vector3 worldPosition, float pitch = 1, float volume = 1f, float delay = 0f)
         {
             if (_consoleWrite)
             {
@@ -100,6 +100,7 @@ namespace MarioHaberle.PlayVRoom.Managers
             audioSource.clip = audioClip;
             audioSource.spatialBlend = 1f;
             audioSource.volume = volume;
+            audioSource.pitch = pitch;
 
             audioSource.PlayDelayed(delay);
 

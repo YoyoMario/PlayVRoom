@@ -32,6 +32,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private Transform _pistolSlider;
         [Header("Sound settings")]
         [SerializeField] private AudioClip[] _audioClipShot;
+        [SerializeField] private Vector2 _minMaxPitch;
+        [SerializeField] private Vector2 _minMaxVolume;
         [Header("Info")]
         [SerializeField] private bool _triggerState;
 
@@ -165,8 +167,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             tmpRbShell.velocity = Rigidbody.velocity;
             tmpRbShell.AddForce(_shellEjectPosition.right * _shellForce);
 
-            AudioClip audioClip = _audioClipShot[Random.Range((int)0, (int)_audioClipShot.Length-1)];
-            AudioManager.PlayAudio3D(audioClip, Position);
+            //Audio
+            if(_audioClipShot.Length > 0)
+            {
+                float pitch = (_minMaxPitch.x != _minMaxPitch.y) ? Random.Range((float)_minMaxPitch.x, (float)_minMaxPitch.y) : 1;
+                float volume = (_minMaxVolume.x != _minMaxVolume.y) ? Random.Range((float)_minMaxVolume.x, (float)_minMaxVolume.y) : 1;
+                AudioClip audioClip = _audioClipShot[Random.Range((int)0, (int)_audioClipShot.Length - 1)];
+                AudioManager.PlayAudio3D(audioClip, Position, pitch, volume);
+            }            
         }
 
     } 
