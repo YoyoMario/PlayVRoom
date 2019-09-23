@@ -10,7 +10,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private Vector3 _angularVelocityDirection;
         private Vector3 _cross;
         private Vector3 _initialCross;
-        private void FixedUpdate()
+
+        public override void FixedUpdate()
         {
             //Get right vector, the one where we apply angular velocity
             _angularVelocityDirection = Transform.right;

@@ -29,7 +29,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _lastHandledPosition = Position;
         }
 
-        private void FixedUpdate()
+        public override void FixedUpdate()
         {
             _velocityDirection = Transform.up;
             _deltaMovement = Transform.localPosition.z * -1; //-1 just to get right orientation with the cross product
@@ -66,9 +66,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             }
         }
 
-        public override void OnDrop(Vector3 controllerVelocity)
+        public override void OnDrop()
         {
-            base.OnDrop(controllerVelocity);
+            base.OnDrop();
 
             //record the lever position at the moment when user leaves interacting
             _lastHandledPosition = Position;

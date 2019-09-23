@@ -53,12 +53,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         RaycastHit _raycastHitInteractable;
         Coroutine _raycastAssist;
 
-        //Controller velocity
-        private List<Vector3> _currentFrame_position;
-        private List<Vector3> _previousFrame_position;
-        private Vector3[] _controllerVelocity;
-        private Vector3 _averageVelocity;
-
         //Wall detection raycast
         private RaycastHit _raycastHitWallDetection;
 
@@ -69,7 +63,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public const string _handHelperName = "HandHelper";
         public const string _untaggedTag = "Untagged";
         public const string _vrInteractableTag = "Vr_Interactable";
-        private const int _averageVelocityFrameSamples = 3;
 
         #endregion
 
@@ -153,9 +146,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Initialize Lists
             _touching = new List<PVR_Interactable>();
-            _currentFrame_position = new List<Vector3>();
-            _previousFrame_position = new List<Vector3>();
-            _controllerVelocity = new Vector3[_averageVelocityFrameSamples];
 
             //Initialize ray
             ray = new Ray();
@@ -227,9 +217,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private void FixedUpdate()
         {
-            //calculate controller velocity
-            SampleAverageVelocity();
-
             //Star wars force effect raycasting
             ForceEffectRaycast();
 
@@ -256,43 +243,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
             {
                 _handRigidbody.angularVelocity = wantedRotation;
-            }
-        }
-
-        /// <summary>
-        /// Samples velocity of controllers from previous N frames.
-        /// </summary>
-        private void SampleAverageVelocity()
-        {
-            if (_currentFrame_position.Count < _averageVelocityFrameSamples)
-            {
-                _currentFrame_position.Add(_rigidbody.position);
-            }
-            else
-            {
-                _currentFrame_position.RemoveAt(0);
-                _currentFrame_position.Add(_rigidbody.position);
-            }
-
-            _averageVelocity = Vector3.zero;
-            if (_previousFrame_position.Count == _averageVelocityFrameSamples)
-            {
-                for (int i = 0; i < _averageVelocityFrameSamples; i++)
-                {
-                    _controllerVelocity[i] = (_currentFrame_position[i] - _previousFrame_position[i]) / Time.fixedDeltaTime;
-                    _averageVelocity += _controllerVelocity[i];
-                }
-            }
-            _averageVelocity /= _averageVelocityFrameSamples;
-
-            if (_previousFrame_position.Count < _averageVelocityFrameSamples)
-            {
-                _previousFrame_position.Add(_rigidbody.position);
-            }
-            else
-            {
-                _previousFrame_position.RemoveAt(0);
-                _previousFrame_position.Add(_rigidbody.position);
             }
         }
 
@@ -469,7 +419,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 return;
             }
 
-            _currentInteractableObject.OnDrop(_averageVelocity);
+            _currentInteractableObject.OnDrop();
             ForceDrop();
         }
 

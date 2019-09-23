@@ -41,7 +41,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _initialPivotRotat = Transform.localRotation.eulerAngles.x;
         }
 
-        private void FixedUpdate()
+        public override void FixedUpdate()
         {
             _angularVelocityDirection = Transform.right;
 
@@ -87,9 +87,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             }
         }
 
-        public override void OnDrop(Vector3 controllerVelocity)
+        public override void OnDrop()
         {
-            base.OnDrop(controllerVelocity);
+            base.OnDrop();
 
             //recording the lever rotation at the moment when user leaves interacting
             _lastHandledRotation = Rotation;

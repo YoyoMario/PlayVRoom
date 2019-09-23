@@ -31,12 +31,35 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public event PVR_Interactable_Action OnPickAction;
         public event PVR_Interactable_Action OnDropAction;
 
+        #region Private Variables
+
         private Quaternion _objectRotationDifference;
         private Vector3 _objectPositionDifference;
         private Material _outlineMaterialAdded;
         private Coroutine _forceTowardsPlayer_Coroutine;
         private PhysicMaterial[] _originalPhysicsMaterials;
         private Transform _originalParent;
+
+        //Average velocity storage
+        private List<Vector3> _currentFrame_position;
+        private List<Vector3> _previousFrame_position;
+        private Vector3[] _sampledVelocity;
+        private Vector3 _averageVelocity;
+
+        //Average angular velocity storage
+        private List<Vector3> _sampledAngularVelocities;
+        private Vector3 _averageAngularVelocity;
+
+        #endregion
+
+        #region Private Variables - Const
+
+        private const int _averageVelocityFrameSamples = 3;
+        private const float _angularVelocityMultiplier = 1;
+
+        #endregion
+
+        #region Getters & Setters
 
         public Quaternion ObjectRotationDifference
         {
@@ -57,7 +80,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             get
             {
-                if(HandPosition == null)
+                if (HandPosition == null)
                 {
                     return _rigidbody.position;
                 }
@@ -72,14 +95,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             get
             {
-                if(HandPosition == null)
+                if (HandPosition == null)
                 {
                     return _rigidbody.rotation;
                 }
                 else
                 {
                     return HandPosition.rotation;
-                }                
+                }
             }
 
         }
@@ -96,7 +119,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 return _rigidbody;
             }
-        }
+        } 
+
+        #endregion
 
         public virtual void Awake()
         {
@@ -107,6 +132,74 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public virtual void Start()
         {
             AudioManager = AudioManager.Instance;
+        }
+
+        public virtual void FixedUpdate()
+        {
+            //Physics calculations here...
+            if (!_rigidbody)
+            {
+                return;
+            }
+
+            if (!Picked && !Hand)
+            {
+                return;
+            }
+
+            //Sample average velocity of this object.
+            if (_currentFrame_position.Count < _averageVelocityFrameSamples)
+            {
+                _currentFrame_position.Add(_rigidbody.position);
+            }
+            else
+            {
+                _currentFrame_position.RemoveAt(0);
+                _currentFrame_position.Add(_rigidbody.position);
+            }
+
+            _averageVelocity = Vector3.zero;
+            if (_previousFrame_position.Count == _averageVelocityFrameSamples)
+            {
+                for (int i = 0; i < _averageVelocityFrameSamples; i++)
+                {
+                    _sampledVelocity[i] = (_currentFrame_position[i] - _previousFrame_position[i]) / Time.fixedDeltaTime;
+                    _averageVelocity += _sampledVelocity[i];
+                }
+            }
+            _averageVelocity /= _averageVelocityFrameSamples;
+
+            if (_previousFrame_position.Count < _averageVelocityFrameSamples)
+            {
+                _previousFrame_position.Add(_rigidbody.position);
+            }
+            else
+            {
+                _previousFrame_position.RemoveAt(0);
+                _previousFrame_position.Add(_rigidbody.position);
+            }
+
+            //Sample average angular velocity of this object.
+            Vector3 controllerAngularVelocity = SteamHand.GetTrackedObjectAngularVelocity();
+            if (_sampledAngularVelocities.Count < _averageVelocityFrameSamples)
+            {
+                _sampledAngularVelocities.Add(controllerAngularVelocity);
+            }
+            else
+            {
+                _sampledAngularVelocities.RemoveAt(0);
+                _sampledAngularVelocities.Add(controllerAngularVelocity);
+            }
+
+            _averageAngularVelocity = Vector3.zero;
+            if (_sampledAngularVelocities.Count == _averageVelocityFrameSamples)
+            {
+                for (int i = 0; i < _averageVelocityFrameSamples; i++)
+                {
+                    _averageAngularVelocity += _sampledAngularVelocities[i];
+                }
+            }
+            _averageAngularVelocity /= _averageVelocityFrameSamples;
         }
 
         public virtual void OnHoverStart()
@@ -147,7 +240,15 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Hand.ForceDrop();
             }
 
-            if(!_originalParent) _originalParent = Transform.parent;
+            //initialize
+            _currentFrame_position = new List<Vector3>();
+            _previousFrame_position = new List<Vector3>();
+            _sampledVelocity = new Vector3[_averageVelocityFrameSamples];
+
+            _sampledAngularVelocities = new List<Vector3>();
+
+
+            if (!_originalParent) _originalParent = Transform.parent;
             Transform.SetParent(pVR_Grab_Rigidbody_Object.transform);
 
             Picked = true;
@@ -180,7 +281,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             }
         }
 
-        public virtual void OnDrop(Vector3 controllerVelocity)
+        public virtual void OnDrop()
         {
             Picked = false;
             Hand = null;
@@ -189,6 +290,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             _rigidbody.useGravity = true;
             _rigidbody.maxAngularVelocity = ControllerPhysics.DefaultAngularVelocity;
+            _rigidbody.velocity = _averageVelocity;
+            _rigidbody.angularVelocity = _averageAngularVelocity * _angularVelocityMultiplier;
 
             _objectRotationDifference = Quaternion.Euler(0, 0, 0);
             _objectPositionDifference = Vector3.zero;

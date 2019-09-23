@@ -51,13 +51,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             return;
         }
 
-        public override void OnDrop(Vector3 controllerVelocity)
+        public override void OnDrop()
         {
             //base.OnDrop(controllerVelocity);
             return;
         }
 
-        private void FixedUpdate()
+        public override void FixedUpdate()
         {
             //Move button up
             if(Transform.localPosition.y < _unclickedPosition)

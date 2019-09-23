@@ -28,29 +28,24 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             base.Start();
         }
 
-        private void FixedUpdate()
+        public override void FixedUpdate()
         {
+            base.FixedUpdate();
+
             //Hold object
             if (Picked && Hand)
             {
                 //position
                 Vector3 dir = Hand.Rigidbody.position - Position;
-                if (!HandPosition)
-                {
-                    dir =
-                    dir +
-                    (Hand.transform.forward * ObjectPositionDifference.z) +
-                    (Hand.transform.up * ObjectPositionDifference.y) +
-                    (Hand.transform.right * ObjectPositionDifference.x);
-                }
                 Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
-                Rigidbody.velocity = velocityDir + SteamHand.GetTrackedObjectVelocity();
+                Rigidbody.position = Hand.Rigidbody.position;
+                Rigidbody.velocity = velocityDir/* + SteamHand.GetTrackedObjectVelocity()*/;
 
                 if (!_secondHand.Picked) //hold with one hand
                 {
                     //rotation
-                    Quaternion finalRotation;
-                    Quaternion rotationDelta;
+                    Quaternion finalRotation = Quaternion.Euler(0, 0, 0);
+                    Quaternion rotationDelta = Quaternion.Euler(0, 0, 0);
                     if (!HandPosition)
                     {
                         finalRotation = Hand.Rigidbody.rotation * ObjectRotationDifference;
@@ -68,7 +63,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * ControllerPhysics.RotationVelocityMagic;
                     if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                     {
-                        Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
+                        Rigidbody.rotation = finalRotation;
+                        Rigidbody.angularVelocity = wantedRotation/* + SteamHand.GetTrackedObjectAngularVelocity()*/;
                     }
                 }
                 else //rotate towards second controller
@@ -87,6 +83,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * ControllerPhysics.RotationVelocityMagic;
                     if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                     {
+                        Rigidbody.rotation = rotationDir;
                         Rigidbody.angularVelocity = wantedRotation/* + SteamHand.GetTrackedObjectAngularVelocity()*/;
                     }
                 }

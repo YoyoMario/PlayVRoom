@@ -10,8 +10,10 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private float _angle;
         private Vector3 _axis;
 
-        private void FixedUpdate()
+        public override void FixedUpdate()
         {
+            base.FixedUpdate();
+
             //Hold object
             if (Picked && Hand)
             {
@@ -26,11 +28,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     (Hand.transform.right * ObjectPositionDifference.x);
                 }                
                 Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
-                Rigidbody.velocity = velocityDir + SteamHand.GetTrackedObjectVelocity();
+                Rigidbody.position = Hand.Rigidbody.position;
+                Rigidbody.velocity = velocityDir/* + SteamHand.GetTrackedObjectVelocity()*/;
 
                 //rotation
-                Quaternion finalRotation;
-                Quaternion rotationDelta;
+                Quaternion finalRotation = Quaternion.Euler(0, 0, 0);
+                Quaternion rotationDelta = Quaternion.Euler(0, 0, 0);
                 if (!HandPosition)
                 {
                     finalRotation = Hand.Rigidbody.rotation * ObjectRotationDifference;
@@ -48,16 +51,17 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * ControllerPhysics.RotationVelocityMagic;
                 if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                 {
-                    Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
+                    Rigidbody.rotation = Hand.Rigidbody.rotation * Quaternion.Inverse(Rotation);
+                    Rigidbody.angularVelocity = wantedRotation/* + SteamHand.GetTrackedObjectAngularVelocity()*/;
                 }
             }
         }
 
-        public override void OnDrop(Vector3 controllerVelocity)
+        public override void OnDrop()
         {
-            base.OnDrop(controllerVelocity);
+            base.OnDrop();
 
-            Rigidbody.velocity = controllerVelocity;
+            //Rigidbody.velocity = controllerVelocity;
         }
     } 
 }

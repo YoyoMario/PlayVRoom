@@ -56,28 +56,41 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
+            //Shoot logic
+            if (Picked && Hand)
+            {
+                if (_pistoleMode == PistoleMode.AutoFire && _triggerState && _cooldown < 0)
+                {
+                    Shoot();
+                }
+            }
+
+            //Cooldown
+            if (_cooldown >= 0)
+            {
+                _cooldown -= Time.deltaTime * _cooldownSpeed;
+                _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
+            }
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
             //Hold object
             if (Picked && Hand)
             {
                 //position
                 Vector3 dir = Hand.Rigidbody.position - Position;
-                //if (!HandPosition)
-                //{
-                //    dir =
-                //    dir +
-                //    (Hand.transform.forward * ObjectPositionDifference.z) +
-                //    (Hand.transform.up * ObjectPositionDifference.y) +
-                //    (Hand.transform.right * ObjectPositionDifference.x);
-                //}
                 Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
                 Rigidbody.position = Hand.Rigidbody.position;
                 Rigidbody.velocity = velocityDir/* + SteamHand.GetTrackedObjectVelocity()*/;
 
                 //rotation
-                Quaternion finalRotation;
-                Quaternion rotationDelta;
+                Quaternion finalRotation = Quaternion.Euler(0, 0, 0);
+                Quaternion rotationDelta = Quaternion.Euler(0, 0, 0);
                 if (!HandPosition)
                 {
                     finalRotation = Hand.Rigidbody.rotation * ObjectRotationDifference;
@@ -98,18 +111,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     Rigidbody.rotation = Hand.Rigidbody.rotation * Quaternion.Inverse(Rotation);
                     Rigidbody.angularVelocity = wantedRotation/* + SteamHand.GetTrackedObjectAngularVelocity()*/;
                 }
-
-                if (_pistoleMode == PistoleMode.AutoFire && _triggerState && _cooldown < 0)
-                {
-                    Shoot();
-                }
-            }
-
-            //Cooldown
-            if(_cooldown >= 0)
-            {
-                _cooldown -= Time.fixedDeltaTime * _cooldownSpeed;
-                _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
             }
         }
 
@@ -123,15 +124,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _triggerState = false; //just in case if user leaves a trigger pressed
         }
 
-        public override void OnDrop(Vector3 controllerVelocity)
+        public override void OnDrop()
         {
             _triggerPress.RemoveOnStateDownListener(OnTriggerPress, Hand.InputSource);
             _triggerPress.RemoveOnStateUpListener(OnTriggerRelease, Hand.InputSource);
 
-            base.OnDrop(controllerVelocity);
-
-            Rigidbody.velocity = controllerVelocity;
             _triggerState = false; //just in case if user leaves a trigger pressed
+
+            base.OnDrop();
         }
 
         private void OnTriggerPress(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
