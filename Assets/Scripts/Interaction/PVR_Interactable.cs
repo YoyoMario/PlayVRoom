@@ -36,6 +36,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private Material _outlineMaterialAdded;
         private Coroutine _forceTowardsPlayer_Coroutine;
         private PhysicMaterial[] _originalPhysicsMaterials;
+        private Transform _originalParent;
 
         public Quaternion ObjectRotationDifference
         {
@@ -145,10 +146,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 Hand.ForceDrop();
             }
-            
+
+            if(!_originalParent) _originalParent = Transform.parent;
+            Transform.SetParent(pVR_Grab_Rigidbody_Object.transform);
+
             Picked = true;
             Hand = pVR_Grab_Rigidbody_Object;
             SteamHand = Hand.GetComponent<Hand>();
+            _rigidbody.useGravity = false;
             _rigidbody.isKinematic = false;
             _rigidbody.maxAngularVelocity = ControllerPhysics.MaxAngularVelocity;
 
@@ -180,6 +185,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Picked = false;
             Hand = null;
 
+            Transform.SetParent(_originalParent.transform);
+
+            _rigidbody.useGravity = true;
             _rigidbody.maxAngularVelocity = ControllerPhysics.DefaultAngularVelocity;
 
             _objectRotationDifference = Quaternion.Euler(0, 0, 0);

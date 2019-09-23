@@ -18,7 +18,7 @@ MonoBehaviour:
   actionsFilePath: actions.json
   steamVRInputPath: SteamVR_Input
   inputUpdateMode: 2
-  poseUpdateMode: 8
+  poseUpdateMode: 4
   activateFirstActionSetOnStart: 1
   editorAppKey: application.generated.unity.playvroom.exe
   autoEnableVR: 1
