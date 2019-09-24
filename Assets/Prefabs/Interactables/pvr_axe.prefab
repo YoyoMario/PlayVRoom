@@ -108,8 +108,6 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
-  _parentTresholdVelocity: 2
-  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
@@ -118,7 +116,6 @@ MonoBehaviour:
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   SeenByCamera: 0
-  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &959421330858165994
 GameObject:
@@ -228,8 +225,6 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
-  _parentTresholdVelocity: 2
-  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
@@ -238,7 +233,6 @@ MonoBehaviour:
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   SeenByCamera: 0
-  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &3459154870084622325
 GameObject:
@@ -348,8 +342,6 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
-  _parentTresholdVelocity: 2
-  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
@@ -358,7 +350,6 @@ MonoBehaviour:
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   SeenByCamera: 0
-  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &4027893892705577843
 GameObject:
@@ -468,8 +459,6 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
-  _parentTresholdVelocity: 2
-  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
@@ -478,7 +467,6 @@ MonoBehaviour:
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   SeenByCamera: 0
-  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &4410785451133971087
 GameObject:
@@ -624,8 +612,6 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
-  _parentTresholdVelocity: 2
-  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
@@ -634,7 +620,6 @@ MonoBehaviour:
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   SeenByCamera: 0
-  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &6787632053113178282
 GameObject:
@@ -755,8 +740,6 @@ MonoBehaviour:
   - {fileID: 4743762075716815696}
   - {fileID: 3970346391648787152}
   - {fileID: 1740932503876656509}
-  _parentTresholdVelocity: 2
-  _parentTresholdAngularVelocity: 6
   HandPosition: {fileID: 3973885763613074336}
   ControllerPhysics: {fileID: 0}
   Picked: 0
@@ -765,7 +748,6 @@ MonoBehaviour:
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   SeenByCamera: 0
-  Parented: 0
 --- !u!1 &7022394712499189276
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7022394712499189276}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: -0.265, z: -0}
+  m_LocalPosition: {x: -0, y: -0.048, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6789229437798040694}
@@ -904,8 +886,6 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
-  _parentTresholdVelocity: 2
-  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
@@ -914,5 +894,4 @@ MonoBehaviour:
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   SeenByCamera: 0
-  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}

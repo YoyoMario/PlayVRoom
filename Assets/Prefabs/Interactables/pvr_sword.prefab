@@ -120,8 +120,10 @@ MonoBehaviour:
   HandPosition: {fileID: 8539339422014037450}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
 --- !u!1 &8539339422014037453
 GameObject:
@@ -147,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8539339422014037453}
   m_LocalRotation: {x: -0.5000003, y: 0.5, z: 0.49999976, w: 0.49999994}
-  m_LocalPosition: {x: -0, y: -0.293, z: 0}
+  m_LocalPosition: {x: -0, y: -0.169, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2296635010875144975}
@@ -264,8 +266,10 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 2294580213805216102}
 --- !u!1 &8539339422311346816
@@ -379,8 +383,10 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 2294580213805216102}
 --- !u!1 &8539339422446008593
@@ -528,8 +534,10 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 2294580213805216102}
 --- !u!1 &8539339423314669128
@@ -643,7 +651,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
   InteractableObject: {fileID: 2294580213805216102}
