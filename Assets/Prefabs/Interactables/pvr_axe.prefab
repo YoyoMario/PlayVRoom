@@ -108,12 +108,17 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  _parentTresholdVelocity: 2
+  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
+  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &959421330858165994
 GameObject:
@@ -223,12 +228,17 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  _parentTresholdVelocity: 2
+  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
+  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &3459154870084622325
 GameObject:
@@ -338,12 +348,17 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  _parentTresholdVelocity: 2
+  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
+  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &4027893892705577843
 GameObject:
@@ -453,12 +468,17 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  _parentTresholdVelocity: 2
+  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
+  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &4410785451133971087
 GameObject:
@@ -604,12 +624,17 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  _parentTresholdVelocity: 2
+  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
+  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}
 --- !u!1 &6787632053113178282
 GameObject:
@@ -705,7 +730,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -730,12 +755,17 @@ MonoBehaviour:
   - {fileID: 4743762075716815696}
   - {fileID: 3970346391648787152}
   - {fileID: 1740932503876656509}
+  _parentTresholdVelocity: 2
+  _parentTresholdAngularVelocity: 6
   HandPosition: {fileID: 3973885763613074336}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
+  Parented: 0
 --- !u!1 &7022394712499189276
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,10 +904,15 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 0}
   Mesh: {fileID: 0}
   Colliders: []
+  _parentTresholdVelocity: 2
+  _parentTresholdAngularVelocity: 2
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
+  Parented: 0
   InteractableObject: {fileID: 1516791615999087460}

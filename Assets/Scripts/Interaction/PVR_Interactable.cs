@@ -15,6 +15,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("References from object it self")]
         public MeshRenderer Mesh;
         public Collider[] Colliders;
+        //[Header("Physics grab settings")]
+        //[SerializeField] private float _parentTresholdVelocity = 1;
         [Header("References from object it self - not necessary")]
         public Transform HandPosition;
         [Header("Added runtime")]
@@ -26,6 +28,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public PVR_Hand Hand;
         public Hand SteamHand;
         public bool SeenByCamera;
+        //public bool Parented;
 
         public delegate void PVR_Interactable_Action();
         public event PVR_Interactable_Action OnPickAction;
@@ -38,7 +41,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private Material _outlineMaterialAdded;
         private Coroutine _forceTowardsPlayer_Coroutine;
         private PhysicMaterial[] _originalPhysicsMaterials;
-        private Transform _originalParent;
+        //private Transform _originalParent;
 
         //Average velocity storage
         private List<Vector3> _currentFrame_position;
@@ -55,7 +58,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         #region Private Variables - Const
 
         private const int _averageVelocityFrameSamples = 3;
-        private const float _angularVelocityMultiplier = 1;
 
         #endregion
 
@@ -146,6 +148,24 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 return;
             }
+
+            //Parenting physics switch
+            //if (_averageVelocity.magnitude > _parentTresholdVelocity)
+            //{
+            //    if(Transform.parent != _originalParent)
+            //    {
+            //        Transform.SetParent(_originalParent);
+            //        Parented = false;
+            //    }
+            //}
+            //else
+            //{
+            //    if(Transform.parent != Hand.transform)
+            //    {
+            //        Transform.SetParent(Hand.transform);
+            //        Parented = true;
+            //    }
+            //}
 
             //Sample average velocity of this object.
             if (_currentFrame_position.Count < _averageVelocityFrameSamples)
@@ -248,8 +268,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _sampledAngularVelocities = new List<Vector3>();
 
 
-            if (!_originalParent) _originalParent = Transform.parent;
-            Transform.SetParent(pVR_Grab_Rigidbody_Object.transform);
+            //if (!_originalParent) _originalParent = Transform.parent;
+            //Transform.SetParent(pVR_Grab_Rigidbody_Object.transform);
 
             Picked = true;
             Hand = pVR_Grab_Rigidbody_Object;
@@ -257,6 +277,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _rigidbody.useGravity = false;
             _rigidbody.isKinematic = false;
             _rigidbody.maxAngularVelocity = ControllerPhysics.MaxAngularVelocity;
+            _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            _rigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
+            if (HandPosition)
+            {
+                _rigidbody.centerOfMass = HandPosition.localPosition;
+            }
 
             //We don't want to position objects right if we grab them by the force
             if (matchRotationAndPosition)
@@ -286,12 +312,16 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             Picked = false;
             Hand = null;
 
-            Transform.SetParent(_originalParent.transform);
+            //Transform.SetParent(_originalParent.transform);
+            //Parented = false;
 
             _rigidbody.useGravity = true;
             _rigidbody.maxAngularVelocity = ControllerPhysics.DefaultAngularVelocity;
             _rigidbody.velocity = _averageVelocity;
-            _rigidbody.angularVelocity = _averageAngularVelocity * _angularVelocityMultiplier;
+            _rigidbody.angularVelocity = _averageAngularVelocity;
+            _rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            _rigidbody.interpolation = RigidbodyInterpolation.None;
+            _rigidbody.ResetCenterOfMass();
 
             _objectRotationDifference = Quaternion.Euler(0, 0, 0);
             _objectPositionDifference = Vector3.zero;
@@ -308,6 +338,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 OnDropAction.Invoke();
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!Picked) return;
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_rigidbody.worldCenterOfMass, 0.05f);
         }
 
         //Delete if unused
