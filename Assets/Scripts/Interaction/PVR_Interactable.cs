@@ -28,7 +28,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public PVR_Hand Hand;
         public Hand SteamHand;
         public bool SeenByCamera;
-        //public bool Parented;
 
         public delegate void PVR_Interactable_Action();
         public event PVR_Interactable_Action OnPickAction;
@@ -41,7 +40,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private Material _outlineMaterialAdded;
         private Coroutine _forceTowardsPlayer_Coroutine;
         private PhysicMaterial[] _originalPhysicsMaterials;
-        //private Transform _originalParent;
 
         //Average velocity storage
         private List<Vector3> _currentFrame_position;
@@ -148,24 +146,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 return;
             }
-
-            //Parenting physics switch
-            //if (_averageVelocity.magnitude > _parentTresholdVelocity)
-            //{
-            //    if(Transform.parent != _originalParent)
-            //    {
-            //        Transform.SetParent(_originalParent);
-            //        Parented = false;
-            //    }
-            //}
-            //else
-            //{
-            //    if(Transform.parent != Hand.transform)
-            //    {
-            //        Transform.SetParent(Hand.transform);
-            //        Parented = true;
-            //    }
-            //}
 
             //Sample average velocity of this object.
             if (_currentFrame_position.Count < _averageVelocityFrameSamples)

@@ -134,7 +134,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private void OnTriggerPress(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
-            Debug.Log("OnTriggerPress()");
+            //Debug.Log("OnTriggerPress()");
             _triggerState = true;
 
             //Don't fire if cooldown isn't done
@@ -151,7 +151,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private void OnTriggerRelease(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
-            Debug.Log("OnTriggerRelease()");
+            //Debug.Log("OnTriggerRelease()");
             _triggerState = false;
         }
 
