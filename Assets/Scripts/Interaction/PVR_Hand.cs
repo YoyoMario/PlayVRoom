@@ -35,6 +35,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private Collider _handCollider;
         [SerializeField] private string _layerNameHandCollider; //we want hands colliders to be interactable only and ONLY with interactable objects, that way we can put our hands under the table and hit objects from the bottom
 
+        [Header("Haptic feedback settings")]
+        [SerializeField] private SteamVR_Action_Vibration _hapticAction;
+        [SerializeField] private float _secondsFromNow = 0;
+        [SerializeField] private float _duration = 0;
+        [SerializeField] private float _frequency = 150;
+        [SerializeField] private float _amplitude = 75;
+
         [Header("Info")]
         [SerializeField] private PVR_Interactable _currentInteractableObject;
         [SerializeField] private List<PVR_Interactable> _touching;
@@ -117,6 +124,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             _rigidbody = gameObject.AddComponent<Rigidbody>();
             _rigidbody.useGravity = false;
+
 
             //Interaction layers setup
             int layerNameHandLayer = LayerMask.NameToLayer(_vrHandsLayer);
@@ -213,6 +221,15 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             _touchpadTouch.RemoveOnStateDownListener(OnTouchpadTouch, _inputSource);
             _touchpadTouch.RemoveOnStateDownListener(OnTouchpadRelease, _inputSource);
+        }
+
+        private void Update()
+        {
+            //Haptic feedback
+            if (!_currentInteractableObject && _touching.Count != 0 /*&& IsHandAsCollider() == false*/)
+            {
+                _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, _inputSource);
+            }
         }
 
         private void FixedUpdate()
@@ -480,5 +497,16 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _handCollider.enabled = false;
         }
 
+        //private bool IsHandAsCollider()
+        //{
+        //    if (_handCollider.enabled)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }
