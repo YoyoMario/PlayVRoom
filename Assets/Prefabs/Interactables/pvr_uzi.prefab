@@ -100,15 +100,20 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
   MeshHover:
   - Mesh: {fileID: 1649914117368506792}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   - Mesh: {fileID: 1649046255364152514}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   - Mesh: {fileID: 1648889782590645214}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   - Mesh: {fileID: 1649115723879146074}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   - Mesh: {fileID: 1649258667344907216}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   Colliders:
   - {fileID: 1908656564579744375}
   - {fileID: 1908656564180648163}
@@ -256,7 +261,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908656564180648158}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f07f48caf8998324692573c21e8c12fa, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -373,7 +378,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908656564579744370}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f07f48caf8998324692573c21e8c12fa, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -417,7 +422,7 @@ GameObject:
   - component: {fileID: 8133105873997609676}
   - component: {fileID: 1816888053751213927}
   m_Layer: 10
-  m_Name: Collider (1)
+  m_Name: Collider
   m_TagString: Vr_Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -490,7 +495,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5232127542081663010}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f07f48caf8998324692573c21e8c12fa, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

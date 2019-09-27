@@ -6,7 +6,7 @@ PhysicMaterial:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pvr_bullet_shell
+  m_Name: pvr_pm_bullet_shell
   dynamicFriction: 0.1
   staticFriction: 0.14
   bounciness: 0.5

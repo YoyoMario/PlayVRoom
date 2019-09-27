@@ -129,11 +129,14 @@ MonoBehaviour:
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
   MeshHover:
   - Mesh: {fileID: 6406326954418786694}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   - Mesh: {fileID: 6404452567402624474}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   - Mesh: {fileID: 6406233881008790096}
-    Materials: []
+    DefaultMaterials: []
+    OutlineMaterials: []
   Colliders:
   - {fileID: 6391799097557553166}
   - {fileID: 6391799096899676826}
@@ -251,7 +254,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6391799096899676839}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f07f48caf8998324692573c21e8c12fa, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -398,7 +401,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6391799097557553163}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f07f48caf8998324692573c21e8c12fa, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
