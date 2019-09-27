@@ -127,7 +127,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
-  Mesh: {fileID: 6406326954418786694}
+  MeshHover:
+  - Mesh: {fileID: 6406326954418786694}
+    Materials: []
+  - Mesh: {fileID: 6404452567402624474}
+    Materials: []
+  - Mesh: {fileID: 6406233881008790096}
+    Materials: []
   Colliders:
   - {fileID: 6391799097557553166}
   - {fileID: 6391799096899676826}
@@ -155,6 +161,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3804c83285b4721498ead80b1088a86f, type: 3}
   - {fileID: 8300000, guid: 0ec7f508d6e5f264aac345eef06d8d93, type: 3}
   - {fileID: 8300000, guid: 35c6a04c252c55545ad95c81ddc4ce3b, type: 3}
+  _minMaxPitch: {x: 0, y: 0}
+  _minMaxVolume: {x: 0, y: 0}
   _triggerState: 0
 --- !u!1 &6391799096899676839
 GameObject:
@@ -262,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
-  Mesh: {fileID: 0}
+  MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
@@ -409,7 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
-  Mesh: {fileID: 0}
+  MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
@@ -516,6 +524,18 @@ MeshRenderer:
 --- !u!4 &6393544461019340306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4034906914383706, guid: 8a5973e326885694c8eb4a575b705591,
+    type: 3}
+  m_PrefabInstance: {fileID: 6391799097328417096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6404452567402624474 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23948206865058962, guid: 8a5973e326885694c8eb4a575b705591,
+    type: 3}
+  m_PrefabInstance: {fileID: 6391799097328417096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6406233881008790096 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23565472049259288, guid: 8a5973e326885694c8eb4a575b705591,
     type: 3}
   m_PrefabInstance: {fileID: 6391799097328417096}
   m_PrefabAsset: {fileID: 0}

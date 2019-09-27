@@ -149,7 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
-  Mesh: {fileID: 4954527327213404536}
+  MeshHover:
+  - Mesh: {fileID: 4954527327213404536}
+    DefaultMaterials: []
+    OutlineMaterials: []
   Colliders:
   - {fileID: 7671246253812258138}
   HandPosition: {fileID: 0}

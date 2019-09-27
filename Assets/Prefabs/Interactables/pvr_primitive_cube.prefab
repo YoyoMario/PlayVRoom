@@ -110,14 +110,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
-  Mesh: {fileID: 5852194496614645929}
+  MeshHover:
+  - Mesh: {fileID: 5852194496614645929}
+    DefaultMaterials: []
+    OutlineMaterials: []
   Colliders:
   - {fileID: 4003659512731121417}
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
+  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
   SeenByCamera: 0
 --- !u!65 &4003659512731121417
 BoxCollider:
