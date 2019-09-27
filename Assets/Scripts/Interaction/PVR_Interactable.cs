@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
@@ -10,10 +11,48 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
     public class PVR_Interactable : MonoBehaviour
     {
+        [Serializable]
+        public class MeshHoverClass
+        {
+            public MeshRenderer Mesh;
+            public Material[] DefaultMaterials;
+            public Material[] OutlineMaterials;
+
+            public void UpdateArrays(Material outlineMaterial)
+            {
+                if (!Mesh)
+                {
+                    Debug.LogError("Mesh not assigned!");
+                    return;
+                }
+
+                //Default materials
+                DefaultMaterials = Mesh.materials;
+
+                //Outline materials
+                OutlineMaterials = new Material[DefaultMaterials.Length + 1];
+                for(int i = 0; i < Mesh.materials.Length; i++)
+                {
+                    OutlineMaterials[i] = Mesh.materials[i];
+                }
+                OutlineMaterials[OutlineMaterials.Length - 1] = outlineMaterial;
+            }
+
+            public void AddOutline()
+            {
+                Mesh.materials = OutlineMaterials;
+            }
+
+            public void RemoveOutline()
+            {
+                Mesh.materials = DefaultMaterials;
+            }
+        }
+
         [Header("References from project")]
         public Material OutlineMaterial;
         [Header("References from object it self")]
-        public MeshRenderer Mesh;
+        public MeshHoverClass[] MeshHover;
         public Collider[] Colliders;
         //[Header("Physics grab settings")]
         //[SerializeField] private float _parentTresholdVelocity = 1;
@@ -37,7 +76,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private Quaternion _objectRotationDifference;
         private Vector3 _objectPositionDifference;
-        private Material _outlineMaterialAdded;
         private Coroutine _forceTowardsPlayer_Coroutine;
         private PhysicMaterial[] _originalPhysicsMaterials;
 
@@ -127,6 +165,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             _rigidbody = GetComponent<Rigidbody>();
             ControllerPhysics = Resources.Load("ControllerPhysics") as ControllerPhysics;
+
+            //Initialize outlines
+            for(int i = 0; i < MeshHover.Length; i++)
+            {
+                MeshHover[i].UpdateArrays(OutlineMaterial);
+            }
         }
 
         public virtual void Start()
@@ -204,33 +248,24 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         public virtual void OnHoverStart()
         {
-            if (_outlineMaterialAdded != null) return;
-
             //Adding outline material
-            List<Material> materials = new List<Material>();
-            foreach (Material mat in Mesh.materials)
+            for (int i = 0; i < MeshHover.Length; i++)
             {
-                materials.Add(mat);
+
+                MeshHover[i].AddOutline();
             }
-            materials.Add(OutlineMaterial);
-            Mesh.materials = materials.ToArray();
-            _outlineMaterialAdded = Mesh.materials[Mesh.materials.Length-1];
         }
 
         public virtual void OnHoverEnd()
         {
             //Removing outline material
-            List<Material> materials = new List<Material>();
-            foreach (Material mat in Mesh.materials)
+            for (int i = 0; i < MeshHover.Length; i++)
             {
-                materials.Add(mat);
+
+                MeshHover[i].RemoveOutline();
             }
-            materials.Remove(_outlineMaterialAdded);
-            Mesh.materials = materials.ToArray();
-            _outlineMaterialAdded = null;
         }
-
-
+        
         public virtual void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool matchRotationAndPosition = false)
         {
             OnHoverEnd();
