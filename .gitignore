@@ -24,6 +24,10 @@ ExportedObj/
 *.pdb
 *.opendb
 Assets/Universal Sound FX/
+Assets/Grenade Sound FX/
+Assets/Grenade Sound FX.meta
+Assets/FuturisticGunSoundFX/
+Assets/FuturisticGunSoundFX.meta
 
 # Unity3D generated meta files
 *.pidb.meta
