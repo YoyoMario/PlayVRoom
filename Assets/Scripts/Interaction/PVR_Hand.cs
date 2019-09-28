@@ -4,6 +4,7 @@ using UnityEngine;
 using Valve.VR;
 
 using MarioHaberle.PlayVRoom.VR.Visualization;
+using System;
 
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
@@ -45,6 +46,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("Info")]
         [SerializeField] private PVR_Interactable _currentInteractableObject;
         [SerializeField] private List<PVR_Interactable> _touching;
+        [SerializeField] private PVR_Interactable[] _previousFrame_touching;
         [SerializeField] private Transform _raycastedObject;
         [SerializeField] private GameObject _forceEffectHelper;
         [SerializeField] private Vector3 _forceEffectHelperOffset;
@@ -230,6 +232,27 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             {
                 _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, _inputSource);
             }
+
+            //Unpaint the outline
+            foreach (PVR_Interactable pVR_Interactable in _previousFrame_touching)
+            {
+                pVR_Interactable.OnHoverEnd();
+            }            
+        }
+
+        private void LateUpdate()
+        {
+            //Paint the outline here so we don't fight with other hand. Paint in late update!
+            if (!_currentInteractableObject)
+            {
+                if (_touching.Count != 0)
+                {
+                    _touching[_touching.Count - 1].OnHoverStart();
+                }
+            }
+            _previousFrame_touching = new PVR_Interactable[_touching.Count];
+            Array.Copy(_touching.ToArray(), _previousFrame_touching, _previousFrame_touching.Length);
+            _previousFrame_touching = _touching.ToArray();
         }
 
         private void FixedUpdate()
@@ -363,7 +386,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _raycastAssist = null;
         }
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(_vrInteractableTag))
             {
@@ -376,11 +399,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 if (!_touching.Contains(pvrInteractable))
                 {
                     _touching.Add(pvrInteractable);
-                    pvrInteractable.OnHoverStart();
-                    if(_touching.Count > 1)
-                    {
-                        _touching[_touching.Count - 1].OnHoverEnd();
-                    }
                 }
             }
         }
@@ -398,7 +416,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 if (_touching.Contains(pvrInteractable))
                 {
                     _touching.Remove(pvrInteractable);
-                    pvrInteractable.OnHoverEnd();
                 }
             }
         }
