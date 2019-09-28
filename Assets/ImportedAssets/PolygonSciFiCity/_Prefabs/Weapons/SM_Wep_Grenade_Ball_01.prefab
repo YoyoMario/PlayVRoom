@@ -161,10 +161,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8524588a69a4f3e40bb597b6221138f1, type: 3}
   _minMaxPitchExplosionSound: {x: 0.7, y: 1.2}
   _minMaxVolumeExplosionSound: {x: 2.5, y: 3.5}
-  _hitSpeedSoundTreshold: 1
+  _hitSpeedSoundTreshold: 0.9
   _audioClipHitSound:
   - {fileID: 8300000, guid: 64baa1f44691afc42a584e482cd9a27d, type: 3}
   - {fileID: 8300000, guid: fa16bd6cbe8bcba40ad0f5c9644c9607, type: 3}
   - {fileID: 8300000, guid: ea59d39fa74faef4691d27695d8fd0bb, type: 3}
   - {fileID: 8300000, guid: 29536eb6a0b57b04596917e9e6193bcb, type: 3}
   - {fileID: 8300000, guid: 82ef6eaed5d940240a305b0266087f97, type: 3}
+  _hapticAction:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0
+  _secondsFromNow: 0
+  _duration: 0.075
+  _frequency: 50
+  _amplitude: 25

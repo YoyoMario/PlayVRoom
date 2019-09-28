@@ -143,6 +143,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 94a77dcb20285504c84338e2b1cec6fc, type: 3}
   _minMaxPitch: {x: 1, y: 1.5}
   _minMaxVolume: {x: 0.4, y: 0.7}
+  _hapticAction:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0
+  _secondsFromNow: 0
+  _duration: 0.01
+  _frequency: 50
+  _amplitude: 50
   _triggerState: 0
 --- !u!1 &1908656564039318058
 GameObject:

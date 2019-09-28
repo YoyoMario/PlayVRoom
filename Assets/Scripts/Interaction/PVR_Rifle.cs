@@ -34,6 +34,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private AudioClip[] _audioClipShot;
         [SerializeField] private Vector2 _minMaxPitch;
         [SerializeField] private Vector2 _minMaxVolume;
+        [Header("Haptic pistol feedback")]
+        [SerializeField] private SteamVR_Action_Vibration _hapticAction;
+        [SerializeField] private float _secondsFromNow = 0;
+        [SerializeField] private float _duration = 0.02f;
+        [SerializeField] private float _frequency = 50;
+        [SerializeField] private float _amplitude = 90;
         [Header("Info")]
         [SerializeField] private bool _triggerState;
 
@@ -207,6 +213,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 float volume = (_minMaxVolume.x != _minMaxVolume.y) ? Random.Range((float)_minMaxVolume.x, (float)_minMaxVolume.y) : 1;
                 AudioClip audioClip = _audioClipShot[Random.Range((int)0, (int)_audioClipShot.Length - 1)];
                 AudioManager.PlayAudio3D(audioClip, Position, pitch, volume);
+            }
+
+            //Haptic feedback
+            _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
+            if (_secondHand.Picked)
+            {
+                //Haptic feeedback
+                _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, _secondHand.Hand.InputSource);
             }
         }
     }
