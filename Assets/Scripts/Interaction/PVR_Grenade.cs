@@ -22,8 +22,34 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private AudioClip[] _audioClipExplosion;
         [SerializeField] private Vector2 _minMaxPitchExplosionSound = new Vector2(0.7f, 1.2f);
         [SerializeField] private Vector2 _minMaxVolumeExplosionSound = new Vector2(0.7f, 1.2f);
+        [Header("Collision Sounds")]
+        [SerializeField] private float _hitSpeedSoundTreshold = 1;
+        [SerializeField] private AudioClip[] _audioClipHitSound;
 
         private Coroutine _c_explosion;
+        private Coroutine _c_audioCooldown;
+
+        private const float _coolDownAudioTime = 0.25f;
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (!AudioManager || _audioClipHitSound.Length == 0)
+            {
+                return;
+            }
+
+            if(_c_audioCooldown != null)
+            {
+                return;
+            }
+
+            if (Rigidbody.velocity.magnitude > _hitSpeedSoundTreshold)
+            {
+                AudioClip audioClip = _audioClipHitSound[Random.Range((int)0, (int)_audioClipHitSound.Length - 1)];
+                AudioManager.PlayAudio3D(audioClip, transform.position);
+                _c_audioCooldown = StartCoroutine(AudioCooldown());
+            }
+        }
 
         public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool matchRotationAndPosition = false)
         {
@@ -74,6 +100,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             yield return null;
             Destroy(gameObject);
+        }
+
+        IEnumerator AudioCooldown()
+        {
+            yield return new WaitForSeconds(_coolDownAudioTime);
+            _c_audioCooldown = null;
         }
     }
 }
