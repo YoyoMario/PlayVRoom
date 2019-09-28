@@ -26,6 +26,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     return;
                 }
 
+                //No need to initialize twice. Once is enough and it's optimized,
+                //in a way only first time will allow initialization
+                if(DefaultMaterials.Length != 0 && OutlineMaterials.Length != 0)
+                {
+                    return;
+                }
+
                 //Default materials
                 DefaultMaterials = Mesh.materials;
 
@@ -165,12 +172,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             _rigidbody = GetComponent<Rigidbody>();
             ControllerPhysics = Resources.Load("ControllerPhysics") as ControllerPhysics;
-
-            //Initialize outlines
-            for(int i = 0; i < MeshHover.Length; i++)
-            {
-                MeshHover[i].UpdateArrays(OutlineMaterial);
-            }
         }
 
         public virtual void Start()
@@ -248,10 +249,15 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         public virtual void OnHoverStart()
         {
+            //Initialize outlines
+            for (int i = 0; i < MeshHover.Length; i++)
+            {
+                MeshHover[i].UpdateArrays(OutlineMaterial);
+            }
+
             //Adding outline material
             for (int i = 0; i < MeshHover.Length; i++)
             {
-
                 MeshHover[i].AddOutline();
             }
         }
