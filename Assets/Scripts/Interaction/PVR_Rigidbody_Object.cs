@@ -54,12 +54,5 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 }
             }
         }
-
-        public override void OnDrop()
-        {
-            base.OnDrop();
-
-            //Rigidbody.velocity = controllerVelocity;
-        }
     } 
 }
