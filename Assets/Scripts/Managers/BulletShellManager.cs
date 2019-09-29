@@ -8,11 +8,23 @@ namespace MarioHaberle.PlayVRoom.Managers
 {
     public class BulletShellManager : MonoBehaviour
     {
+        public static BulletShellManager Instance;
+
         [SerializeField] private int _maxBulletCount = 10;
         [SerializeField] private List<GameObject> _bullets;
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+                //DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             _bullets = new List<GameObject>();
         }
 

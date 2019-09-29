@@ -40,6 +40,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private float _duration = 0;
         [SerializeField] private float _frequency = 150;
         [SerializeField] private float _amplitude = 75;
+        [Header("Bullet spawn settings")]
+        [SerializeField] private BulletSpawnManager.BulletType _bulletType;
+        [SerializeField] private Transform _bulletSpawnPoint;
         [Header("Info")]
         [SerializeField] private bool _triggerState;
 
@@ -53,6 +56,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private float _cooldownValue = 1;
         private float _cooldown;
 
+        private BulletSpawnManager _bulletSpawnManager;
+
         public override void Start()
         {
             base.Start();
@@ -60,6 +65,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _initialShellEjectRotation = _shellEjectPosition.localRotation;
             _initialSliderPosition = _pistolSlider.localPosition;
             _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
+
+            _bulletSpawnManager = BulletSpawnManager.Instance;
         }
 
         private void Update()
@@ -167,8 +174,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _cooldown = _cooldownValue;
 
             _shellEjectPosition.localRotation = _initialShellEjectRotation * Quaternion.Euler(Vector3.up * Random.Range(-_shellRandomRotationAmount, _shellRandomRotationAmount));
-
-            GameObject tmpShell = Instantiate(_prefabShell, _shellEjectPosition.position, _shellEjectPosition.rotation);
+           
+            //Prebaciti ovo u manager da hendla.           
+            GameObject tmpShell = Instantiate(_prefabShell, _shellEjectPosition.position, _shellEjectPosition.rotation, BulletShellManager.Instance.transform);
             Rigidbody tmpRbShell = tmpShell.GetComponent<Rigidbody>();
             tmpRbShell.velocity = Rigidbody.velocity;
             tmpRbShell.AddForce(_shellEjectPosition.right * _shellForce);
@@ -176,6 +184,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             //Audio
             if(_audioClipShot.Length > 0)
             {
+                //ovo isto da audio manager hendla
+                //ti mu samo prosljedis min max, on neka se bavi time
                 float pitch = (_minMaxPitch.x != _minMaxPitch.y) ? Random.Range((float)_minMaxPitch.x, (float)_minMaxPitch.y) : 1;
                 float volume = (_minMaxVolume.x != _minMaxVolume.y) ? Random.Range((float)_minMaxVolume.x, (float)_minMaxVolume.y) : 1;
                 AudioClip audioClip = _audioClipShot[Random.Range((int)0, (int)_audioClipShot.Length - 1)];
@@ -184,6 +194,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Haptic feeedback
             _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
+
+            //Create bullet
+            _bulletSpawnManager.CreateBullet(
+                _bulletSpawnPoint.position,
+                _bulletSpawnPoint.rotation,
+                _bulletType
+                );
         }
 
     } 
