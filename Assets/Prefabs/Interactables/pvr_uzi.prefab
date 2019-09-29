@@ -121,11 +121,9 @@ MonoBehaviour:
   HandPosition: {fileID: 1908656564039318057}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   _triggerPress:
     actionPath: /actions/default/in/Trigger
     needsReinit: 0
@@ -144,9 +142,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 94a77dcb20285504c84338e2b1cec6fc, type: 3}
   _minMaxPitch: {x: 1, y: 1.5}
   _minMaxVolume: {x: 0.4, y: 0.7}
-  _hapticAction:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
   _secondsFromNow: 0
   _duration: 0.01
   _frequency: 50
@@ -296,11 +291,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 1908656563822785780}
 --- !u!1 &1908656564579744370
 GameObject:
@@ -413,11 +406,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 1908656563822785780}
 --- !u!1 &2572638920257243725
 GameObject:
@@ -443,7 +434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2572638920257243725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.0831, z: 0.2346}
+  m_LocalPosition: {x: 0.0014, y: 0.1206, z: 0.2346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1908656563822785781}
@@ -560,11 +551,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 1908656563822785780}
 --- !u!1 &7228189284629468025
 GameObject:

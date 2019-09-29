@@ -89,7 +89,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4445261787375901624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0051, y: 0.0965, z: 0.3733}
+  m_LocalPosition: {x: -0.0048, y: 0.1513, z: 0.3733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5577642815295176082}
@@ -206,11 +206,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 5577642815295176109}
 --- !u!1 &5577642814922774410
 GameObject:
@@ -338,11 +336,9 @@ MonoBehaviour:
   HandPosition: {fileID: 5577642815543037164}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   _secondHand: {fileID: 5577642815295176109}
   _triggerPress:
     actionPath: /actions/default/in/Trigger
@@ -361,9 +357,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: de71b0928a72e1e46ba8530722423887, type: 3}
   _minMaxPitch: {x: 2, y: 2.5}
   _minMaxVolume: {x: 0.9, y: 1.24}
-  _hapticAction:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
   _secondsFromNow: 0
   _duration: 0.02
   _frequency: 75
@@ -394,11 +387,9 @@ MonoBehaviour:
   HandPosition: {fileID: 5577642814922774405}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
 --- !u!1 &5577642815507968435
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,11 +563,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 5577642815295176080}
 --- !u!1001 &2030504470024105662
 PrefabInstance:
