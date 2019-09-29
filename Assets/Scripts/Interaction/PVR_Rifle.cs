@@ -35,7 +35,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private Vector2 _minMaxPitch;
         [SerializeField] private Vector2 _minMaxVolume;
         [Header("Haptic pistol feedback")]
-        [SerializeField] private SteamVR_Action_Vibration _hapticAction;
         [SerializeField] private float _secondsFromNow = 0;
         [SerializeField] private float _duration = 0.02f;
         [SerializeField] private float _frequency = 50;
@@ -236,11 +235,23 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 );
 
             //Haptic feedback
-            _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
+            HapticFeedbackManager.HapticeFeedback(
+                _secondsFromNow,
+                _duration,
+                _frequency,
+                _amplitude,
+                Hand.InputSource
+                );
             if (_secondHand.Picked)
             {
                 //Haptic feeedback on second hand
-                _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, _secondHand.Hand.InputSource);
+                HapticFeedbackManager.HapticeFeedback(
+                    _secondsFromNow,
+                    _duration,
+                    _frequency,
+                    _amplitude,
+                    _secondHand.Hand.InputSource
+                    );
             }
         }
     }

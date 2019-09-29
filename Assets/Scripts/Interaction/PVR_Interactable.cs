@@ -69,11 +69,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("-----------------------")]
         public ControllerPhysics ControllerPhysics;
         public bool Picked;
-        public AudioManager AudioManager;
         [SerializeField] private Rigidbody _rigidbody;
         public PVR_Hand Hand;
         public Hand SteamHand;
-        public bool SeenByCamera;
 
         public delegate void PVR_Interactable_Action();
         public event PVR_Interactable_Action OnPickAction;
@@ -95,6 +93,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         //Average angular velocity storage
         private List<Vector3> _sampledAngularVelocities;
         private Vector3 _averageAngularVelocity;
+
+        private AudioManager _audioManager;
+        private HapticFeedbackManager _hapticFeedbackManger;
 
         #endregion
 
@@ -165,6 +166,20 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 return _rigidbody;
             }
         } 
+        public AudioManager AudioManager
+        {
+            get
+            {
+                return _audioManager;
+            }
+        }
+        public HapticFeedbackManager HapticFeedbackManager
+        {
+            get
+            {
+                return _hapticFeedbackManger;
+            }
+        }
 
         #endregion
 
@@ -176,7 +191,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         public virtual void Start()
         {
-            AudioManager = AudioManager.Instance;
+            _audioManager = AudioManager.Instance;
+            _hapticFeedbackManger = HapticFeedbackManager.Instance;
         }
 
         public virtual void FixedUpdate()

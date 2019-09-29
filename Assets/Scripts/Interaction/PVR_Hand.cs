@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-
-using MarioHaberle.PlayVRoom.VR.Visualization;
 using System;
+
+using MarioHaberle.PlayVRoom.Managers;
+using MarioHaberle.PlayVRoom.VR.Visualization;
 
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
@@ -37,7 +38,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private string _layerNameHandCollider; //we want hands colliders to be interactable only and ONLY with interactable objects, that way we can put our hands under the table and hit objects from the bottom
 
         [Header("Haptic feedback settings")]
-        [SerializeField] private SteamVR_Action_Vibration _hapticAction;
         [SerializeField] private float _secondsFromNow = 0;
         [SerializeField] private float _duration = 0;
         [SerializeField] private float _frequency = 150;
@@ -54,8 +54,8 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         #region Private
 
-        private Rigidbody _rigidbody;
-        
+        HapticFeedbackManager _hapticFeedbackManager;
+        Rigidbody _rigidbody;        
         SphereCollider _objectDetectionTrigger;
 
         Ray ray;
@@ -200,6 +200,11 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             DisableHandColliders();
         }
 
+        private void Start()
+        {
+            _hapticFeedbackManager = HapticFeedbackManager.Instance;
+        }
+
         public void OnEnable()
         {
             //Pick/drop object.
@@ -230,7 +235,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             //Haptic feedback
             if (!_currentInteractableObject && _touching.Count != 0 /*&& IsHandAsCollider() == false*/)
             {
-                _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, _inputSource);
+                _hapticFeedbackManager.HapticeFeedback(
+                    _secondsFromNow,
+                    _duration,
+                    _frequency,
+                    _amplitude,
+                    _inputSource
+                    );
             }
 
             //Unpaint the outline

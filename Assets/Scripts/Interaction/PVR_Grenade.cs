@@ -26,7 +26,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private float _hitSpeedSoundTreshold = 1;
         [SerializeField] private AudioClip[] _audioClipHitSound;
         [Header("Pinpull feedback")]
-        [SerializeField] private SteamVR_Action_Vibration _hapticAction;
         [SerializeField] private float _secondsFromNow = 0;
         [SerializeField] private float _duration = 0.01f;
         [SerializeField] private float _frequency = 50;
@@ -91,7 +90,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             AudioManager.PlayAudio3D(_pinPulloutSounds, transform.position, _minMaxPitchPinSound, _minMaxVolumePinSound);
 
             //Haptic feedback
-            _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
+            HapticFeedbackManager.HapticeFeedback(
+                _secondsFromNow,
+                _duration,
+                _frequency,
+                _amplitude,
+                Hand.InputSource
+                );
         }
 
         /// <summary>
