@@ -185,20 +185,14 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 Rigidbody.velocity,
                 _shellEjectPosition.right * _shellForce
                 );
-            
-            //Audio
-            if(_audioClipShot.Length > 0)
-            {
-                //ovo isto da audio manager hendla
-                //ti mu samo prosljedis min max, on neka se bavi time
-                float pitch = (_minMaxPitch.x != _minMaxPitch.y) ? Random.Range((float)_minMaxPitch.x, (float)_minMaxPitch.y) : 1;
-                float volume = (_minMaxVolume.x != _minMaxVolume.y) ? Random.Range((float)_minMaxVolume.x, (float)_minMaxVolume.y) : 1;
-                AudioClip audioClip = _audioClipShot[Random.Range((int)0, (int)_audioClipShot.Length - 1)];
-                AudioManager.PlayAudio3D(audioClip, Position, pitch, volume);
-            }
 
-            //Haptic feeedback
-            _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
+            //Audio
+            AudioManager.PlayAudio3D(
+                _audioClipShot,
+                Position,
+                _minMaxPitch,
+                _minMaxVolume
+                );
 
             //Create bullet
             _bulletSpawnManager.CreateBullet(
@@ -206,6 +200,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 _bulletSpawnPoint.position,
                 _bulletSpawnPoint.rotation
                 );
+
+            //Haptic feeedback
+            _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
         }
     } 
 }

@@ -84,11 +84,40 @@ namespace MarioHaberle.PlayVRoom.Managers
         /// <param name="audioClip"></param>
         /// <param name="worldPosition"></param>
         /// <returns></returns>
-        public AudioSource PlayAudio3D(AudioClip audioClip, Vector3 worldPosition, float pitch = 1, float volume = 1f, float delay = 0f)
+        public AudioSource PlayAudio3D(AudioClip[] audioClipArray, Vector3 worldPosition, float pitch = 1, float volume = 1f, float delay = 0f)
         {
             if (_consoleWrite)
             {
-                Debug.Log("AudioManager :: PlayAudio2D()");
+                Debug.Log("AudioManager :: PlayAudio3D()");
+            }
+
+            AudioClip audioClip = audioClipArray[Random.Range((int)0, (int)audioClipArray.Length - 1)];
+
+            GameObject tmpGo = new GameObject("_audio");
+            Transform tmpT = tmpGo.transform;
+            tmpT.SetParent(transform);
+            tmpT.position = worldPosition;
+
+            AudioSource audioSource = tmpGo.AddComponent<AudioSource>();
+            audioSource.clip = audioClip;
+            audioSource.spatialBlend = 1f;
+            audioSource.volume = volume;
+            audioSource.pitch = pitch;
+
+            audioSource.PlayDelayed(delay);
+
+            return audioSource;
+        }
+
+        public AudioSource PlayAudio3D(AudioClip[] audioClipArray,Vector3 worldPosition, Vector2 minMaxPitch, Vector2 minMaxVolume, float delay = 0f)
+        {
+            AudioClip audioClip = audioClipArray[Random.Range((int)0, (int)audioClipArray.Length - 1)];
+            float pitch = (minMaxPitch.x != minMaxPitch.y) ? Random.Range((float)minMaxPitch.x, (float)minMaxPitch.y) : 1;
+            float volume = (minMaxVolume.x != minMaxVolume.y) ? Random.Range((float)minMaxVolume.x, (float)minMaxVolume.y) : 1;
+
+            if (_consoleWrite)
+            {
+                Debug.Log("AudioManager :: PlayAudio3D()");
             }
 
             GameObject tmpGo = new GameObject("_audio");

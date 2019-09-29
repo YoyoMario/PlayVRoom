@@ -55,8 +55,7 @@ namespace MarioHaberle.PlayVRoom.Misc
 
             if(_pvrRigidbody.Rigidbody.velocity.magnitude > _hitSpeedSoundTreshold)
             {
-                AudioClip audioClip = _audioClipHitSound[Random.Range(0, _audioClipHitSound.Length - 1)];
-                _audioManager.PlayAudio3D(audioClip, transform.position);
+                _audioManager.PlayAudio3D(_audioClipHitSound, transform.position);
             }   
         }
 

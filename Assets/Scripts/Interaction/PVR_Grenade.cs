@@ -51,8 +51,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             if (Rigidbody.velocity.magnitude > _hitSpeedSoundTreshold)
             {
-                AudioClip audioClip = _audioClipHitSound[Random.Range((int)0, (int)_audioClipHitSound.Length - 1)];
-                AudioManager.PlayAudio3D(audioClip, transform.position);
+                AudioManager.PlayAudio3D(_audioClipHitSound, transform.position);
                 _c_audioCooldown = StartCoroutine(AudioCooldown());
             }
         }
@@ -88,29 +87,33 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             _pinPulled = true;
 
-            //Make sound
-            AudioClip audioClip = _pinPulloutSounds[Random.Range((int)0, (int)_pinPulloutSounds.Length - 1)];
-            float pitch = Random.Range(_minMaxPitchPinSound.x, _minMaxPitchPinSound.y);
-            float volume = Random.Range(_minMaxVolumePinSound.x, _minMaxVolumePinSound.y);
-            AudioManager.PlayAudio3D(audioClip, transform.position, pitch, volume);
+            //Make pin pullout sound
+            AudioManager.PlayAudio3D(_pinPulloutSounds, transform.position, _minMaxPitchPinSound, _minMaxVolumePinSound);
 
             //Haptic feedback
             _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
         }
 
+        /// <summary>
+        /// Explosion delay logic.
+        /// Todo:explosion effects
+        /// </summary>
+        /// <returns></returns>
         IEnumerator C_Explosion()
         {
             yield return new WaitForSeconds(_countdownTime);
 
-            AudioClip audioClip = _audioClipExplosion[Random.Range((int)0, (int)_audioClipExplosion.Length - 1)];
-            float pitch = Random.Range(_minMaxPitchExplosionSound.x, _minMaxPitchExplosionSound.y);
-            float volume = Random.Range(_minMaxVolumeExplosionSound.x, _minMaxVolumeExplosionSound.y);
-            AudioManager.PlayAudio3D(audioClip, transform.position, pitch, volume);
+            //Make explosion sound
+            AudioManager.PlayAudio3D(_audioClipExplosion, transform.position, _minMaxPitchExplosionSound, _minMaxVolumeExplosionSound);
 
             yield return null;
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Used to ignore if audio collision happens to often, results in weird sound mixing.
+        /// </summary>
+        /// <returns></returns>
         IEnumerator AudioCooldown()
         {
             yield return new WaitForSeconds(_coolDownAudioTime);

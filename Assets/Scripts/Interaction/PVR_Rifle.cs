@@ -221,13 +221,19 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 );
 
             //Audio
-            if (_audioClipShot.Length > 0)
-            {
-                float pitch = (_minMaxPitch.x != _minMaxPitch.y) ? Random.Range((float)_minMaxPitch.x, (float)_minMaxPitch.y) : 1;
-                float volume = (_minMaxVolume.x != _minMaxVolume.y) ? Random.Range((float)_minMaxVolume.x, (float)_minMaxVolume.y) : 1;
-                AudioClip audioClip = _audioClipShot[Random.Range((int)0, (int)_audioClipShot.Length - 1)];
-                AudioManager.PlayAudio3D(audioClip, Position, pitch, volume);
-            }
+            AudioManager.PlayAudio3D(
+                _audioClipShot,
+                Position,
+                _minMaxPitch,
+                _minMaxVolume
+                );
+
+            //Create bullet
+            _bulletSpawnManager.CreateBullet(
+                _prefabBullet,
+                _bulletSpawnPoint.position,
+                _bulletSpawnPoint.rotation
+                );
 
             //Haptic feedback
             _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
@@ -236,13 +242,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //Haptic feeedback on second hand
                 _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, _secondHand.Hand.InputSource);
             }
-
-            //Create bullet
-            _bulletSpawnManager.CreateBullet(
-                _prefabBullet,
-                _bulletSpawnPoint.position,
-                _bulletSpawnPoint.rotation
-                );
         }
     }
 }

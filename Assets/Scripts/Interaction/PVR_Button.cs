@@ -92,8 +92,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //Play audio
                 if(_audioClipPressSounds.Length > 0)
                 {
-                    AudioClip audioClip = _audioClipPressSounds[UnityEngine.Random.Range(0, _audioClipPressSounds.Length - 1)];
-                    _audioManager.PlayAudio3D(audioClip, Position);
+                    _audioManager.PlayAudio3D(_audioClipPressSounds, Position);
                 }                
 
                 if (OnButtonPress != null)
@@ -109,8 +108,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //Play audio
                 if(_audioClipReleaseSounds.Length > 0)
                 {
-                    AudioClip audioClip = _audioClipReleaseSounds[UnityEngine.Random.Range(0, _audioClipReleaseSounds.Length - 1)];
-                    _audioManager.PlayAudio3D(audioClip, Position);
+                    _audioManager.PlayAudio3D(_audioClipReleaseSounds, Position);
                 }
 
                 if (OnButtonRelease != null)
