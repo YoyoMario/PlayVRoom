@@ -40,6 +40,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private float _duration = 0.02f;
         [SerializeField] private float _frequency = 50;
         [SerializeField] private float _amplitude = 90;
+        [Header("Bullet spawn settings")]
+        [SerializeField] private GameObject _prefabBullet;
+        [SerializeField] private Transform _bulletSpawnPoint;
         [Header("Info")]
         [SerializeField] private bool _triggerState;
 
@@ -53,6 +56,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         private float _cooldownValue = 1;
         private float _cooldown;
 
+        private BulletShellManager _bulletShellManager;
+        private BulletSpawnManager _bulletSpawnManager;
+
         public override void Start()
         {
             base.Start();
@@ -60,6 +66,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _initialShellEjectRotation = _shellEjectPosition.localRotation;
             _initialSliderPosition = _pistolSlider.localPosition;
             _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
+
+            _bulletShellManager = BulletShellManager.Instance;
+            _bulletSpawnManager = BulletSpawnManager.Instance;
         }
 
         private void Update()
@@ -199,12 +208,17 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _pistolSlider.localPosition = _endSliderPosition;
             _cooldown = _cooldownValue;
 
+            //Randomize shell eject rotation
             _shellEjectPosition.localRotation = _initialShellEjectRotation * Quaternion.Euler(Vector3.up * Random.Range(-_shellRandomRotationAmount, _shellRandomRotationAmount));
 
-            GameObject tmpShell = Instantiate(_prefabShell, _shellEjectPosition.position, _shellEjectPosition.rotation);
-            Rigidbody tmpRbShell = tmpShell.GetComponent<Rigidbody>();
-            tmpRbShell.velocity = Rigidbody.velocity;
-            tmpRbShell.AddForce(_shellEjectPosition.right * _shellForce);
+            //Creating bullet shells
+            _bulletShellManager.CreateBulletShell(
+                _prefabShell,
+                _shellEjectPosition.position,
+                _shellEjectPosition.rotation,
+                Rigidbody.velocity,
+                _shellEjectPosition.right * _shellForce
+                );
 
             //Audio
             if (_audioClipShot.Length > 0)
@@ -219,9 +233,16 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
             _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, Hand.InputSource);
             if (_secondHand.Picked)
             {
-                //Haptic feeedback
+                //Haptic feeedback on second hand
                 _hapticAction.Execute(_secondsFromNow, _duration, _frequency, _amplitude, _secondHand.Hand.InputSource);
             }
+
+            //Create bullet
+            _bulletSpawnManager.CreateBullet(
+                _prefabBullet,
+                _bulletSpawnPoint.position,
+                _bulletSpawnPoint.rotation
+                );
         }
     }
 }

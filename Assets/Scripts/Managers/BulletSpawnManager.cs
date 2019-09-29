@@ -4,28 +4,11 @@ using UnityEngine;
 
 namespace MarioHaberle.PlayVRoom.Managers
 {
-    
-
     public class BulletSpawnManager : MonoBehaviour
     {
-        public enum BulletType
-        {
-            nineMM,
-            fiveFiveSix,
-            sevenSixTwo
-        }
-
-        [System.Serializable]
-        public class BulletPrefabAndType
-        {
-            public BulletType BulletType;
-            public GameObject PrefabBullet;
-        }
-
         public static BulletSpawnManager Instance;
 
         [SerializeField] private bool _consoleWrite;
-        [SerializeField] private BulletPrefabAndType[] _bulletPrefabAndType;
 
         private void Awake()
         {
@@ -40,20 +23,10 @@ namespace MarioHaberle.PlayVRoom.Managers
             }
         }
 
-        public void CreateBullet(Vector3 position, Quaternion rotation, BulletType bulletType)
+        public void CreateBullet(GameObject prefabBullet, Vector3 position, Quaternion rotation)
         {
-            int indexType = -1;
-            for(int i = 0; i < _bulletPrefabAndType.Length; i++)
-            {
-                if(_bulletPrefabAndType[i].BulletType == bulletType)
-                {
-                    indexType = i;
-                    break;
-                }
-            }
-
             GameObject bullet = Instantiate(
-                    _bulletPrefabAndType[indexType].PrefabBullet,
+                    prefabBullet,
                     position,
                     rotation,
                     transform

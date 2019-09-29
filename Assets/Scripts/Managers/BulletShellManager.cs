@@ -42,16 +42,34 @@ namespace MarioHaberle.PlayVRoom.Managers
             BulletShell.OnBulletDrop -= AddToQueue;
         }
 
+        public void CreateBulletShell(GameObject prefabShell, Vector3 position, Quaternion rotation, Vector3 initialVelocity, Vector3 shellForce)
+        {
+            if(_bullets.Count >= _maxBulletCount)
+            {
+                //Do object pulling
+                GameObject tmpBulletShell = _bullets[0];
+                _bullets.RemoveAt(0);
+                _bullets.Add(tmpBulletShell);
+
+                Rigidbody tmpRbShell = tmpBulletShell.GetComponent<Rigidbody>();
+                tmpRbShell.position = position;
+                tmpRbShell.rotation = rotation;
+                tmpRbShell.velocity = initialVelocity;
+                tmpRbShell.AddForce(shellForce);
+            }
+            else
+            {
+                //Create new bullet shell
+                GameObject tmpBulletShell = Instantiate(prefabShell, position, rotation, transform);
+                Rigidbody tmpRbShell = tmpBulletShell.GetComponent<Rigidbody>();
+                tmpRbShell.velocity = initialVelocity;
+                tmpRbShell.AddForce(shellForce);
+            }            
+        }
+
         void AddToQueue(GameObject bulletShell)
         {
             _bullets.Add(bulletShell);
-
-            if(_bullets.Count >= _maxBulletCount)
-            {
-                GameObject tmpBulet = _bullets[0];
-                _bullets.RemoveAt(0);
-                Destroy(tmpBulet);
-            }
         }
 
         void RemoveFromQueue(GameObject bulletShell)
