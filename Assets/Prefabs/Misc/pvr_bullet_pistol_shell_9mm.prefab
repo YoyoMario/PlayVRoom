@@ -115,7 +115,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4941148882523683392}
   serializedVersion: 2
-  m_Mass: 0.01
+  m_Mass: 0.145
   m_Drag: 0
   m_AngularDrag: 0.1
   m_UseGravity: 1
@@ -158,8 +158,6 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
