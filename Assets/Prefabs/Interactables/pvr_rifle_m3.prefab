@@ -205,6 +205,7 @@ MonoBehaviour:
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -335,6 +336,7 @@ MonoBehaviour:
   - {fileID: 5577642816054344800}
   HandPosition: {fileID: 5577642815543037164}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -357,10 +359,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: de71b0928a72e1e46ba8530722423887, type: 3}
   _minMaxPitch: {x: 2, y: 2.5}
   _minMaxVolume: {x: 0.9, y: 1.24}
-  _secondsFromNow: 0
-  _duration: 0.02
-  _frequency: 75
-  _amplitude: 90
+  _shootingHaptics: {fileID: 11400000, guid: 6963d5a259ed1be43b3b2d105ddafd31, type: 2}
   _prefabBullet: {fileID: 1011060325896597955, guid: 06df2c8a2e812c04b8fbddd25adee74b,
     type: 3}
   _bulletSpawnPoint: {fileID: 8458720350285801441}
@@ -386,6 +385,7 @@ MonoBehaviour:
   - {fileID: 5577642814201685401}
   HandPosition: {fileID: 5577642814922774405}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -562,6 +562,7 @@ MonoBehaviour:
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}

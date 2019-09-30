@@ -106,16 +106,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 2844205115343726135}
 --- !u!1 &2844205114707871963
 GameObject:
@@ -223,16 +222,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 2844205115343726135}
 --- !u!1 &2844205114808609374
 GameObject:
@@ -329,6 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
+  CollisionFeedback: {fileID: 11400000, guid: 9cc7029133f9197439912d56dd6ac6c5, type: 2}
   MeshHover:
   - Mesh: {fileID: 2822800201836185163}
     DefaultMaterials: []
@@ -337,11 +336,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   _maxMovement: 0.05
   _minMovement: -0.05
 --- !u!1 &2844205115398633892
@@ -853,16 +850,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 2844205115343726135}
 --- !u!1 &2844205116635805397
 GameObject:

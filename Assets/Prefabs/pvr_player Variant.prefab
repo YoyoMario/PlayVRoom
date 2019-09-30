@@ -73,80 +73,6 @@ MonoBehaviour:
   - {x: -1.65, y: 0.01, z: -1.275}
   - {x: -1.65, y: 0.01, z: 1.275}
   - {x: 1.65, y: 0.01, z: 1.275}
---- !u!135 &1588557386201334422
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669019625234622360}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.05
-  m_Center: {x: 0, y: -0.05, z: 0.03}
---- !u!114 &6001662435019689472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669019625234622360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d785b80a6d085c44ba09107f10216954, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lineRendererLength: 10
-  _lineRendererStartWidth: 0.01
-  _lineRendererEndWidth: 0.005
---- !u!114 &8615049986750217947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669019625234622360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc34a49ddbf68448b080280d95caee7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputSource: 1
-  _pickUp:
-    actionPath: /actions/default/in/PickUp
-    needsReinit: 0
-  _touchpadTouch:
-    actionPath: /actions/default/in/TouchpadTouch
-    needsReinit: 0
-  _defaultLayer: Default
-  _vrHandsLayer: Vr_Hand
-  _vrInteractableLayer: Vr_Interactable
-  _raycastDistance: 20
-  _raycastSphereRadius: 0.175
-  _raycastAssistTimer: 0.8
-  _positionVelocityMultiplier: 2200
-  _rotationVelocityMultiplier: 30
-  _positionOffset: {x: 0, y: -0.03, z: 0.01}
-  _handColliderRadius: 0.1
-  _showMesh: 0
-  _handRigidbody: {fileID: 0}
-  _handCollider: {fileID: 0}
-  _layerNameHandCollider: Vr_Hand_Collider
-  _hapticAction:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
-  _secondsFromNow: 0
-  _duration: 0.1
-  _frequency: 0.1
-  _amplitude: 0.025
-  _currentInteractableObject: {fileID: 0}
-  _touching: []
-  _raycastedObject: {fileID: 0}
-  _forceEffectHelper: {fileID: 0}
-  _forceEffectHelperOffset: {x: 0.04, y: -0.01, z: -0.045}
-  _touchpadTouching: 0
 --- !u!135 &7633490088597834717
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -208,15 +134,79 @@ MonoBehaviour:
   _handRigidbody: {fileID: 0}
   _handCollider: {fileID: 0}
   _layerNameHandCollider: Vr_Hand_Collider
-  _hapticAction:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 0
-  _secondsFromNow: 0
-  _duration: 0.1
-  _frequency: 0.1
-  _amplitude: 0.025
+  _hoverHaptics: {fileID: 11400000, guid: 6a82842759d8c8f4a97e66ecdda18065, type: 2}
   _currentInteractableObject: {fileID: 0}
   _touching: []
+  _previousFrame_touching: []
+  _raycastedObject: {fileID: 0}
+  _forceEffectHelper: {fileID: 0}
+  _forceEffectHelperOffset: {x: 0.04, y: -0.01, z: -0.045}
+  _touchpadTouching: 0
+--- !u!135 &1588557386201334422
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669019625234622360}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: -0.05, z: 0.03}
+--- !u!114 &6001662435019689472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669019625234622360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d785b80a6d085c44ba09107f10216954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lineRendererLength: 10
+  _lineRendererStartWidth: 0.01
+  _lineRendererEndWidth: 0.005
+--- !u!114 &8615049986750217947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669019625234622360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc34a49ddbf68448b080280d95caee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputSource: 1
+  _pickUp:
+    actionPath: /actions/default/in/PickUp
+    needsReinit: 0
+  _touchpadTouch:
+    actionPath: /actions/default/in/TouchpadTouch
+    needsReinit: 0
+  _defaultLayer: Default
+  _vrHandsLayer: Vr_Hand
+  _vrInteractableLayer: Vr_Interactable
+  _raycastDistance: 20
+  _raycastSphereRadius: 0.175
+  _raycastAssistTimer: 0.8
+  _positionVelocityMultiplier: 2200
+  _rotationVelocityMultiplier: 30
+  _positionOffset: {x: 0, y: -0.03, z: 0.01}
+  _handColliderRadius: 0.1
+  _showMesh: 0
+  _handRigidbody: {fileID: 0}
+  _handCollider: {fileID: 0}
+  _layerNameHandCollider: Vr_Hand_Collider
+  _hoverHaptics: {fileID: 11400000, guid: 6a82842759d8c8f4a97e66ecdda18065, type: 2}
+  _currentInteractableObject: {fileID: 0}
+  _touching: []
+  _previousFrame_touching: []
   _raycastedObject: {fileID: 0}
   _forceEffectHelper: {fileID: 0}
   _forceEffectHelperOffset: {x: 0.04, y: -0.01, z: -0.045}
@@ -230,11 +220,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Name
-      value: pvr_player Variant
+      value: pvr_player
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.57
+      value: 12.603
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -242,23 +232,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.29
+      value: 10.511
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.0000004768371
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_RootOrder
@@ -270,7 +260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: -180.00002
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

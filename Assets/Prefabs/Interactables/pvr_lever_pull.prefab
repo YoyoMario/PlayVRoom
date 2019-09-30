@@ -464,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
+  CollisionFeedback: {fileID: 11400000, guid: 9cc7029133f9197439912d56dd6ac6c5, type: 2}
   MeshHover:
   - Mesh: {fileID: 5083303778745945632}
     DefaultMaterials: []
@@ -472,11 +473,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   _minAngle: -30
   _maxAngle: 30
 --- !u!1 &5106315912536085626
@@ -665,14 +664,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 5105377849645070274}

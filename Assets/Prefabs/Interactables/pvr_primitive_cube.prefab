@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
+  CollisionFeedback: {fileID: 11400000, guid: 9cc7029133f9197439912d56dd6ac6c5, type: 2}
   MeshHover:
   - Mesh: {fileID: 5852194496614645929}
     DefaultMaterials: []

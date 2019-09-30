@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
+using MarioHaberle.PlayVRoom.ScriptableObjects;
+
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
     public class PVR_Grenade : PVR_Rigidbody_Object
@@ -26,10 +28,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private float _hitSpeedSoundTreshold = 1;
         [SerializeField] private AudioClip[] _audioClipHitSound;
         [Header("Pinpull feedback")]
-        [SerializeField] private float _secondsFromNow = 0;
-        [SerializeField] private float _duration = 0.01f;
-        [SerializeField] private float _frequency = 50;
-        [SerializeField] private float _amplitude = 25;
+        [SerializeField] private HapticFeedback _pinPullHaptics;
 
         private Coroutine _c_explosion;
         private Coroutine _c_audioCooldown;
@@ -91,10 +90,10 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Haptic feedback
             HapticFeedbackManager.HapticeFeedback(
-                _secondsFromNow,
-                _duration,
-                _frequency,
-                _amplitude,
+                _pinPullHaptics.SecondsFromNow,
+                _pinPullHaptics.Duration,
+                _pinPullHaptics.Frequency,
+                _pinPullHaptics.Amplitude,
                 Hand.InputSource
                 );
         }

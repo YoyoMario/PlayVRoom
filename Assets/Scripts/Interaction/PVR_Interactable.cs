@@ -61,13 +61,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("References from object it self")]
         public MeshHoverClass[] MeshHover;
         public Collider[] Colliders;
-        //[Header("Physics grab settings")]
-        //[SerializeField] private float _parentTresholdVelocity = 1;
         [Header("References from object it self - not necessary")]
         public Transform HandPosition;
         [Header("Added runtime")]
         [Header("-----------------------")]
         public ControllerPhysics ControllerPhysics;
+        public HapticFeedback CollisionHaptics;
         public bool Picked;
         [SerializeField] private Rigidbody _rigidbody;
         public PVR_Hand Hand;
@@ -187,6 +186,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         {
             _rigidbody = GetComponent<Rigidbody>();
             ControllerPhysics = Resources.Load("ControllerPhysics") as ControllerPhysics;
+            CollisionHaptics = Resources.Load("CollisionHaptics") as HapticFeedback;
         }
 
         public virtual void Start()
@@ -261,6 +261,36 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 }
             }
             _averageAngularVelocity /= _averageVelocityFrameSamples;
+        }
+
+        public virtual void OnCollisionStay(Collision collision)
+        {
+            if(!Picked || !Hand)
+            {
+                return;
+            }
+
+            Vector3 PositionInHand = Hand.Rigidbody.position;
+            if (!HandPosition)
+            {
+                PositionInHand =
+                PositionInHand +
+                (Hand.transform.forward * ObjectPositionDifference.z) +
+                (Hand.transform.up * ObjectPositionDifference.y) +
+                (Hand.transform.right * ObjectPositionDifference.x);
+            }
+            float distance = Vector3.Distance(PositionInHand, Position);
+
+            if(distance > 0.02f)
+            {
+                HapticFeedbackManager.HapticeFeedback(
+                CollisionHaptics.SecondsFromNow,
+                CollisionHaptics.Duration,
+                CollisionHaptics.Frequency,
+                CollisionHaptics.Amplitude,
+                Hand.InputSource
+                );
+            }
         }
 
         public virtual void OnHoverStart()

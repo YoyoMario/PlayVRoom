@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
+  CollisionFeedback: {fileID: 11400000, guid: 9cc7029133f9197439912d56dd6ac6c5, type: 2}
   MeshHover:
   - Mesh: {fileID: 6800527554285891647}
     DefaultMaterials: []
@@ -217,11 +218,9 @@ MonoBehaviour:
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
 --- !u!1 &6787546144684608005
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,16 +460,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
 --- !u!1 &6788141106931121768
 GameObject:
@@ -578,16 +576,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
 --- !u!1 &6788141106966979364
 GameObject:
@@ -695,16 +692,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
 --- !u!1 &6788141107037539423
 GameObject:
@@ -939,16 +935,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
 --- !u!1 &6788141107459481736
 GameObject:
@@ -1056,16 +1051,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
 --- !u!1 &6788141107564598633
 GameObject:
@@ -1173,16 +1167,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
 --- !u!1 &6788141107656412170
 GameObject:
@@ -1474,16 +1467,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
+  CollisionFeedback: {fileID: 0}
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
   Picked: 0
-  AudioManager: {fileID: 0}
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
-  SeenByCamera: 0
   InteractableObject: {fileID: 6787257443045828693}
 --- !u!1 &6788141108058848476
 GameObject:

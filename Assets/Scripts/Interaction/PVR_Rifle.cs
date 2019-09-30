@@ -4,6 +4,7 @@ using UnityEngine;
 using Valve.VR;
 
 using MarioHaberle.PlayVRoom.Managers;
+using MarioHaberle.PlayVRoom.ScriptableObjects;
 
 namespace MarioHaberle.PlayVRoom.VR.Interaction
 {
@@ -35,10 +36,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] private Vector2 _minMaxPitch;
         [SerializeField] private Vector2 _minMaxVolume;
         [Header("Haptic pistol feedback")]
-        [SerializeField] private float _secondsFromNow = 0;
-        [SerializeField] private float _duration = 0.02f;
-        [SerializeField] private float _frequency = 50;
-        [SerializeField] private float _amplitude = 90;
+        [SerializeField] private HapticFeedback _shootingHaptics;
         [Header("Bullet spawn settings")]
         [SerializeField] private GameObject _prefabBullet;
         [SerializeField] private Transform _bulletSpawnPoint;
@@ -236,21 +234,21 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             //Haptic feedback
             HapticFeedbackManager.HapticeFeedback(
-                _secondsFromNow,
-                _duration,
-                _frequency,
-                _amplitude,
+                _shootingHaptics.SecondsFromNow,
+                _shootingHaptics.Duration,
+                _shootingHaptics.Frequency,
+                _shootingHaptics.Amplitude,
                 Hand.InputSource
                 );
             if (_secondHand.Picked)
             {
                 //Haptic feeedback on second hand
                 HapticFeedbackManager.HapticeFeedback(
-                    _secondsFromNow,
-                    _duration,
-                    _frequency,
-                    _amplitude,
-                    _secondHand.Hand.InputSource
+                    _shootingHaptics.SecondsFromNow,
+                    _shootingHaptics.Duration,
+                    _shootingHaptics.Frequency,
+                    _shootingHaptics.Amplitude,
+                    Hand.InputSource
                     );
             }
         }
