@@ -248,7 +248,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     _shootingHaptics.Duration,
                     _shootingHaptics.Frequency,
                     _shootingHaptics.Amplitude,
-                    Hand.InputSource
+                    _secondHand.Hand.InputSource
                     );
             }
         }
