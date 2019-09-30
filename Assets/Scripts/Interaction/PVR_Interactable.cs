@@ -320,6 +320,13 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         
         public virtual void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool matchRotationAndPosition = false)
         {
+            if(Picked && Hand)
+            {
+                //Drop from that hand
+                Hand.ForceDrop();
+                OnDrop();
+            }
+
             OnHoverEnd();
 
             if (Picked)
