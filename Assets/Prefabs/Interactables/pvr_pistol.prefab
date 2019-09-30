@@ -156,7 +156,7 @@ MonoBehaviour:
   _shellEjectPosition: {fileID: 5491482595776440680}
   _prefabShell: {fileID: 4941148882523683392, guid: 56997a7d586aa954da4f2f3b49d0017f,
     type: 3}
-  _shellForce: 1
+  _shellForce: 14.5
   _shellRandomRotationAmount: 30
   _sliderMovementAmount: 0.03
   _pistolSlider: {fileID: 6393544461019340306}
