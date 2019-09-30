@@ -21,7 +21,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [SerializeField] AudioClip[] _audioClipReleaseSounds;
 
         private Vector3 _initialPosition;
-        private AudioManager _audioManager;
 
         public Action OnButtonPress;
         public Action OnButtonRelease;
@@ -41,8 +40,6 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         public override void Start()
         {
             base.Start();
-
-            _audioManager = AudioManager.Instance;
         }
 
         public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool touchpadTouching)
@@ -92,7 +89,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //Play audio
                 if(_audioClipPressSounds.Length > 0)
                 {
-                    _audioManager.PlayAudio3D(_audioClipPressSounds, Position);
+                    AudioManager.PlayAudio3D(_audioClipPressSounds, Position);
                 }                
 
                 if (OnButtonPress != null)
@@ -108,7 +105,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                 //Play audio
                 if(_audioClipReleaseSounds.Length > 0)
                 {
-                    _audioManager.PlayAudio3D(_audioClipReleaseSounds, Position);
+                    AudioManager.PlayAudio3D(_audioClipReleaseSounds, Position);
                 }
 
                 if (OnButtonRelease != null)
