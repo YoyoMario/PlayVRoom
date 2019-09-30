@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SecondsFromNow: 0
   Duration: 0.05
-  Frequency: 75
-  Amplitude: 60
+  Frequency: 25
+  Amplitude: 15
