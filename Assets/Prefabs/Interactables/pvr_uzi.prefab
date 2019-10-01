@@ -67,6 +67,7 @@ Transform:
   - {fileID: 1908656564039318057}
   - {fileID: 1080151645793551121}
   - {fileID: 5043905389969225317}
+  - {fileID: 8273561972395642196}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: 90.00001}
@@ -147,6 +148,9 @@ MonoBehaviour:
   _prefabBullet: {fileID: 1011060325896597955, guid: 06df2c8a2e812c04b8fbddd25adee74b,
     type: 3}
   _bulletSpawnPoint: {fileID: 5043905389969225317}
+  _prefabMuzzelFlashes:
+  - {fileID: 160582, guid: 8ff371e17619a504b9822fc6a2facdb2, type: 3}
+  _muzzelFlashSpawnPosition: {fileID: 8273561972395642196}
   _triggerState: 0
 --- !u!1 &1908656564039318058
 GameObject:
@@ -439,6 +443,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1908656563822785781}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3008966344176648403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8273561972395642196}
+  m_Layer: 10
+  m_Name: MuzzelSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8273561972395642196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008966344176648403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0014, y: 0.0825, z: 0.2228}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1908656563822785781}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5232127542081663010
 GameObject:

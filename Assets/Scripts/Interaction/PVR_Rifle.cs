@@ -40,6 +40,9 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
         [Header("Bullet spawn settings")]
         [SerializeField] private GameObject _prefabBullet;
         [SerializeField] private Transform _bulletSpawnPoint;
+        [Header("Muzzel flash settings")]
+        [SerializeField] private GameObject[] _prefabMuzzelFlashes;
+        [SerializeField] private Transform _muzzelFlashSpawnPosition;
         [Header("Info")]
         [SerializeField] private bool _triggerState;
 
@@ -55,6 +58,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
         private BulletShellManager _bulletShellManager;
         private BulletSpawnManager _bulletSpawnManager;
+        private MuzzelSpawnManager _muzzelSpawnManager;
 
         public override void Start()
         {
@@ -66,6 +70,7 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
 
             _bulletShellManager = BulletShellManager.Instance;
             _bulletSpawnManager = BulletSpawnManager.Instance;
+            _muzzelSpawnManager = MuzzelSpawnManager.Instance;
         }
 
         private void Update()
@@ -251,6 +256,12 @@ namespace MarioHaberle.PlayVRoom.VR.Interaction
                     _secondHand.Hand.InputSource
                     );
             }
+
+            //Muzzel spawn
+            _muzzelSpawnManager.CreateMuzzelFlash(
+                _prefabMuzzelFlashes,
+                _muzzelFlashSpawnPosition
+                );
         }
     }
 }
