@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MarioHaberle.PlayVRoom.Managers
+namespace DivIt.PlayVRoom.Managers
 {
     public class MuzzelSpawnManager : MonoBehaviour
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-using MarioHaberle.PlayVRoom.Managers;
-using MarioHaberle.PlayVRoom.ScriptableObjects;
+using DivIt.PlayVRoom.Managers;
+using DivIt.PlayVRoom.ScriptableObjects;
 
-namespace MarioHaberle.PlayVRoom.VR.Interaction
+namespace DivIt.PlayVRoom.VR.Interaction
 {    
     [RequireComponent(typeof(Rigidbody))]
     public class PVR_Pistol : PVR_Interactable

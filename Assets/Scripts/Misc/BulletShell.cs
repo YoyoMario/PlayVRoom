@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using MarioHaberle.PlayVRoom.VR.Interaction;
-using MarioHaberle.PlayVRoom.Managers;
+using DivIt.PlayVRoom.VR.Interaction;
+using DivIt.PlayVRoom.Managers;
 
-namespace MarioHaberle.PlayVRoom.Misc
+namespace DivIt.PlayVRoom.Misc
 {
     public class BulletShell : MonoBehaviour
     {

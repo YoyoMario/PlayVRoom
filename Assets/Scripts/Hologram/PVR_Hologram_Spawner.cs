@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using MarioHaberle.PlayVRoom.VR.Interaction;
+using DivIt.PlayVRoom.VR.Interaction;
 
-namespace MarioHaberle.PlayVRoom.VR.Hologram
+namespace DivIt.PlayVRoom.VR.Hologram
 {
     public class PVR_Hologram_Spawner : MonoBehaviour
     {

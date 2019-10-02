@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using MarioHaberle.PlayVRoom.Misc;
+using DivIt.PlayVRoom.Misc;
 
-namespace MarioHaberle.PlayVRoom.Managers
+namespace DivIt.PlayVRoom.Managers
 {
     public class BulletShellManager : MonoBehaviour
     {

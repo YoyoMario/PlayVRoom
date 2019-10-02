@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-using MarioHaberle.PlayVRoom.ScriptableObjects;
+using DivIt.PlayVRoom.ScriptableObjects;
 
-namespace MarioHaberle.PlayVRoom.VR.Interaction
+namespace DivIt.PlayVRoom.VR.Interaction
 {
     public class PVR_Grenade : PVR_Rigidbody_Object
     {

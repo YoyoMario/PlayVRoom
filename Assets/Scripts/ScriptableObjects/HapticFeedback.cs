@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MarioHaberle.PlayVRoom.ScriptableObjects
+namespace DivIt.PlayVRoom.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "HapticFeedback", menuName = "ScriptableObjects/HapticFeedback", order = 1)]
     public class HapticFeedback : ScriptableObject

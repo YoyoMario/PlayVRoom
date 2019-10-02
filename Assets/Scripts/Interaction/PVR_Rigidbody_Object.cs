@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MarioHaberle.PlayVRoom.VR.Interaction
+namespace DivIt.PlayVRoom.VR.Interaction
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PVR_Rigidbody_Object : PVR_Interactable

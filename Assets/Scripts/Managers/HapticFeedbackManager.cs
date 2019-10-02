@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-namespace MarioHaberle.PlayVRoom.Managers
+namespace DivIt.PlayVRoom.Managers
 {
     public class HapticFeedbackManager : MonoBehaviour
     {

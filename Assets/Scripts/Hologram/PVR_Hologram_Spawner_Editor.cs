@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace MarioHaberle.PlayVRoom.VR.Hologram.Editor
+namespace DivIt.PlayVRoom.VR.Hologram.Editor
 {
     [CustomEditor(typeof(PVR_Hologram_Spawner))]
     public class PVR_Hologram_Spawner_Editor : UnityEditor.Editor

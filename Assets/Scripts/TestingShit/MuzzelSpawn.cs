@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MarioHaberle.PlayVRoom.TestingShit
+namespace DivIt.PlayVRoom.TestingShit
 {
     public class MuzzelSpawn : MonoBehaviour
     {

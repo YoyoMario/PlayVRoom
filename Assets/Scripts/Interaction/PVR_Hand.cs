@@ -4,11 +4,11 @@ using UnityEngine;
 using Valve.VR;
 using System;
 
-using MarioHaberle.PlayVRoom.Managers;
-using MarioHaberle.PlayVRoom.VR.Visualization;
-using MarioHaberle.PlayVRoom.ScriptableObjects;
+using DivIt.PlayVRoom.Managers;
+using DivIt.PlayVRoom.VR.Visualization;
+using DivIt.PlayVRoom.ScriptableObjects;
 
-namespace MarioHaberle.PlayVRoom.VR.Interaction
+namespace DivIt.PlayVRoom.VR.Interaction
 {
     [RequireComponent(typeof(PVR_Hand_Visualizer), typeof(SphereCollider))]
     public class PVR_Hand: MonoBehaviour

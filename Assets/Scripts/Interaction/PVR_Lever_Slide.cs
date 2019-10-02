@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MarioHaberle.PlayVRoom.VR.Interaction
+namespace DivIt.PlayVRoom.VR.Interaction
 {
     public class PVR_Lever_Slide : PVR_Interactable
     {

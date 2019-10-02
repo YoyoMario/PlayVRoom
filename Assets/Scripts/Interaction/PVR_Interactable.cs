@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-using MarioHaberle.PlayVRoom.ScriptableObjects;
-using MarioHaberle.PlayVRoom.Managers;
+using DivIt.PlayVRoom.ScriptableObjects;
+using DivIt.PlayVRoom.Managers;
 
-namespace MarioHaberle.PlayVRoom.VR.Interaction
+namespace DivIt.PlayVRoom.VR.Interaction
 {
     public class PVR_Interactable : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MarioHaberle.PlayVRoom.Managers
+namespace DivIt.PlayVRoom.Managers
 {
     /// <summary>
     /// Used to play sounds from one place.
