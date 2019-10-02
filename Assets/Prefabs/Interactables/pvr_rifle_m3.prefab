@@ -395,7 +395,7 @@ MonoBehaviour:
     type: 3}
   _bulletSpawnPoint: {fileID: 8458720350285801441}
   _prefabMuzzelFlashes:
-  - {fileID: 179846, guid: a7730127594a3ad46a512f70521a6446, type: 3}
+  - {fileID: 136518, guid: 35277ee4b65d54d4199c4e0e48053745, type: 3}
   _muzzelFlashSpawnPosition: {fileID: 3339994659606381356}
   _triggerState: 0
 --- !u!114 &5577642815295176109
