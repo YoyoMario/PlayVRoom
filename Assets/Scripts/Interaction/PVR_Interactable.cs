@@ -58,6 +58,9 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         [Header("References from project")]
         public Material OutlineMaterial;
+        [Header("Pick up sounds")]
+        private float _pickupVolume = 0.45f;
+        [SerializeField] private AudioClip[] _audioClipPickUpSounds;
         [Header("References from object it self")]
         public MeshHoverClass[] MeshHover;
         public Collider[] Colliders;
@@ -334,6 +337,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 Hand.ForceDrop();
             }
 
+            //Play pick sound
+            if (_audioClipPickUpSounds.Length != 0)
+            {
+                AudioManager.PlayAudio3D(_audioClipPickUpSounds, transform.position, 1, _pickupVolume);
+            }
             //initialize
             _currentFrame_position = new List<Vector3>();
             _previousFrame_position = new List<Vector3>();
@@ -388,6 +396,12 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             //Transform.SetParent(_originalParent.transform);
             //Parented = false;
+
+            //Drop from hand sound
+            if(_audioClipPickUpSounds.Length != 0)
+            {
+                AudioManager.PlayAudio3D(_audioClipPickUpSounds, transform.position, 1, _pickupVolume);
+            }            
 
             _rigidbody.useGravity = true;
             _rigidbody.maxAngularVelocity = ControllerPhysics.DefaultAngularVelocity;
