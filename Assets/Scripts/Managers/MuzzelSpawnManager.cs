@@ -34,16 +34,16 @@ namespace DivIt.PlayVRoom.Managers
                     transform
                     );
             Destroy(tmpMuzzel, 1.5f);
-            //StartCoroutine(FollowTheTransform(tmpMuzzel, muzzelSpawnPoint));
+            StartCoroutine(FollowTheTransform(tmpMuzzel, muzzelSpawnPoint));
         }
 
-        //IEnumerator FollowTheTransform(GameObject tmpMuzzel, Transform muzzelSpawnPoint)
-        //{
-        //    while (tmpMuzzel)
-        //    {
-        //        tmpMuzzel.transform.position = muzzelSpawnPoint.position;
-        //        yield return null;
-        //    }
-        //}
+        IEnumerator FollowTheTransform(GameObject tmpMuzzel, Transform muzzelSpawnPoint)
+        {
+            while (tmpMuzzel)
+            {
+                tmpMuzzel.transform.position = muzzelSpawnPoint.position;
+                yield return null;
+            }
+        }
     } 
 }
