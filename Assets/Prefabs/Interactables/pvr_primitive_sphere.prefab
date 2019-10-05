@@ -110,7 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
-  CollisionFeedback: {fileID: 11400000, guid: 9cc7029133f9197439912d56dd6ac6c5, type: 2}
+  _audioClipPickUpSounds:
+  - {fileID: 8300000, guid: 6c86351a4a4211b41a292c7c79e61f2b, type: 3}
   MeshHover:
   - Mesh: {fileID: 429117001308464834}
     DefaultMaterials: []
@@ -119,6 +120,7 @@ MonoBehaviour:
   - {fileID: 3045047014506693909}
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
