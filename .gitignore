@@ -23,17 +23,8 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
-Assets/Universal Sound FX/
-Assets/Grenade Sound FX/
-Assets/Grenade Sound FX.meta
-Assets/FuturisticGunSoundFX/
-Assets/FuturisticGunSoundFX.meta
-Assets/FPS Pack/
-Assets/FPS Pack.meta
-Assets/GabrielAguiarProductions/
-Assets/GabrielAguiarProductions.meta
-Assets/Low Poly FPS Pack
-Assets/Low Poly FPS Pack.meta
+Assets/DontSync
+Assets/DontSync.meta
 
 # Unity3D generated meta files
 *.pidb.meta
