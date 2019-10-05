@@ -18,7 +18,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             public Material[] DefaultMaterials;
             public Material[] OutlineMaterials;
 
-            public void UpdateArrays(Material outlineMaterial)
+            private void UpdateArrays(Material outlineMaterial)
             {
                 if (!Mesh)
                 {
@@ -45,13 +45,27 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 OutlineMaterials[OutlineMaterials.Length - 1] = outlineMaterial;
             }
 
-            public void AddOutline()
+            public void AddOutline(MeshRenderer meshRenderer, Material outlineMaterial)
             {
+                if (DefaultMaterials.Length == 0 || OutlineMaterials.Length == 0)
+                {
+                    //Debug.LogError("Can't add outline, default or outline material array missing.\n Don't worry I'll update this.", meshRenderer.gameObject);
+                    UpdateArrays(outlineMaterial);
+                    return;
+                }
+
                 Mesh.materials = OutlineMaterials;
             }
 
-            public void RemoveOutline()
+            public void RemoveOutline(MeshRenderer meshRenderer, Material outlineMaterial)
             {
+                if (DefaultMaterials.Length == 0 || OutlineMaterials.Length == 0)
+                {
+                    //Debug.LogError("Can't remove outline, default or outline material array missing.\n Don't worry I'll update this.", meshRenderer.gameObject);
+                    UpdateArrays(outlineMaterial);
+                    return;
+                }
+
                 Mesh.materials = DefaultMaterials;
             }
         }
@@ -298,16 +312,10 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         public virtual void OnHoverStart()
         {
-            //Initialize outlines
-            for (int i = 0; i < MeshHover.Length; i++)
-            {
-                MeshHover[i].UpdateArrays(OutlineMaterial);
-            }
-
             //Adding outline material
             for (int i = 0; i < MeshHover.Length; i++)
             {
-                MeshHover[i].AddOutline();
+                MeshHover[i].AddOutline(MeshHover[i].Mesh, OutlineMaterial);
             }
         }
 
@@ -317,7 +325,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             for (int i = 0; i < MeshHover.Length; i++)
             {
 
-                MeshHover[i].RemoveOutline();
+                MeshHover[i].RemoveOutline(MeshHover[i].Mesh, OutlineMaterial);
             }
         }
         
