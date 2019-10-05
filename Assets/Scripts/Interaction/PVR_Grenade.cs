@@ -69,7 +69,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             base.OnDrop();
 
-            if(_pinPulled && _throwActivated == false)
+            if(_pinPulled && !_throwActivated)
             {
                 _throwActivated = true;
                 _c_explosion = StartCoroutine(C_Explosion());
