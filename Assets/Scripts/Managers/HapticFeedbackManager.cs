@@ -3,26 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
+using DivIt.Utils;
+
 namespace DivIt.PlayVRoom.Managers
 {
-    public class HapticFeedbackManager : MonoBehaviour
+    public class HapticFeedbackManager : Singleton<HapticFeedbackManager>
     {
-        public static HapticFeedbackManager Instance;
-
+        [Header("----------------------------------------------------------------")]
         [SerializeField] private SteamVR_Action_Vibration _hapticAction;
-
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                //DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
 
         /// <summary>
         /// Activates haptic feedback on a controller with passed settings.

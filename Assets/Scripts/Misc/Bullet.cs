@@ -8,6 +8,8 @@ namespace DivIt.PlayVRoom.Misc
 {
     public class Bullet : MonoBehaviour
     {
+        [SerializeField] private bool _consoleWrite;
+        [Space(10)]
         [SerializeField] private LayerMask _hittableLayers;
         [SerializeField] private float _distance;
         [Space(10)]
@@ -17,14 +19,14 @@ namespace DivIt.PlayVRoom.Misc
         RaycastHit _hit;
         bool _goOnce;
 
-        private BulletImpactManager _bulletImpactManager;
+        private BulletManager _bulletManager;
 
         private void Awake()
         {
             _ray = new Ray(transform.position, transform.forward);
             _hit = new RaycastHit();
 
-            _bulletImpactManager = BulletImpactManager.Instance;
+            _bulletManager = BulletManager.Instance;
         }
 
         private void FixedUpdate()
@@ -39,10 +41,13 @@ namespace DivIt.PlayVRoom.Misc
             {
                 if (_hit.collider)
                 {
-                    Debug.Log("Bullet hit: " + _hit.transform.name);
+                    if (_consoleWrite)
+                    {
+                        Debug.Log("Bullet hit: " + _hit.transform.name);
+                    }
 
                     //Create impact effect
-                    _bulletImpactManager.CreateImpact(_hit.point, _hit.normal);
+                    _bulletManager.CreateImpactParticles(_hit.point, _hit.normal);
 
                     Rigidbody hitRb;
                     if (hitRb = _hit.rigidbody)

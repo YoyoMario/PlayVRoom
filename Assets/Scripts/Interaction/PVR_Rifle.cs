@@ -56,9 +56,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private float _cooldownValue = 1;
         private float _cooldown;
 
-        private BulletShellManager _bulletShellManager;
-        private BulletSpawnManager _bulletSpawnManager;
-        private MuzzelSpawnManager _muzzelSpawnManager;
+        private BulletManager _bulletManager;
 
         public override void Start()
         {
@@ -68,9 +66,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _initialSliderPosition = _pistolSlider.localPosition;
             _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
 
-            _bulletShellManager = BulletShellManager.Instance;
-            _bulletSpawnManager = BulletSpawnManager.Instance;
-            _muzzelSpawnManager = MuzzelSpawnManager.Instance;
+            _bulletManager = BulletManager.Instance;
         }
 
         private void Update()
@@ -214,7 +210,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _shellEjectPosition.localRotation = _initialShellEjectRotation * Quaternion.Euler(Vector3.up * Random.Range(-_shellRandomRotationAmount, _shellRandomRotationAmount));
 
             //Creating bullet shells
-            _bulletShellManager.CreateBulletShell(
+            _bulletManager.CreateBulletShell(
                 _prefabShell,
                 _shellEjectPosition.position,
                 _shellEjectPosition.rotation,
@@ -231,7 +227,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 );
 
             //Create bullet
-            _bulletSpawnManager.CreateBullet(
+            _bulletManager.CreateBullet(
                 _prefabBullet,
                 _bulletSpawnPoint.position,
                 _bulletSpawnPoint.rotation
@@ -258,7 +254,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             }
 
             //Muzzel spawn
-            _muzzelSpawnManager.CreateMuzzelFlash(
+            _bulletManager.CreateMuzzelFlash(
                 _prefabMuzzelFlashes,
                 _muzzelFlashSpawnPosition
                 );

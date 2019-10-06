@@ -2,31 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using DivIt.Utils;
+
 namespace DivIt.PlayVRoom.Managers
 {
     /// <summary>
     /// Used to play sounds from one place.
     /// </summary>
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : Singleton<AudioManager>
     {
-        public static AudioManager Instance;
-
-        [SerializeField] private bool _consoleWrite;
-
+        [Header("----------------------------------------------------------------")]
         private Coroutine _c_RecycleAudio;
-
-        private void Awake()
-        {
-            if(Instance == null)
-            {
-                Instance = this;
-                //DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
 
         private void Start()
         {
@@ -61,11 +47,6 @@ namespace DivIt.PlayVRoom.Managers
         /// <param name="audioClip"></param>
         public AudioSource PlayAudio2D(AudioClip audioClip)
         {
-            if (_consoleWrite)
-            {
-                Debug.Log("AudioManager :: PlayAudio2D()");
-            }
-
             GameObject tmpGo = new GameObject("_audio");
             Transform tmpT = tmpGo.transform;
             tmpT.SetParent(transform);
@@ -86,11 +67,6 @@ namespace DivIt.PlayVRoom.Managers
         /// <returns></returns>
         public AudioSource PlayAudio3D(AudioClip[] audioClipArray, Vector3 worldPosition, float pitch = 1, float volume = 1f, float delay = 0f)
         {
-            if (_consoleWrite)
-            {
-                Debug.Log("AudioManager :: PlayAudio3D()");
-            }
-
             AudioClip audioClip = audioClipArray[Random.Range((int)0, (int)audioClipArray.Length - 1)];
 
             GameObject tmpGo = new GameObject("_audio");
@@ -108,17 +84,21 @@ namespace DivIt.PlayVRoom.Managers
 
             return audioSource;
         }
-
+        /// <summary>
+        /// Creates audio source with 3D audio settings at specific world position.
+        /// Randomizes min-max pitch/volume from passed values.
+        /// </summary>
+        /// <param name="audioClipArray"></param>
+        /// <param name="worldPosition"></param>
+        /// <param name="minMaxPitch"></param>
+        /// <param name="minMaxVolume"></param>
+        /// <param name="delay"></param>
+        /// <returns></returns>
         public AudioSource PlayAudio3D(AudioClip[] audioClipArray,Vector3 worldPosition, Vector2 minMaxPitch, Vector2 minMaxVolume, float delay = 0f)
         {
             AudioClip audioClip = audioClipArray[Random.Range((int)0, (int)audioClipArray.Length - 1)];
             float pitch = (minMaxPitch.x != minMaxPitch.y) ? Random.Range((float)minMaxPitch.x, (float)minMaxPitch.y) : 1;
             float volume = (minMaxVolume.x != minMaxVolume.y) ? Random.Range((float)minMaxVolume.x, (float)minMaxVolume.y) : 1;
-
-            if (_consoleWrite)
-            {
-                Debug.Log("AudioManager :: PlayAudio3D()");
-            }
 
             GameObject tmpGo = new GameObject("_audio");
             Transform tmpT = tmpGo.transform;
