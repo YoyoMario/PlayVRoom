@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using DivIt.PlayVRoom.ScriptableObjects;
+
 namespace DivIt.PlayVRoom.VR.Interaction
 {
     public class PVR_Lever_Pull : PVR_Interactable
@@ -10,6 +12,9 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [Header("-----------------------")]        
         [SerializeField] private float _minAngle = -30;
         [SerializeField] private float _maxAngle = 30;
+        [Space(5)]
+        [SerializeField] private HapticFeedback _movementHaptics;
+        [SerializeField] private float _hapticsAtAngle = 40f;
 
         //calculation infos
         private Vector3 _crossFromInitialDirection; //to determin +/- of lever angle
@@ -24,6 +29,8 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private Vector3 _initialPivotPosition;
         private Quaternion _maxAngleFinalRotation;
         private Quaternion _lastHandledRotation; //for collisions if something hits this lever.
+
+        private float _totalRotationAngle; //for haptics
 
         public override void Awake()
         {
@@ -66,11 +73,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
             {
                 //handling situation if user takes another collider and smacks it on our lever
                 Rigidbody.angularVelocity = Vector3.zero;
-                Rigidbody.velocity = Vector3.zero;
-
-                Rigidbody.position = _initialPivotPosition;
                 Rigidbody.rotation = _lastHandledRotation;
             }
+            //to fix lever movement
+            Rigidbody.velocity = Vector3.zero;
+            Rigidbody.position = _initialPivotPosition;
 
             //limiting rotation angle
             if (_rotationAmount >= _maxAngle && _cross.x > 0)
@@ -84,6 +91,23 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 _maxAngleFinalRotation = _initialRotation * Quaternion.Euler(new Vector3(-_minAngle, 0, 0));
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.rotation = _maxAngleFinalRotation;
+            }
+
+            //Haptics
+            if(Picked && Hand)
+            {
+                _totalRotationAngle += Rigidbody.angularVelocity.magnitude;
+                if (_totalRotationAngle > _hapticsAtAngle)
+                {
+                    HapticFeedbackManager.HapticeFeedback(
+                        _movementHaptics.SecondsFromNow,
+                        _movementHaptics.Duration,
+                        _movementHaptics.Frequency,
+                        _movementHaptics.Amplitude,
+                        Hand.InputSource
+                        );
+                    _totalRotationAngle = 0;
+                }
             }
         }
 
