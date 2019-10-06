@@ -15,6 +15,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private bool _pinPulled = false;
         [SerializeField] private bool _throwActivated = false;
         [Header("Settings")]
+        [SerializeField] private GameObject _prefabThrowTrail;
         [SerializeField] private float _countdownTime = 2.5f;
         [Header("Pin Sounds")]
         [SerializeField] private AudioClip[] _pinPulloutSounds;
@@ -72,6 +73,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             if(_pinPulled && !_throwActivated)
             {
                 _throwActivated = true;
+                GameObject tmpTrail = Instantiate(_prefabThrowTrail, transform.position, Quaternion.identity, transform);
                 _c_explosion = StartCoroutine(C_Explosion());
             }
         }

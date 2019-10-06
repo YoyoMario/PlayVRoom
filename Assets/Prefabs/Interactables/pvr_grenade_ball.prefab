@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4783431111866662268}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.454, y: 6.141, z: 10.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -152,6 +152,8 @@ MonoBehaviour:
     needsReinit: 0
   _pinPulled: 0
   _throwActivated: 0
+  _prefabThrowTrail: {fileID: 9009643875968713599, guid: 7e8f19db2afe1c847b6350b6410e07c4,
+    type: 3}
   _countdownTime: 2.5
   _pinPulloutSounds:
   - {fileID: 8300000, guid: f42fcd865e796514a82def5ea9d18caf, type: 3}
@@ -178,4 +180,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ea59d39fa74faef4691d27695d8fd0bb, type: 3}
   - {fileID: 8300000, guid: 29536eb6a0b57b04596917e9e6193bcb, type: 3}
   - {fileID: 8300000, guid: 82ef6eaed5d940240a305b0266087f97, type: 3}
-  _pinPullHaptics: {fileID: 0}
+  _pinPullHaptics: {fileID: 11400000, guid: c8449c454d1f0ac43bc0dfa673d95687, type: 2}
