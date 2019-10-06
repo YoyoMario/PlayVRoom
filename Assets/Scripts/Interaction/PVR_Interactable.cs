@@ -357,10 +357,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             _sampledAngularVelocities = new List<Vector3>();
 
-
-            //if (!_originalParent) _originalParent = Transform.parent;
-            //Transform.SetParent(pVR_Grab_Rigidbody_Object.transform);
-
             Picked = true;
             Hand = pVR_Grab_Rigidbody_Object;
             SteamHand = Hand.GetComponent<Hand>();
@@ -401,10 +397,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         {
             Picked = false;
             Hand = null;
-
-            //Transform.SetParent(_originalParent.transform);
-            //Parented = false;
-
+            
             //Drop from hand sound
             if(_audioClipPickUpSounds.Length != 0)
             {
