@@ -112,7 +112,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
   _audioClipPickUpSounds:
-  - {fileID: 8300000, guid: 6c86351a4a4211b41a292c7c79e61f2b, type: 3}
+  - {fileID: 8300000, guid: e405ede5a437d2543b8b58a6df6b3094, type: 3}
+  - {fileID: 8300000, guid: 2d2d19db28ada48449160f0c6f935043, type: 3}
+  - {fileID: 8300000, guid: 54c2c069d387502468d0087e9ceb7478, type: 3}
+  - {fileID: 8300000, guid: b10c0fd02685f2b44b84fb4d355bc1e1, type: 3}
+  - {fileID: 8300000, guid: c33ea06aee21cdc45a362f548d9b122f, type: 3}
+  - {fileID: 8300000, guid: 22a2f4bee3985c84696b04411ff3a488, type: 3}
   MeshHover:
   - Mesh: {fileID: 2270660817506839843}
     DefaultMaterials: []
