@@ -87,6 +87,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
             }
         }
 
+        public override void OnCollisionStay(Collision collision)
+        {
+            //base.OnCollisionStay(collision);
+        }
+
         public override void OnDrop()
         {
             base.OnDrop();

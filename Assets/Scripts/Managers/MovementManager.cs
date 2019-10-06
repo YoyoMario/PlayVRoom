@@ -17,6 +17,7 @@ namespace DivIt.PlayVRoom.Managers
         [SerializeField] private Transform _playerHead;
         [SerializeField] private SphereCollider _playareaCollider;
         [Space(20)]
+        [SerializeField] private AnimationCurve _sensitvityCurve;
         [SerializeField] private float _walkAcceleration = 0.25f;
         [SerializeField] private float _maxSpeed = 0.25f;
 
@@ -69,18 +70,18 @@ namespace DivIt.PlayVRoom.Managers
             if (_trackpadClickedLeft)
             {
                 Vector3 velocityToAdd =
-                    _playerHead.right * _trackpadPositionLeft.x * _walkAcceleration +
-                    _playerHead.forward * _trackpadPositionLeft.y * _walkAcceleration;
-                velocityToAdd.y = 0;
-                _rigidbody.velocity += velocityToAdd;
+                    _playerHead.right * _sensitvityCurve.Evaluate(_trackpadPositionLeft.x) * _walkAcceleration +
+                    _playerHead.forward * _sensitvityCurve.Evaluate(_trackpadPositionLeft.y) * _walkAcceleration;
+                velocityToAdd.y = _rigidbody.velocity.y;
+                _rigidbody.velocity = velocityToAdd;
             }
             if (_trackpadClickedRight)
             {
                 Vector3 velocityToAdd =
-                    _playerHead.right * _trackpadPositionRight.x * _walkAcceleration +
-                    _playerHead.forward * _trackpadPositionRight.y * _walkAcceleration;
-                velocityToAdd.y = 0;
-                _rigidbody.velocity += velocityToAdd;
+                    _playerHead.right * _sensitvityCurve.Evaluate(_trackpadPositionRight.x) * _walkAcceleration +
+                    _playerHead.forward * _sensitvityCurve.Evaluate(_trackpadPositionRight.y) * _walkAcceleration;
+                velocityToAdd.y = _rigidbody.velocity.y;
+                _rigidbody.velocity = velocityToAdd;
             }
 
             _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, _maxSpeed);
