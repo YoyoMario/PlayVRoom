@@ -14,7 +14,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private float _maxAngle = 30;
         [Space(5)]
         [SerializeField] private HapticFeedback _movementHaptics;
-        [SerializeField] private float _hapticsAtAngle = 40f;
+        [SerializeField] private float _hapticsAtAngle = 25f;
 
         //calculation infos
         private Vector3 _crossFromInitialDirection; //to determin +/- of lever angle

@@ -106,11 +106,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
-  CollisionFeedback: {fileID: 0}
+  _audioClipPickUpSounds: []
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -222,11 +223,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
-  CollisionFeedback: {fileID: 0}
+  _audioClipPickUpSounds: []
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -327,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
-  CollisionFeedback: {fileID: 11400000, guid: 9cc7029133f9197439912d56dd6ac6c5, type: 2}
+  _audioClipPickUpSounds: []
   MeshHover:
   - Mesh: {fileID: 2822800201836185163}
     DefaultMaterials: []
@@ -335,12 +337,15 @@ MonoBehaviour:
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
   SteamHand: {fileID: 0}
   _maxMovement: 0.05
   _minMovement: -0.05
+  _movementHaptics: {fileID: 11400000, guid: 0c2d4df255e14f24eba8d964c5e50f76, type: 2}
+  _hapticsAtDeltaMovement: 2
 --- !u!1 &2844205115398633892
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,11 +855,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
-  CollisionFeedback: {fileID: 0}
+  _audioClipPickUpSounds: []
   MeshHover: []
   Colliders: []
   HandPosition: {fileID: 0}
   ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
   Picked: 0
   _rigidbody: {fileID: 0}
   Hand: {fileID: 0}
@@ -1056,7 +1062,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2846175957995790247}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 10.75, y: 6, z: 12.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

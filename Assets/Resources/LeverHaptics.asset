@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LeverHaptics
   m_EditorClassIdentifier: 
   SecondsFromNow: 0
-  Duration: 0.5
-  Frequency: 0.002
-  Amplitude: 0.001
+  Duration: 0
+  Frequency: 0.1
+  Amplitude: 0.2

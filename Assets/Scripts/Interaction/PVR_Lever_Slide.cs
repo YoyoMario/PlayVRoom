@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using DivIt.PlayVRoom.ScriptableObjects;
+
 namespace DivIt.PlayVRoom.VR.Interaction
 {
     public class PVR_Lever_Slide : PVR_Interactable
@@ -9,12 +11,17 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [Header("-----------------------------")]
         [SerializeField] private float _maxMovement = 0.03f;
         [SerializeField] private float _minMovement = -0.03f;
+        [Space(5)]
+        [SerializeField] private HapticFeedback _movementHaptics;
+        [SerializeField] private float _hapticsAtDeltaMovement = 25f;
 
         private Vector3 _velocityDirection;
         private Vector3 _cross;
         private float _deltaMovement;
         private Quaternion _initialRotation;
         private Vector3 _lastHandledPosition;
+
+        private float _totalMovement;
 
         public override void Awake()
         {
@@ -63,6 +70,23 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 Rigidbody.velocity = Vector3.zero;
 
                 Transform.localPosition = new Vector3(0, 0, _maxMovement);
+            }
+
+            //Haptics
+            if(Picked && Hand)
+            {
+                _totalMovement += Rigidbody.velocity.magnitude;
+                if(_totalMovement > _hapticsAtDeltaMovement)
+                {
+                    HapticFeedbackManager.HapticeFeedback(
+                        _movementHaptics.SecondsFromNow,
+                        _movementHaptics.Duration,
+                        _movementHaptics.Frequency,
+                        _movementHaptics.Amplitude,
+                        Hand.InputSource
+                        );
+                    _totalMovement = 0;
+                }
             }
         }
 
