@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
+using DivIt.PlayVRoom.Managers;
 using DivIt.PlayVRoom.ScriptableObjects;
 
 namespace DivIt.PlayVRoom.VR.Interaction
@@ -31,10 +32,18 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [Header("Pinpull feedback")]
         [SerializeField] private HapticFeedback _pinPullHaptics;
 
+        private ExplosionManager _explosionManager;
         private Coroutine _c_explosion;
         private Coroutine _c_audioCooldown;
 
         private const float _coolDownAudioTime = 0.25f;
+
+        public override void Start()
+        {
+            base.Start();
+
+            _explosionManager = ExplosionManager.Instance;
+        }
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -111,6 +120,9 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             //Make explosion sound
             AudioManager.PlayAudio3D(_audioClipExplosion, transform.position, _minMaxPitchExplosionSound, _minMaxVolumeExplosionSound);
+
+            //Make explosion visual - todo needs more stuff here
+            _explosionManager.CreateExplosion(transform.position);
 
             yield return null;
             Destroy(gameObject);
