@@ -174,22 +174,22 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             //Randomize shell eject rotation
             _shellEjectPosition.localRotation = _initialShellEjectRotation * Quaternion.Euler(Vector3.up * Random.Range(-_shellRandomRotationAmount, _shellRandomRotationAmount));
-
-            //Creating bullet shells
-            _bulletManager.CreateBulletShell(
-                _prefabShell,
-                _shellEjectPosition.position, 
-                _shellEjectPosition.rotation,
-                Rigidbody.velocity,
-                _shellEjectPosition.right * _shellForce
-                );
-
+            
             //Audio
             AudioManager.PlayAudio3D(
                 _audioClipShot,
                 Position,
                 _minMaxPitch,
                 _minMaxVolume
+                );
+
+            //Creating bullet shells
+            _bulletManager.CreateBulletShell(
+                _prefabShell,
+                _shellEjectPosition.position,
+                _shellEjectPosition.rotation,
+                Rigidbody.velocity,
+                _shellEjectPosition.right * _shellForce
                 );
 
             //Create bullet
@@ -199,6 +199,12 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 _bulletSpawnPoint.rotation
                 );
 
+            //Muzzel spawn
+            _bulletManager.CreateMuzzelFlash(
+                _prefabMuzzelFlashes,
+                _muzzelFlashSpawnPosition
+                );
+
             //Haptic feeedback
             HapticFeedbackManager.HapticeFeedback(
                 _shootingHaptics.SecondsFromNow,
@@ -206,12 +212,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 _shootingHaptics.Frequency,
                 _shootingHaptics.Amplitude,
                 Hand.InputSource
-                );
-
-            //Muzzel spawn
-            _bulletManager.CreateMuzzelFlash(
-                _prefabMuzzelFlashes,
-                _muzzelFlashSpawnPosition
                 );
         }
     } 
