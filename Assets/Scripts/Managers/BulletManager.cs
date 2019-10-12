@@ -50,6 +50,7 @@ namespace DivIt.PlayVRoom.Managers
                     rotation,
                     transform
                 );
+            bullet.GetComponent<Bullet>().BulletManager = this;
         }
 
 

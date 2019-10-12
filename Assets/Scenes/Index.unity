@@ -13308,11 +13308,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.00001
       objectReference: {fileID: 0}
-    - target: {fileID: 6391799096670510733, guid: 36356aec8c39afc45befb2f7c033c07f,
-        type: 3}
-      propertyPath: _prefabMuzzelFlashes.Array.data[0]
-      value: 
-      objectReference: {fileID: 110062, guid: 30902f8af10daa04cabd79e9ef258f08, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36356aec8c39afc45befb2f7c033c07f, type: 3}
 --- !u!1001 &7424511498255419749

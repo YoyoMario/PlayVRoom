@@ -20,17 +20,37 @@ namespace DivIt.PlayVRoom.Misc
         bool _goOnce;
 
         private BulletManager _bulletManager;
+        private Coroutine _c_destroy;
+
+        public BulletManager BulletManager
+        {
+            get
+            {
+                return _bulletManager;
+            }
+            set
+            {
+                _bulletManager = value;
+            }
+        }
 
         private void Awake()
         {
             _ray = new Ray(transform.position, transform.forward);
             _hit = new RaycastHit();
+        }
 
-            _bulletManager = BulletManager.Instance;
+        private void Start()
+        {
+            _c_destroy = StartCoroutine(C_Destroy());
         }
 
         private void FixedUpdate()
         {
+            if (!_bulletManager)
+            {
+                return;
+            }
             if (_goOnce)
             {
                 return;
@@ -61,6 +81,17 @@ namespace DivIt.PlayVRoom.Misc
             }
 
             _goOnce = true;
+        }
+
+        IEnumerator C_Destroy()
+        {
+            //wait for bullet to do one fixed update frame.
+            while (!_goOnce)
+            {
+                yield return null;
+            }
+
+            Destroy(gameObject);
         }
     } 
 }

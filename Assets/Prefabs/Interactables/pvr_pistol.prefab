@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
-  _pickupVolume: 0.75
   _audioClipPickUpSounds:
   - {fileID: 8300000, guid: 3f6eb15a190903249b83bcfab1ba7bec, type: 3}
   - {fileID: 8300000, guid: 2b8e789c0dcdd824ea74d07cf99011e3, type: 3}
@@ -210,7 +209,7 @@ MonoBehaviour:
   _minMaxPitch: {x: 0, y: 0}
   _minMaxVolume: {x: 0, y: 0}
   _shootingHaptics: {fileID: 11400000, guid: 6963d5a259ed1be43b3b2d105ddafd31, type: 2}
-  _prefabBullet: {fileID: 1011060325896597955, guid: 06df2c8a2e812c04b8fbddd25adee74b,
+  _prefabBullet: {fileID: 2859231493164995004, guid: 1923f56965710424a8a8a2ffb04109b0,
     type: 3}
   _bulletSpawnPoint: {fileID: 7749321093215065249}
   _prefabMuzzelFlashes:
@@ -323,7 +322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
-  _pickupVolume: 0.75
   _audioClipPickUpSounds: []
   MeshHover: []
   Colliders: []
@@ -471,7 +469,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineMaterial: {fileID: 0}
-  _pickupVolume: 0.75
   _audioClipPickUpSounds: []
   MeshHover: []
   Colliders: []
