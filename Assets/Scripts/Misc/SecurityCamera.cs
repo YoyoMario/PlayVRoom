@@ -109,6 +109,11 @@ namespace DivIt.PlayVRoom.Misc
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (_destroyed)
+            {
+                return;
+            }
+
             if (collision.relativeVelocity.magnitude > _collisionVelocity)
             {
                 _destroyed = true;
