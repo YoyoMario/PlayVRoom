@@ -31,12 +31,16 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private AudioClip[] _audioClipHitSound;
         [Header("Pinpull feedback")]
         [SerializeField] private HapticFeedback _pinPullHaptics;
+        [Header("Explosion settings")]
+        [SerializeField] private float _explosionDistance = 1f;
+        [SerializeField] private float _explosionForce = 100f;
 
         private ExplosionManager _explosionManager;
         private Coroutine _c_explosion;
         private Coroutine _c_audioCooldown;
 
         private const float _coolDownAudioTime = 0.25f;
+        private const string _layerDefaultName = "Default";
 
         public override void Start()
         {
@@ -61,6 +65,17 @@ namespace DivIt.PlayVRoom.VR.Interaction
             {
                 AudioManager.PlayAudio3D(_audioClipHitSound, transform.position);
                 _c_audioCooldown = StartCoroutine(AudioCooldown());
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            //On explosion to move rigidbodies
+            if (other.attachedRigidbody)
+            {
+                Vector3 dir = other.attachedRigidbody.position - Rigidbody.position;
+                Vector3 forceToApply = dir.normalized * _explosionForce;
+                other.attachedRigidbody.AddForce(forceToApply);
             }
         }
 
@@ -118,14 +133,41 @@ namespace DivIt.PlayVRoom.VR.Interaction
         {
             yield return new WaitForSeconds(_countdownTime);
 
+            //Freze the rigidbody;
+            Rigidbody.velocity = Vector3.zero;
+            Rigidbody.angularVelocity = Vector3.zero;
+            Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
+            //yield return new WaitForFixedUpdate();
+
+            ////Change all layers so hands don't trigger when this expands && children too!
+            //foreach (Collider collider in Colliders)
+            //{
+            //    collider.gameObject.layer = LayerMask.NameToLayer(_layerDefaultName);
+            //}
+
+            //yield return new WaitForFixedUpdate();
+
+            ////Switch all colliders to triggers
+            //foreach (Collider collider in Colliders)
+            //{
+            //    collider.isTrigger = true;
+            //}
+
+            //yield return new WaitForFixedUpdate();
+
+            //foreach (Collider collider in Colliders)
+            //{
+            //    ((SphereCollider)collider).radius = _explosionDistance;
+            //}
+
             //Make explosion sound
             AudioManager.PlayAudio3D(_audioClipExplosion, transform.position, _minMaxPitchExplosionSound, _minMaxVolumeExplosionSound);
 
             //Make explosion visual - todo needs more stuff here
-            _explosionManager.CreateExplosion(transform.position);
+            //_explosionManager.CreateExplosion(transform.position);
 
-            yield return null;
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         /// <summary>

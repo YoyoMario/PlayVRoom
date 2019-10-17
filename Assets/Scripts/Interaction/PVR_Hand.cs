@@ -127,6 +127,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
 
             //Interaction layers setup
+            int layerNameDefaultLayer = LayerMask.NameToLayer(_defaultLayer);
             int layerNameHandLayer = LayerMask.NameToLayer(_vrHandsLayer);
             int layerNameVrInteractionLayer = LayerMask.NameToLayer(_vrInteractableLayer);
             int layerNameHandCollider = LayerMask.NameToLayer(_layerNameHandCollider);
@@ -145,7 +146,9 @@ namespace DivIt.PlayVRoom.VR.Interaction
             Physics.IgnoreLayerCollision(layerNameVrInteractionLayer, layerNameVrInteractionLayer, false);
             //Allow physics interactio nbetween hand collider layer and vr interactable layer, and it self ofcourse
             Physics.IgnoreLayerCollision(layerNameHandCollider, layerNameVrInteractionLayer, false);            
-            Physics.IgnoreLayerCollision(layerNameHandCollider, layerNameHandCollider, false);            
+            Physics.IgnoreLayerCollision(layerNameHandCollider, layerNameHandCollider, false);
+            //Ignore physics interaction between hands and default layer
+            Physics.IgnoreLayerCollision(layerNameDefaultLayer, layerNameHandLayer);
 
             //Initialize trigger collider
             _objectDetectionTrigger = GetComponent<SphereCollider>();
