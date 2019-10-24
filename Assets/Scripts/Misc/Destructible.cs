@@ -8,13 +8,13 @@ namespace DivIt.PlayVRoom.Misc
 {
     public class Destructible : MonoBehaviour
     {
-        [SerializeField] private float _velocityToBreak;
-        [SerializeField] private Rigidbody[] _destructedParts;
+        [SerializeField] private float _velocityToBreak = 0f;
+        [SerializeField] private Rigidbody[] _destructedParts = null;
         [SerializeField] private float _forceFromMiddle = 20;
         [Header("Audio")]
-        [SerializeField] private AudioClip[] _audioClipBreak;
-        [SerializeField] private Vector2 minMaxVolume;
-        [SerializeField] private Vector2 minMaxPitch;
+        [SerializeField] private AudioClip[] _audioClipBreak = null;
+        [SerializeField] private Vector2 minMaxVolume = Vector2.zero;
+        [SerializeField] private Vector2 minMaxPitch = Vector2.zero;
 
         private AudioManager _audioManager;
 

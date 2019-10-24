@@ -7,17 +7,17 @@ namespace DivIt.PlayVRoom.Managers
 {
     public class MovementManager : MonoBehaviour
     {
-        [SerializeField] private SteamVR_Input_Sources _sourceLeftHand;
-        [SerializeField] private SteamVR_Input_Sources _sourceRightHand;
+        [SerializeField] private SteamVR_Input_Sources _sourceLeftHand = SteamVR_Input_Sources.Any;
+        [SerializeField] private SteamVR_Input_Sources _sourceRightHand = SteamVR_Input_Sources.Any;
         [Space(5)]
-        [SerializeField] private SteamVR_Action_Vector2 _trackpadPosition;
-        [SerializeField] private SteamVR_Action_Boolean _trackpadClick;
+        [SerializeField] private SteamVR_Action_Vector2 _trackpadPosition = null;
+        [SerializeField] private SteamVR_Action_Boolean _trackpadClick = null;
         [Space(20)]
-        [SerializeField] private Transform _playerArea;
-        [SerializeField] private Transform _playerHead;
-        [SerializeField] private SphereCollider _playareaCollider;
+        [SerializeField] private Transform _playerArea = null;
+        [SerializeField] private Transform _playerHead = null;
+        [SerializeField] private SphereCollider _playareaCollider = null;
         [Space(20)]
-        [SerializeField] private AnimationCurve _sensitvityCurve;
+        [SerializeField] private AnimationCurve _sensitvityCurve = null;
         [SerializeField] private float _walkAcceleration = 0.25f;
         [SerializeField] private float _maxSpeed = 0.25f;
 

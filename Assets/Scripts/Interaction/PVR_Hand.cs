@@ -14,45 +14,40 @@ namespace DivIt.PlayVRoom.VR.Interaction
     public class PVR_Hand: MonoBehaviour
     {
         [Header("Steam hand input")]
-        [SerializeField] private SteamVR_Input_Sources _inputSource;
-        [SerializeField] private SteamVR_Action_Boolean _pickUp;
-        [SerializeField] private SteamVR_Action_Boolean _touchpadTouch;
-
-        [Header("Interaction Layers")]
-        [SerializeField] private string _defaultLayer;
-        [SerializeField] private string _vrHandsLayer;
-        [SerializeField] private string _vrInteractableLayer;
+        [SerializeField] private SteamVR_Input_Sources _inputSource = SteamVR_Input_Sources.Any;
+        [SerializeField] private SteamVR_Action_Boolean _pickUp = null;
+        [SerializeField] private SteamVR_Action_Boolean _touchpadTouch = null;
 
         [Header("Raycast Force")]
-        [SerializeField] private float _raycastDistance;
-        [SerializeField] private float _raycastSphereRadius;
-        [SerializeField] private float _raycastAssistTimer;
+        [SerializeField] private float _raycastDistance = 0f;
+        [SerializeField] private float _raycastSphereRadius = 0f;
+        [SerializeField] private float _raycastAssistTimer = 0f;
 
         [Header("Hand collider settings")]
         [SerializeField] private float _positionVelocityMultiplier = 2200;
         [SerializeField] private float _rotationVelocityMultiplier = 30f;
-        [SerializeField] private Vector3 _positionOffset;
+        [SerializeField] private Vector3 _positionOffset = Vector3.zero;
         [SerializeField] private float _handColliderRadius = 0.15f;
         [SerializeField] private bool _showMesh = false;
-        [SerializeField] private Rigidbody _handRigidbody;
-        [SerializeField] private Collider _handCollider;
-        [SerializeField] private string _layerNameHandCollider; //we want hands colliders to be interactable only and ONLY with interactable objects, that way we can put our hands under the table and hit objects from the bottom
+        [SerializeField] private Rigidbody _handRigidbody = null;
+        [SerializeField] private Collider _handCollider = null;
 
         [Header("Haptic feedback settings")]
-        [SerializeField] private HapticFeedback _hoverHaptics;
+        [SerializeField] private HapticFeedback _hoverHaptics = null;
 
         [Header("Info")]
-        [SerializeField] private PVR_Interactable _currentInteractableObject;
-        [SerializeField] private List<PVR_Interactable> _touching;
-        [SerializeField] private PVR_Interactable[] _previousFrame_touching;
-        [SerializeField] private Transform _raycastedObject;
-        [SerializeField] private GameObject _forceEffectHelper;
-        [SerializeField] private Vector3 _forceEffectHelperOffset;
-        [SerializeField] private bool _touchpadTouching;
+        [SerializeField] private PVR_Interactable _currentInteractableObject = null;
+        [SerializeField] private List<PVR_Interactable> _touching = null;
+        [SerializeField] private PVR_Interactable[] _previousFrame_touching = null;
+        [SerializeField] private Transform _raycastedObject = null;
+        [SerializeField] private GameObject _forceEffectHelper = null;
+        [SerializeField] private Vector3 _forceEffectHelperOffset = Vector3.zero;
+        [SerializeField] private bool _touchpadTouching = false;
 
         #region Private
 
         HapticFeedbackManager _hapticFeedbackManager;
+        LayerManager _layerManager;
         Rigidbody _rigidbody;        
         SphereCollider _objectDetectionTrigger;
 
@@ -67,7 +62,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         #region Constants
 
-        public const string _handHelperName = "HandHelper";
         public const string _untaggedTag = "Untagged";
         public const string _vrInteractableTag = "Vr_Interactable";
 
@@ -126,30 +120,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _rigidbody.useGravity = false;
 
 
-            //Interaction layers setup
-            int layerNameDefaultLayer = LayerMask.NameToLayer(_defaultLayer);
-            int layerNameHandLayer = LayerMask.NameToLayer(_vrHandsLayer);
-            int layerNameVrInteractionLayer = LayerMask.NameToLayer(_vrInteractableLayer);
-            int layerNameHandCollider = LayerMask.NameToLayer(_layerNameHandCollider);
-            for(int i = 0; i <= 31; i++) //Unity supports 31 layers
-            {
-                //leave default layer intact for this purpose
-                if (i != 0)
-                {
-                    Physics.IgnoreLayerCollision(i, layerNameHandLayer, true);
-                    Physics.IgnoreLayerCollision(i, layerNameVrInteractionLayer, true);
-                }                
-                Physics.IgnoreLayerCollision(i, layerNameHandCollider, true);
-            }
-            //Allow physics interaction between hand layer and vr interactable object
-            Physics.IgnoreLayerCollision(layerNameHandLayer, layerNameVrInteractionLayer, false);
-            Physics.IgnoreLayerCollision(layerNameVrInteractionLayer, layerNameVrInteractionLayer, false);
-            //Allow physics interactio nbetween hand collider layer and vr interactable layer, and it self ofcourse
-            Physics.IgnoreLayerCollision(layerNameHandCollider, layerNameVrInteractionLayer, false);            
-            Physics.IgnoreLayerCollision(layerNameHandCollider, layerNameHandCollider, false);
-            //Ignore physics interaction between hands and default layer
-            Physics.IgnoreLayerCollision(layerNameDefaultLayer, layerNameHandLayer);
-
             //Initialize trigger collider
             _objectDetectionTrigger = GetComponent<SphereCollider>();
             _objectDetectionTrigger.isTrigger = true;
@@ -184,7 +154,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             //Create hand collider
             GameObject tmpGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            tmpGo.layer = LayerMask.NameToLayer(_layerNameHandCollider);
+            tmpGo.layer = LayerMask.NameToLayer(_layerManager.LayerHandColliders);
 
             if (!_showMesh)
             {
@@ -204,6 +174,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private void Start()
         {
             _hapticFeedbackManager = HapticFeedbackManager.Instance;
+            _layerManager = LayerManager.Instance;
         }
 
         public void OnEnable()
@@ -312,11 +283,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
                 //Wall detection
                 bool wallHit = false;
-                int defaultLayerInteger = 1 << LayerMask.NameToLayer(_defaultLayer);
-                int vrInteractableLayerInteger = 1 << LayerMask.NameToLayer(_vrInteractableLayer);
+                int defaultLayerInteger = 1 << LayerMask.NameToLayer(_layerManager.LayerDefault);
+                int vrInteractableLayerInteger = 1 << LayerMask.NameToLayer(_layerManager.LayerVrInteractable);
                 if (Physics.Raycast(ray.origin, ray.direction, out _raycastHitWallDetection, _raycastDistance, defaultLayerInteger | vrInteractableLayerInteger))
                 {
-                    if (!_raycastHitWallDetection.transform.CompareTag(_vrInteractableLayer))
+                    if (!_raycastHitWallDetection.transform.CompareTag(_layerManager.LayerVrInteractable))
                     {
                         wallHit = true;
                     }

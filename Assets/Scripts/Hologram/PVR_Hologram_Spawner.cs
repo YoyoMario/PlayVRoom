@@ -9,25 +9,25 @@ namespace DivIt.PlayVRoom.VR.Hologram
     public class PVR_Hologram_Spawner : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private GameObject[] _objectToCreate;
-        [SerializeField] private Transform _spawnPoint;
-        [SerializeField] private Material _hologramMaterial;
+        [SerializeField] private GameObject[] _objectToCreate = null;
+        [SerializeField] private Transform _spawnPoint = null;
+        [SerializeField] private Material _hologramMaterial = null;
         [Header("Settings")]
-        [SerializeField] private float _startingAlpha;
-        [SerializeField] private float _endingAlpha;
-        [SerializeField] private AnimationCurve _showAnimationCurve;
-        [SerializeField] private float _appearSpeed;
+        [SerializeField] private float _startingAlpha = 0f;
+        [SerializeField] private float _endingAlpha = 0f;
+        [SerializeField] private AnimationCurve _showAnimationCurve = null;
+        [SerializeField] private float _appearSpeed = 0f;
         [Space(5)]
-        [SerializeField] private float _glitchMaxEffect;
-        [SerializeField] private float _glitchNormalEffect;
+        [SerializeField] private float _glitchMaxEffect = 0f;
+        [SerializeField] private float _glitchNormalEffect = 0f;
         [Header("Info - Current Object")]
-        [SerializeField] private GameObject _currentObject;
-        [SerializeField] private PVR_Interactable _currentInteractable;
-        [SerializeField] private Collider[] _currentColliders;
-        [SerializeField] private Rigidbody _currentRigidbody;
-        [SerializeField] private MeshRenderer _currentMeshRenderer;
-        [SerializeField] private Material _currentHologramMaterial;
-        [SerializeField] private Material _currentMainMaterial;
+        [SerializeField] private GameObject _currentObject = null;
+        [SerializeField] private PVR_Interactable _currentInteractable = null;
+        [SerializeField] private Collider[] _currentColliders = null;
+        [SerializeField] private Rigidbody _currentRigidbody = null;
+        [SerializeField] private MeshRenderer _currentMeshRenderer = null;
+        [SerializeField] private Material _currentHologramMaterial = null;
+        [SerializeField] private Material _currentMainMaterial = null;
 
         private Coroutine DisplayEffect_Coroutine;
         private Coroutine GlitchEffect_Coroutine;

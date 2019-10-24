@@ -71,23 +71,23 @@ namespace DivIt.PlayVRoom.VR.Interaction
         }
 
         [Header("References from project")]
-        public Material OutlineMaterial;
+        public Material OutlineMaterial = null;
         [Header("Pick up sounds")]
         private float _pickupVolume = 0.45f;
-        [SerializeField] private AudioClip[] _audioClipPickUpSounds;
+        [SerializeField] private AudioClip[] _audioClipPickUpSounds = null;
         [Header("References from object it self")]
-        public MeshHoverClass[] MeshHover;
-        public Collider[] Colliders;
+        public MeshHoverClass[] MeshHover = null;
+        public Collider[] Colliders = null;
         [Header("References from object it self - not necessary")]
-        public Transform HandPosition;
+        public Transform HandPosition = null;
         [Header("Added runtime")]
         [Header("-----------------------")]
-        public ControllerPhysics ControllerPhysics;
-        public HapticFeedback CollisionHaptics;
-        public bool Picked;
-        [SerializeField] private Rigidbody _rigidbody;
-        public PVR_Hand Hand;
-        public Hand SteamHand;
+        public ControllerPhysics ControllerPhysics = null;
+        public HapticFeedback CollisionHaptics = null;
+        public bool Picked = false;
+        [SerializeField] private Rigidbody _rigidbody = null;
+        public PVR_Hand Hand = null;
+        public Hand SteamHand = null;
 
         public delegate void PVR_Interactable_Action();
         public event PVR_Interactable_Action OnPickAction;
@@ -112,6 +112,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         private AudioManager _audioManager;
         private HapticFeedbackManager _hapticFeedbackManger;
+        private LayerManager _layerManager;
 
         #endregion
 
@@ -196,6 +197,13 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 return _hapticFeedbackManger;
             }
         }
+        public LayerManager LayerManager
+        {
+            get
+            {
+                return _layerManager;
+            }
+        }
 
         #endregion
 
@@ -210,6 +218,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         {
             _audioManager = AudioManager.Instance;
             _hapticFeedbackManger = HapticFeedbackManager.Instance;
+            _layerManager = LayerManager.Instance;
         }
 
         public virtual void FixedUpdate()

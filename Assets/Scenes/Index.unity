@@ -2206,6 +2206,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 711091355}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &350985227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 350985228}
+  - component: {fileID: 350985229}
+  m_Layer: 0
+  m_Name: LayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &350985228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350985227}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1670257652}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &350985229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350985227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9db62631db1fa947946d0f35bf1c5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPersistantBetweenScenes: 0
+  _layerDefault: Default
+  _layerVrHands: Vr_Hand
+  _layerVrInteractable: Vr_Interactable
+  _layerHandColliders: Vr_Hand_Collider
+  _layerVrPlayer: Vr_Player
+  _layerGrenadeExplosion: Grenade_Explosion
 --- !u!1001 &354042192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2922,7 +2972,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1670257652}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &476609585
 MonoBehaviour:
@@ -9533,6 +9583,7 @@ Transform:
   - {fileID: 1656361382}
   - {fileID: 1851823798}
   - {fileID: 230898824}
+  - {fileID: 350985228}
   - {fileID: 476609584}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -12536,6 +12587,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pvr_grenade_ball
       objectReference: {fileID: 0}
+    - target: {fileID: 4783431111866662268, guid: bfddf904a3a2d914c9ee9a5045e1e355,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4789005030049816640, guid: bfddf904a3a2d914c9ee9a5045e1e355,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13246,21 +13302,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1251311315}
-    - target: {fileID: 7587436018747433591, guid: 073b70b07a25bfe4ba8ea97198a82641,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7587436018747433591, guid: 073b70b07a25bfe4ba8ea97198a82641,
-        type: 3}
-      propertyPath: drawWireframeWhenSelectedOnly
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7587436018747433591, guid: 073b70b07a25bfe4ba8ea97198a82641,
-        type: 3}
-      propertyPath: drawInGame
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 073b70b07a25bfe4ba8ea97198a82641, type: 3}
 --- !u!1001 &8848205625381501724

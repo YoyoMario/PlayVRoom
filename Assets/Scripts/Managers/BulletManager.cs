@@ -11,7 +11,7 @@ namespace DivIt.PlayVRoom.Managers
     {
         [Header("----------------------------------------------------------------")]
         [SerializeField] private int _maxBulletShellCount = 20;
-        [SerializeField] private GameObject _prefabImpact;
+        [SerializeField] private GameObject _prefabImpact = null;
 
         private List<GameObject> _bullets;
 

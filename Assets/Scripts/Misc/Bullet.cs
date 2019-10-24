@@ -8,10 +8,10 @@ namespace DivIt.PlayVRoom.Misc
 {
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private bool _consoleWrite;
+        [SerializeField] private bool _consoleWrite = false;
         [Space(10)]
-        [SerializeField] private LayerMask _hittableLayers;
-        [SerializeField] private float _distance;
+        [SerializeField] private LayerMask _hittableLayers = 0;
+        [SerializeField] private float _distance = 0f;
         [Space(10)]
         [SerializeField] private float _bulletForce = 200;
 

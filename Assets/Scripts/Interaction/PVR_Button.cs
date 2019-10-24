@@ -17,8 +17,8 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private int _clickPercentageTreshold = 75; //0% unclicked - 100% fully clicked
         [SerializeField] private bool _clicked;
         [Header("Audio")]
-        [SerializeField] AudioClip[] _audioClipPressSounds;
-        [SerializeField] AudioClip[] _audioClipReleaseSounds;
+        [SerializeField] AudioClip[] _audioClipPressSounds = null;
+        [SerializeField] AudioClip[] _audioClipReleaseSounds = null;
 
         private Vector3 _initialPosition;
 

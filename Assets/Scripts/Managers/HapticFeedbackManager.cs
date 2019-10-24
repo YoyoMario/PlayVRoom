@@ -10,7 +10,7 @@ namespace DivIt.PlayVRoom.Managers
     public class HapticFeedbackManager : Singleton<HapticFeedbackManager>
     {
         [Header("----------------------------------------------------------------")]
-        [SerializeField] private SteamVR_Action_Vibration _hapticAction;
+        [SerializeField] private SteamVR_Action_Vibration _hapticAction = null;
 
         /// <summary>
         /// Activates haptic feedback on a controller with passed settings.

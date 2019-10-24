@@ -9,7 +9,7 @@ namespace DivIt.PlayVRoom.Managers
     public class ExplosionManager : Singleton<ExplosionManager>
     {
         [Header("-------------------------------------------")]
-        [SerializeField] private GameObject[] _prefabExplosion;
+        [SerializeField] private GameObject[] _prefabExplosion = null;
 
         public void CreateExplosion(Vector3 position)
         {

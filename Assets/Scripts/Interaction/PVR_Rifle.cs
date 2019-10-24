@@ -18,33 +18,33 @@ namespace DivIt.PlayVRoom.VR.Interaction
             AutoFire
         }
 
-        [SerializeField] private PVR_Second_Hand _secondHand;
+        [SerializeField] private PVR_Second_Hand _secondHand = null;
         [Header("-------------------------------")]        
-        [SerializeField] private SteamVR_Action_Boolean _triggerPress;
+        [SerializeField] private SteamVR_Action_Boolean _triggerPress = null;
         [SerializeField] private float _cooldownSpeed = 1;
         [SerializeField] private RifleMode _rifleMode = RifleMode.SingleFire;
         [Header("Shell settings")]
-        [SerializeField] private Transform _shellEjectPosition;
-        [SerializeField] private GameObject _prefabShell;
+        [SerializeField] private Transform _shellEjectPosition = null;
+        [SerializeField] private GameObject _prefabShell = null;
         [SerializeField] private float _shellForce = 1.5f;
         [SerializeField] private float _shellRandomRotationAmount = 45;
         [Header("Recoil settings")]
         [SerializeField] private float _sliderMovementAmount = 0.5f;
-        [SerializeField] private Transform _pistolSlider;
+        [SerializeField] private Transform _pistolSlider = null;
         [Header("Sound settings")]
-        [SerializeField] private AudioClip[] _audioClipShot;
-        [SerializeField] private Vector2 _minMaxPitch;
-        [SerializeField] private Vector2 _minMaxVolume;
+        [SerializeField] private AudioClip[] _audioClipShot = null;
+        [SerializeField] private Vector2 _minMaxPitch = Vector2.zero;
+        [SerializeField] private Vector2 _minMaxVolume = Vector2.zero;
         [Header("Haptic pistol feedback")]
-        [SerializeField] private HapticFeedback _shootingHaptics;
+        [SerializeField] private HapticFeedback _shootingHaptics = null;
         [Header("Bullet spawn settings")]
-        [SerializeField] private GameObject _prefabBullet;
-        [SerializeField] private Transform _bulletSpawnPoint;
+        [SerializeField] private GameObject _prefabBullet = null;
+        [SerializeField] private Transform _bulletSpawnPoint = null;
         [Header("Muzzel flash settings")]
-        [SerializeField] private GameObject[] _prefabMuzzelFlashes;
-        [SerializeField] private Transform _muzzelFlashSpawnPosition;
+        [SerializeField] private GameObject[] _prefabMuzzelFlashes = null;
+        [SerializeField] private Transform _muzzelFlashSpawnPosition = null;
         [Header("Info")]
-        [SerializeField] private bool _triggerState;
+        [SerializeField] private bool _triggerState = false;
 
         private float _angle;
         private Vector3 _axis;

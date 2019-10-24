@@ -10,7 +10,7 @@ namespace DivIt.PlayVRoom.Misc
     public class BulletShell : MonoBehaviour
     {
         [SerializeField] private float _hitSpeedSoundTreshold = 1;
-        [SerializeField] private AudioClip[] _audioClipHitSound;
+        [SerializeField] private AudioClip[] _audioClipHitSound = null;
 
         public delegate void BulletShellEvent(GameObject bulletShell);
         public static event BulletShellEvent OnBulletShellSpawn;

@@ -13,7 +13,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private float _minAngle = -30;
         [SerializeField] private float _maxAngle = 30;
         [Space(5)]
-        [SerializeField] private HapticFeedback _movementHaptics;
+        [SerializeField] private HapticFeedback _movementHaptics = null;
         [SerializeField] private float _hapticsAtAngle = 25f;
 
         //calculation infos

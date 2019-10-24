@@ -13,8 +13,8 @@ namespace DivIt.PlayVRoom.Misc
             AngleTresholdMovement
         }
 
-        [SerializeField] private MovementType _movementType;
-        [SerializeField] private Transform _pivotPositionOffset;
+        [SerializeField] private MovementType _movementType = MovementType.AngleTresholdMovement;
+        [SerializeField] private Transform _pivotPositionOffset = null;
         [SerializeField] private float _tresholdRotationStart = 10;
         [SerializeField] private float _tresholdRotationStop = 1;
         [Space(10)]
@@ -24,7 +24,7 @@ namespace DivIt.PlayVRoom.Misc
         [SerializeField] private bool _destroyed;
         [SerializeField] private float _collisionVelocity = 10f;
         [Header("Audio")]
-        [SerializeField] private AnimationCurve _animationCurveVolume;
+        [SerializeField] private AnimationCurve _animationCurveVolume = null;
 
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;

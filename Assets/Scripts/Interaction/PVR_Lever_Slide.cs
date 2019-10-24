@@ -12,14 +12,14 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private float _maxMovement = 0.03f;
         [SerializeField] private float _minMovement = -0.03f;
         [Space(5)]
-        [SerializeField] private HapticFeedback _movementHaptics;
+        [SerializeField] private HapticFeedback _movementHaptics = null;
         [SerializeField] private float _hapticsAtDeltaMovement = 25f;
 
-        private Vector3 _velocityDirection;
-        private Vector3 _cross;
-        private float _deltaMovement;
-        private Quaternion _initialRotation;
-        private Vector3 _lastHandledPosition;
+        private Vector3 _velocityDirection = Vector3.zero;
+        private Vector3 _cross = Vector3.zero;
+        private float _deltaMovement = 0f;
+        private Quaternion _initialRotation = Quaternion.identity;
+        private Vector3 _lastHandledPosition = Vector3.zero;
 
         private float _totalMovement;
 

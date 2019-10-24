@@ -11,26 +11,26 @@ namespace DivIt.PlayVRoom.VR.Interaction
     public class PVR_Grenade : PVR_Rigidbody_Object
     {
         [Header("-----------------------------------------")]
-        [SerializeField] private SteamVR_Action_Boolean _triggerPress;
+        [SerializeField] private SteamVR_Action_Boolean _triggerPress = null;
         [Space(10)]
         [SerializeField] private bool _pinPulled = false;
         [SerializeField] private bool _throwActivated = false;
         [Header("Settings")]
-        [SerializeField] private GameObject _prefabThrowTrail;
+        [SerializeField] private GameObject _prefabThrowTrail = null;
         [SerializeField] private float _countdownTime = 2.5f;
         [Header("Pin Sounds")]
-        [SerializeField] private AudioClip[] _pinPulloutSounds;
+        [SerializeField] private AudioClip[] _pinPulloutSounds = null;
         [SerializeField] private Vector2 _minMaxPitchPinSound = new Vector2(0.7f, 1.2f);
         [SerializeField] private Vector2 _minMaxVolumePinSound = new Vector2(0.7f, 1.2f);
         [Header("Explosion Sounds")]
-        [SerializeField] private AudioClip[] _audioClipExplosion;
+        [SerializeField] private AudioClip[] _audioClipExplosion = null;
         [SerializeField] private Vector2 _minMaxPitchExplosionSound = new Vector2(0.7f, 1.2f);
         [SerializeField] private Vector2 _minMaxVolumeExplosionSound = new Vector2(0.7f, 1.2f);
         [Header("Collision Sounds")]
         [SerializeField] private float _hitSpeedSoundTreshold = 1;
-        [SerializeField] private AudioClip[] _audioClipHitSound;
+        [SerializeField] private AudioClip[] _audioClipHitSound = null;
         [Header("Pinpull feedback")]
-        [SerializeField] private HapticFeedback _pinPullHaptics;
+        [SerializeField] private HapticFeedback _pinPullHaptics = null;
         [Header("Explosion settings")]
         [SerializeField] private float _explosionDistance = 1f;
         [SerializeField] private float _explosionForce = 100f;
@@ -40,7 +40,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private Coroutine _c_audioCooldown;
 
         private const float _coolDownAudioTime = 0.25f;
-        private const string _layerDefaultName = "Default";
 
         public override void Start()
         {
@@ -70,9 +69,14 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         private void OnTriggerEnter(Collider other)
         {
-            //On explosion to move rigidbodies
+            if (!_pinPulled || !_throwActivated)
+            {
+                return;
+            }
+
             if (other.attachedRigidbody)
             {
+                Debug.Log(other.gameObject, other.gameObject);
                 Vector3 dir = other.attachedRigidbody.position - Rigidbody.position;
                 Vector3 forceToApply = dir.normalized * _explosionForce;
                 other.attachedRigidbody.AddForce(forceToApply);
@@ -138,34 +142,30 @@ namespace DivIt.PlayVRoom.VR.Interaction
             Rigidbody.angularVelocity = Vector3.zero;
             Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 
-            //yield return new WaitForFixedUpdate();
+            //CHange this layer
+            gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
 
-            ////Change all layers so hands don't trigger when this expands && children too!
-            //foreach (Collider collider in Colliders)
-            //{
-            //    collider.gameObject.layer = LayerMask.NameToLayer(_layerDefaultName);
-            //}
+            //Change all layers so hands don't trigger when this expands && children too!
+            foreach (Collider collider in Colliders)
+            {
+                collider.gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
+                collider.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
+            }
 
-            //yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
 
-            ////Switch all colliders to triggers
-            //foreach (Collider collider in Colliders)
-            //{
-            //    collider.isTrigger = true;
-            //}
-
-            //yield return new WaitForFixedUpdate();
-
-            //foreach (Collider collider in Colliders)
-            //{
-            //    ((SphereCollider)collider).radius = _explosionDistance;
-            //}
+            //Switch all colliders to triggers
+            foreach (Collider collider in Colliders)
+            {
+                collider.isTrigger = true;
+                ((SphereCollider)collider).radius = _explosionDistance;
+            }
 
             //Make explosion sound
             AudioManager.PlayAudio3D(_audioClipExplosion, transform.position, _minMaxPitchExplosionSound, _minMaxVolumeExplosionSound);
 
             //Make explosion visual - todo needs more stuff here
-            //_explosionManager.CreateExplosion(transform.position);
+            _explosionManager.CreateExplosion(transform.position);
 
             //Destroy(gameObject);
         }
