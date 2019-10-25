@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 6498060533923236895}
   - component: {fileID: 7858384964144959038}
   - component: {fileID: 5363096316279276321}
-  m_Layer: 0
+  - component: {fileID: 24642961}
+  m_Layer: 10
   m_Name: pvr_destructible_bottle_01
-  m_TagString: Untagged
+  m_TagString: Vr_Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +140,34 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 99f1ed0fa8451964195ad9a9709d63c0, type: 3}
   minMaxVolume: {x: 0.1, y: 0.2}
   minMaxPitch: {x: 0.9, y: 1.1}
+--- !u!114 &24642961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6498060533917888373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a249cbf6967604eb5c7d3755f2c939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineMaterial: {fileID: 2100000, guid: 452a26875e7c65c4e811deaa90b6ce7d, type: 2}
+  _audioClipPickUpSounds:
+  - {fileID: 8300000, guid: 6c86351a4a4211b41a292c7c79e61f2b, type: 3}
+  MeshHover:
+  - Mesh: {fileID: 6498060533915955637}
+    DefaultMaterials: []
+    OutlineMaterials: []
+  Colliders:
+  - {fileID: 7858384964144959038}
+  HandPosition: {fileID: 0}
+  ControllerPhysics: {fileID: 0}
+  CollisionHaptics: {fileID: 0}
+  Picked: 0
+  _rigidbody: {fileID: 0}
+  Hand: {fileID: 0}
+  SteamHand: {fileID: 0}
 --- !u!1 &6498060533917888375
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +181,7 @@ GameObject:
   - component: {fileID: 6498060533915955639}
   - component: {fileID: 6498060533923236885}
   - component: {fileID: 2827994999918644975}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottle_chunk01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +290,7 @@ GameObject:
   - component: {fileID: 6498060533915955641}
   - component: {fileID: 6498060533923236887}
   - component: {fileID: 4345738078541400558}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottle_chunk02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +399,7 @@ GameObject:
   - component: {fileID: 6498060533915955643}
   - component: {fileID: 6498060533923236889}
   - component: {fileID: 2687193307549284963}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottle_chunk03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +508,7 @@ GameObject:
   - component: {fileID: 6498060533915955645}
   - component: {fileID: 6498060533923236891}
   - component: {fileID: 3354082118935916012}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottle_chunk04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +617,7 @@ GameObject:
   - component: {fileID: 6498060533915955647}
   - component: {fileID: 6498060533923236893}
   - component: {fileID: 7904829336010763409}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottle_chunk05
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -86,6 +86,8 @@ namespace DivIt.PlayVRoom.Managers
             int nameToLayerVrHands = LayerMask.NameToLayer(_layerVrHands);
             int nameToLayerVrInteractable = LayerMask.NameToLayer(_layerVrInteractable);
             int nameToLayerHandColliders = LayerMask.NameToLayer(_layerHandColliders);
+            int nameToLayerVrPlayer = LayerMask.NameToLayer(_layerVrPlayer);
+            int nameToLayerGrenadeExplosion = LayerMask.NameToLayer(_layerGrenadeExplosion);
 
             //Remove all layer collision from above layers
             for (int i = 0; i <= 31; i++) //Unity supports 31 layers
@@ -106,6 +108,12 @@ namespace DivIt.PlayVRoom.Managers
             Physics.IgnoreLayerCollision(nameToLayerHandColliders, nameToLayerHandColliders, false);
             //Default and VrInteractable
             Physics.IgnoreLayerCollision(nameToLayerDefault, nameToLayerVrInteractable, false);
+            //VrInteractable and GrenadeExplosion
+            Physics.IgnoreLayerCollision(nameToLayerVrInteractable, nameToLayerGrenadeExplosion, false);
+
+            //Ignore interaction between:
+            //VrPlayer and GrenadeExplosion
+            Physics.IgnoreLayerCollision(nameToLayerVrPlayer, nameToLayerGrenadeExplosion, true);
         }
     } 
 }

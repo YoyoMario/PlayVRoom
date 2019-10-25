@@ -76,7 +76,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             if (other.attachedRigidbody)
             {
-                Debug.Log(other.gameObject, other.gameObject);
                 Vector3 dir = other.attachedRigidbody.position - Rigidbody.position;
                 Vector3 forceToApply = dir.normalized * _explosionForce;
                 other.attachedRigidbody.AddForce(forceToApply);
@@ -115,6 +114,16 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             _pinPulled = true;
 
+            //CHange this layer
+            gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
+
+            //Change all layers so hands don't trigger when this expands && children too!
+            foreach (Collider collider in Colliders)
+            {
+                collider.gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
+                collider.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
+            }
+
             //Make pin pullout sound
             AudioManager.PlayAudio3D(_pinPulloutSounds, transform.position, _minMaxPitchPinSound, _minMaxVolumePinSound);
 
@@ -142,16 +151,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
             Rigidbody.angularVelocity = Vector3.zero;
             Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 
-            //CHange this layer
-            gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
-
-            //Change all layers so hands don't trigger when this expands && children too!
-            foreach (Collider collider in Colliders)
-            {
-                collider.gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
-                collider.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerManager.LayerGrenadeExplosion);
-            }
-
             yield return new WaitForFixedUpdate();
 
             //Switch all colliders to triggers
@@ -167,7 +166,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             //Make explosion visual - todo needs more stuff here
             _explosionManager.CreateExplosion(transform.position);
 
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         /// <summary>

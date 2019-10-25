@@ -447,6 +447,9 @@ namespace DivIt.PlayVRoom.VR.Interaction
             ForceDrop();
         }
 
+        /// <summary>
+        /// Used when switching from one hand to another.
+        /// </summary>
         public void ForceDrop()
         {
             if (!_currentInteractableObject)

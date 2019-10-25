@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using DivIt.PlayVRoom.Managers;
+using DivIt.PlayVRoom.VR.Interaction;
 
 namespace DivIt.PlayVRoom.Misc
 {
@@ -16,6 +17,9 @@ namespace DivIt.PlayVRoom.Misc
         [SerializeField] private Vector2 minMaxVolume = Vector2.zero;
         [SerializeField] private Vector2 minMaxPitch = Vector2.zero;
 
+        private bool _broken = false;
+
+        private PVR_Interactable _pvrInteractable;
         private AudioManager _audioManager;
 
         private MeshFilter _meshFilter;
@@ -23,18 +27,23 @@ namespace DivIt.PlayVRoom.Misc
         private Rigidbody _rigidbody;
         private Collider _collider;
 
+        private void Awake()
+        {
+            _pvrInteractable = GetComponent<PVR_Interactable>();
+        }
+
         private void Start()
         {
             _audioManager = AudioManager.Instance;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                StartCoroutine(Break());
-            }
-        }
+        //private void Update()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Return))
+        //    {
+        //        StartCoroutine(Break());
+        //    }
+        //}
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -45,6 +54,19 @@ namespace DivIt.PlayVRoom.Misc
 
         IEnumerator Break()
         {
+            if (_broken)
+            {
+                yield break;
+            }
+
+            _broken = true;
+
+            if (_pvrInteractable.Hand)
+            {
+                _pvrInteractable.Hand.ForceDrop();
+                _pvrInteractable.OnDrop();
+            }
+
             _meshFilter     = GetComponent<MeshFilter>();
             _meshRenderer   = GetComponent<MeshRenderer>();
             _rigidbody      = GetComponent<Rigidbody>();
