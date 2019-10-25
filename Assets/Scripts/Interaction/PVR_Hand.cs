@@ -133,7 +133,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _raycastHitInteractable = new RaycastHit();
             _raycastHitWallDetection = new RaycastHit();
 
-
             //Create force effect helper
             _forceEffectHelper = GameObject.CreatePrimitive(PrimitiveType.Cube);
             _forceEffectHelper.name = "ForceEffectHelper";
@@ -150,31 +149,14 @@ namespace DivIt.PlayVRoom.VR.Interaction
             {
                 _forceEffectHelper.transform.rotation = Quaternion.Euler(0, 90, 90);
             }
-
-
-            //Create hand collider
-            GameObject tmpGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            tmpGo.layer = LayerMask.NameToLayer(_layerManager.LayerHandColliders);
-
-            if (!_showMesh)
-            {
-                Destroy(tmpGo.GetComponent<MeshFilter>());
-                Destroy(tmpGo.GetComponent<MeshRenderer>());
-            }
-            tmpGo.name = "HandCollider-" + transform.name.ToString();
-            tmpGo.transform.localScale = Vector3.one * _handColliderRadius;
-            _handRigidbody = tmpGo.AddComponent<Rigidbody>();
-            _handRigidbody.useGravity = false;
-            _handRigidbody.position = transform.position;
-            _handCollider = tmpGo.GetComponent<BoxCollider>();
-            _handCollider.enabled = false;
-            DisableHandColliders();
         }
 
         private void Start()
         {
             _hapticFeedbackManager = HapticFeedbackManager.Instance;
             _layerManager = LayerManager.Instance;
+
+            CreateHandColliders();
         }
 
         public void OnEnable()
@@ -267,6 +249,31 @@ namespace DivIt.PlayVRoom.VR.Interaction
             {
                 _handRigidbody.angularVelocity = wantedRotation;
             }
+        }
+
+        /// <summary>
+        /// Creates hand colliders (on empty hand press trigger/grip)
+        /// and disables them by default so they are inactive upon creating.
+        /// </summary>
+        private void CreateHandColliders()
+        {
+            //Create hand collider
+            GameObject tmpGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            tmpGo.layer = LayerMask.NameToLayer(_layerManager.LayerHandColliders);
+
+            if (!_showMesh)
+            {
+                Destroy(tmpGo.GetComponent<MeshFilter>());
+                Destroy(tmpGo.GetComponent<MeshRenderer>());
+            }
+            tmpGo.name = "HandCollider-" + transform.name.ToString();
+            tmpGo.transform.localScale = Vector3.one * _handColliderRadius;
+            _handRigidbody = tmpGo.AddComponent<Rigidbody>();
+            _handRigidbody.useGravity = false;
+            _handRigidbody.position = transform.position;
+            _handCollider = tmpGo.GetComponent<BoxCollider>();
+            _handCollider.enabled = false;
+            DisableHandColliders();
         }
 
         /// <summary>
