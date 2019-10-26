@@ -13,6 +13,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
     [RequireComponent(typeof(PVR_Hand_Visualizer), typeof(SphereCollider))]
     public class PVR_Hand: MonoBehaviour
     {
+
         [Header("Steam hand input")]
         [SerializeField] private SteamVR_Input_Sources _inputSource = SteamVR_Input_Sources.Any;
         [SerializeField] private SteamVR_Action_Boolean _pickUp = null;
@@ -24,6 +25,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private float _raycastAssistTimer = 0f;
 
         [Header("Hand collider settings")]
+        [SerializeField] private Transform _playerTransform = null;
         [SerializeField] private float _positionVelocityMultiplier = 2200;
         [SerializeField] private float _rotationVelocityMultiplier = 30f;
         [SerializeField] private Vector3 _positionOffset = Vector3.zero;
@@ -267,6 +269,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 Destroy(tmpGo.GetComponent<MeshRenderer>());
             }
             tmpGo.name = "HandCollider-" + transform.name.ToString();
+            tmpGo.transform.SetParent(_playerTransform);
             tmpGo.transform.localScale = Vector3.one * _handColliderRadius;
             _handRigidbody = tmpGo.AddComponent<Rigidbody>();
             _handRigidbody.useGravity = false;
