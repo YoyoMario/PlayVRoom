@@ -18,7 +18,7 @@ namespace DivIt.PlayVRoom.Misc
         [SerializeField] private Vector2 minMaxPitch = Vector2.zero;
 
         private bool _broken = false;
-
+        
         private PVR_Interactable _pvrInteractable;
         private AudioManager _audioManager;
 
@@ -29,7 +29,11 @@ namespace DivIt.PlayVRoom.Misc
 
         private void Awake()
         {
-            _pvrInteractable = GetComponent<PVR_Interactable>();
+            _meshFilter         = GetComponent<MeshFilter>();
+            _meshRenderer       = GetComponent<MeshRenderer>();
+            _rigidbody          = GetComponent<Rigidbody>();
+            _collider           = GetComponent<Collider>();
+            _pvrInteractable    = GetComponent<PVR_Interactable>();
         }
 
         private void Start()
@@ -60,17 +64,12 @@ namespace DivIt.PlayVRoom.Misc
             }
 
             _broken = true;
-
+            
             if (_pvrInteractable.Hand)
             {
                 _pvrInteractable.Hand.ForceDrop();
                 _pvrInteractable.OnDrop();
             }
-
-            _meshFilter     = GetComponent<MeshFilter>();
-            _meshRenderer   = GetComponent<MeshRenderer>();
-            _rigidbody      = GetComponent<Rigidbody>();
-            _collider       = GetComponent<Collider>();
 
             for(int i = 0; i < _destructedParts.Length; i++)
             {
@@ -84,6 +83,7 @@ namespace DivIt.PlayVRoom.Misc
 
             Destroy(_meshFilter);
             Destroy(_meshRenderer);
+            Destroy(_pvrInteractable);
             Destroy(_rigidbody);
             Destroy(_collider);
 
