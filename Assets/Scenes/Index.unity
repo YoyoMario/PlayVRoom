@@ -13843,6 +13843,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pvr_camera_02
       objectReference: {fileID: 0}
+    - target: {fileID: 5733478909430736613, guid: c9eeb896e3bc17b4d9848236ef774ee0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5733478909430736612, guid: c9eeb896e3bc17b4d9848236ef774ee0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13916,6 +13921,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pvr_camera_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211314159334629533, guid: 8fdf4ffd631c0c64fa639cc23866a31c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9211314159334629532, guid: 8fdf4ffd631c0c64fa639cc23866a31c,
         type: 3}
