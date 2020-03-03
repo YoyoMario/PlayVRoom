@@ -37,8 +37,9 @@ namespace DivIt.PlayVRoom.Managers
             }
         }
 
-        private void Awake()
+        public override void Awake()
         {
+            base.Awake();
             _rigidbodyPlayarea = _playerArea.GetComponent<Rigidbody>();
         }
 

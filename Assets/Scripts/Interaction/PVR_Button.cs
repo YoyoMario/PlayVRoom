@@ -10,9 +10,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
     public class PVR_Button : PVR_Interactable
     {
         [Header("---------------------------")]
-        public float _unclickedPosition = 0.025f; //max peak position
-        public float _clickedPosition = 0.002f; // min bottom position
-        public float _buttonVelocityReturn = 0.2f; //to return in original position
+        [SerializeField] private bool _consoleWrite = false;
+        [Space(20)]
+        [SerializeField] private float _unclickedPosition = 0.025f; //max peak position
+        [SerializeField] private float _clickedPosition = 0.002f; // min bottom position
+        [SerializeField] private float _buttonVelocityReturn = 0.2f; //to return in original position
         [Space(20)]
         [SerializeField] private int _clickPercentageTreshold = 75; //0% unclicked - 100% fully clicked
         [SerializeField] private bool _clicked;
@@ -83,7 +85,10 @@ namespace DivIt.PlayVRoom.VR.Interaction
             clickAmountPercentage *= 100;
             if(clickAmountPercentage > _clickPercentageTreshold && !_clicked)
             {
-                Debug.Log("Button pressed!");
+                if (_consoleWrite)
+                {
+                    Debug.Log("Button pressed!");
+                }
                 _clicked = true;
 
                 //Play audio
@@ -99,7 +104,10 @@ namespace DivIt.PlayVRoom.VR.Interaction
             }
             else if(clickAmountPercentage < _clickPercentageTreshold && _clicked)
             {
-                Debug.Log("Button released!");
+                if (_consoleWrite)
+                {
+                    Debug.Log("Button released!");
+                }
                 _clicked = false;
 
                 //Play audio
