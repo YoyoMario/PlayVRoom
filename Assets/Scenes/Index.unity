@@ -4863,13 +4863,13 @@ Transform:
   - {fileID: 37892301}
   - {fileID: 940504840}
   - {fileID: 60371911}
+  - {fileID: 859079471}
   - {fileID: 1681206931}
   - {fileID: 1433466835}
-  - {fileID: 859079471}
+  - {fileID: 996138098}
   - {fileID: 883865172}
   - {fileID: 1780842731}
   - {fileID: 668601090}
-  - {fileID: 996138098}
   m_Father: {fileID: 1452072768}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7679,7 +7679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4913702675648034, guid: df0de12ef64f6854ba7a94013ffbff7e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4913702675648034, guid: df0de12ef64f6854ba7a94013ffbff7e, type: 3}
       propertyPath: m_LocalScale.z
