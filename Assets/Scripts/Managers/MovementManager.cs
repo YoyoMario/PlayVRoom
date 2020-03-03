@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
+using DivIt.Utils;
 
 namespace DivIt.PlayVRoom.Managers
 {
-    public class MovementManager : MonoBehaviour
+    public class MovementManager : Singleton<MovementManager>
     {
         [SerializeField] private SteamVR_Input_Sources _sourceLeftHand = SteamVR_Input_Sources.Any;
         [SerializeField] private SteamVR_Input_Sources _sourceRightHand = SteamVR_Input_Sources.Any;
@@ -21,16 +22,24 @@ namespace DivIt.PlayVRoom.Managers
         [SerializeField] private float _walkAcceleration = 0.25f;
         [SerializeField] private float _maxSpeed = 0.25f;
 
-        private Rigidbody _rigidbody;
+        private Rigidbody _rigidbodyPlayarea;
         private Vector3 _hitPoint;
         private Vector2 _trackpadPositionLeft;
         private Vector2 _trackpadPositionRight;
         private bool _trackpadClickedLeft;
         private bool _trackpadClickedRight;
 
+        public Rigidbody RigidbodyPlayarea
+        {
+            get
+            {
+                return _rigidbodyPlayarea;
+            }
+        }
+
         private void Awake()
         {
-            _rigidbody = _playerArea.GetComponent<Rigidbody>();
+            _rigidbodyPlayarea = _playerArea.GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -72,19 +81,19 @@ namespace DivIt.PlayVRoom.Managers
                 Vector3 velocityToAdd =
                     _playerHead.right * _sensitvityCurve.Evaluate(_trackpadPositionLeft.x) * _walkAcceleration +
                     _playerHead.forward * _sensitvityCurve.Evaluate(_trackpadPositionLeft.y) * _walkAcceleration;
-                velocityToAdd.y = _rigidbody.velocity.y;
-                _rigidbody.velocity = velocityToAdd;
+                velocityToAdd.y = _rigidbodyPlayarea.velocity.y;
+                _rigidbodyPlayarea.velocity = velocityToAdd;
             }
             if (_trackpadClickedRight)
             {
                 Vector3 velocityToAdd =
                     _playerHead.right * _sensitvityCurve.Evaluate(_trackpadPositionRight.x) * _walkAcceleration +
                     _playerHead.forward * _sensitvityCurve.Evaluate(_trackpadPositionRight.y) * _walkAcceleration;
-                velocityToAdd.y = _rigidbody.velocity.y;
-                _rigidbody.velocity = velocityToAdd;
+                velocityToAdd.y = _rigidbodyPlayarea.velocity.y;
+                _rigidbodyPlayarea.velocity = velocityToAdd;
             }
 
-            _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, _maxSpeed);
+            _rigidbodyPlayarea.velocity = Vector3.ClampMagnitude(_rigidbodyPlayarea.velocity, _maxSpeed);
             
             //Ray headDown = new Ray(_playerHead.transform.position, Vector3.down);
             //RaycastHit hit;

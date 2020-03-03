@@ -113,6 +113,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private AudioManager _audioManager;
         private HapticFeedbackManager _hapticFeedbackManger;
         private LayerManager _layerManager;
+        private MovementManager _movementManager;
 
         #endregion
 
@@ -204,6 +205,13 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 return _layerManager;
             }
         }
+        public MovementManager MovementManager
+        {
+            get
+            {
+                return _movementManager;
+            }
+        }
 
         #endregion
 
@@ -219,6 +227,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _audioManager = AudioManager.Instance;
             _hapticFeedbackManger = HapticFeedbackManager.Instance;
             _layerManager = LayerManager.Instance;
+            _movementManager = MovementManager.Instance;
         }
 
         public virtual void FixedUpdate()
