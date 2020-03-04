@@ -12,6 +12,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [Header("---------------------------")]
         [SerializeField] private bool _consoleWrite = false;
         [Space(20)]
+        [SerializeField] private Transform _transformParent = null;
         [SerializeField] private float _unclickedPosition = 0.025f; //max peak position
         [SerializeField] private float _clickedPosition = 0.002f; // min bottom position
         [SerializeField] private float _buttonVelocityReturn = 0.2f; //to return in original position
@@ -67,23 +68,44 @@ namespace DivIt.PlayVRoom.VR.Interaction
             {
                 Rigidbody.velocity = Vector3.zero;
                 _initialPosition.y = _unclickedPosition;
-                Transform.localPosition = _initialPosition;
+                Rigidbody.position = _transformParent.TransformPoint(_initialPosition);
             }
 
             //if we are below the minimum treshold hold the button there
             if(Transform.localPosition.y < _clickedPosition)
             {
                 _initialPosition.y = _clickedPosition;
+                Rigidbody.position = _transformParent.TransformPoint(_initialPosition);
+            }
+
+            ClickLogic();
+        }
+
+        private void Update()
+        {
+            if (Transform.localPosition.y >= _unclickedPosition) //Stop moving the button up if we're at the peak
+            {
+                Transform.localPosition = _initialPosition;
+            }
+            else if (Transform.localPosition.y < _clickedPosition) //if we are below the minimum treshold hold the button there
+            {
                 Transform.localPosition = _initialPosition;
             }
 
             //Fixing the issue where you can push the button sideways
             Transform.localPosition = new Vector3(_initialPosition.x, Transform.localPosition.y, _initialPosition.z);
+        }
 
+        /// <summary>
+        /// Determines if button is clicker or not.
+        /// Plays audio.
+        /// </summary>
+        private void ClickLogic()
+        {
             //Calculate press percentage - press/release events
             float clickAmountPercentage = 1 - ((Transform.localPosition.y - _clickedPosition) / (_unclickedPosition - _clickedPosition));
             clickAmountPercentage *= 100;
-            if(clickAmountPercentage > _clickPercentageTreshold && !_clicked)
+            if (clickAmountPercentage > _clickPercentageTreshold && !_clicked)
             {
                 if (_consoleWrite)
                 {
@@ -92,17 +114,17 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 _clicked = true;
 
                 //Play audio
-                if(_audioClipPressSounds.Length > 0)
+                if (_audioClipPressSounds.Length > 0)
                 {
                     AudioManager.PlayAudio3D(_audioClipPressSounds, Position);
-                }                
+                }
 
                 if (OnButtonPress != null)
                 {
                     OnButtonPress();
                 }
             }
-            else if(clickAmountPercentage < _clickPercentageTreshold && _clicked)
+            else if (clickAmountPercentage < _clickPercentageTreshold && _clicked)
             {
                 if (_consoleWrite)
                 {
@@ -111,7 +133,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 _clicked = false;
 
                 //Play audio
-                if(_audioClipReleaseSounds.Length > 0)
+                if (_audioClipReleaseSounds.Length > 0)
                 {
                     AudioManager.PlayAudio3D(_audioClipReleaseSounds, Position);
                 }
