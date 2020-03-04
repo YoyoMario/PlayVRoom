@@ -34,7 +34,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             Rigidbody.constraints = RigidbodyConstraints.None;
 
             _initialRotation = Transform.localRotation;
-            _lastHandledPosition = Position;
+            _lastHandledPosition = Transform.localPosition;
         }
 
         public override void FixedUpdate()
@@ -55,7 +55,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 Rigidbody.velocity = Vector3.zero;
                 Rigidbody.angularVelocity = Vector3.zero;
 
-                Rigidbody.position = _lastHandledPosition;
+                Rigidbody.position = _transformParent.TransformPoint(_lastHandledPosition);
             }
 
             //limiting movement position - rigidbody
@@ -113,7 +113,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             base.OnDrop();
 
             //record the lever position at the moment when user leaves interacting
-            _lastHandledPosition = Position;
+            _lastHandledPosition = Transform.localPosition;
         }
     } 
 }
