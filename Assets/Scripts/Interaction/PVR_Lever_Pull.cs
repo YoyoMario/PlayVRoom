@@ -18,15 +18,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private float _hapticsAtAngle = 25f;
 
         //calculation infos
-        private Vector3 _crossFromInitialDirection; //to determin +/- of lever angle
         private float _rotationAmount; //from original position to +/- angle
         private Vector3 _cross;
         private Vector3 _angularVelocityDirection;
 
         //initial values
-        private Quaternion _initialRotation;
-        private Vector3 _initialForwardDirection;
-        private float _initialPivotRotat;
         private Vector3 _initialPivotPosition;
         private Quaternion _maxAngleFinalRotation;
         private Quaternion _lastHandledRotation; //for collisions if something hits this lever.
@@ -42,42 +38,35 @@ namespace DivIt.PlayVRoom.VR.Interaction
             Rigidbody.isKinematic = false;
             Rigidbody.constraints = RigidbodyConstraints.None;
 
-            _initialRotation = Transform.localRotation;
             _lastHandledRotation = Transform.localRotation;
-            _initialForwardDirection = Transform.forward;
             _initialPivotPosition = Transform.localPosition;
-            _initialPivotRotat = Transform.localRotation.eulerAngles.x;
         }
 
-        public Transform _dev;
         public override void FixedUpdate()
         {
-            if (!_dev) return;
             _angularVelocityDirection = Transform.right;
 
-            if (_dev)
+            if (Picked && Hand)
             {
-                //Calculating angle from center
-                _crossFromInitialDirection = Vector3.Cross(_initialForwardDirection, Position - /*Hand.Rigidbody.position*/ _dev.position);
-                _crossFromInitialDirection = Transform.InverseTransformDirection(_crossFromInitialDirection);
-                //calculate orientation since default position
-                _rotationAmount = Transform.localRotation.eulerAngles.x - _initialPivotRotat;
-                if (_crossFromInitialDirection.x < 0)
-                {
-                    _rotationAmount *= -1;
-                }
                 //Calculate amount to move and in which direction
-                _cross = Vector3.Cross(Transform.forward, Position - /*Hand.Rigidbody.position*/ _dev.position);
+                _cross = Vector3.Cross(Transform.up, Position - Hand.Rigidbody.position);
                 _cross = Transform.InverseTransformDirection(_cross);
+                _rotationAmount = Transform.localRotation.eulerAngles.x;
+                if(_rotationAmount > 180)
+                {
+                    _rotationAmount -= 360;
+                }
+                _rotationAmount *= -1;
+
                 //apply angular velocity in desired direction * strength
                 Rigidbody.angularVelocity = _angularVelocityDirection * _cross.x * -ControllerPhysics.LeverPullAngularVelocityStrength;
             }
-            //else
-            //{
-            //    //handling situation if user takes another collider and smacks it on our lever
-            //    Rigidbody.angularVelocity = Vector3.zero;
-            //    Rigidbody.rotation = _lastHandledRotation;
-            //}
+            else
+            {
+                //handling situation if user takes another collider and smacks it on our lever
+                Rigidbody.angularVelocity = Vector3.zero;
+                Rigidbody.rotation = _transformParent.rotation * Quaternion.Inverse(_lastHandledRotation);
+            }
 
             //to fix lever movement
             Rigidbody.velocity = Vector3.zero;
@@ -86,33 +75,33 @@ namespace DivIt.PlayVRoom.VR.Interaction
             //limiting rotation angle
             if (_rotationAmount >= _maxAngle && _cross.x > 0)
             {
-                _maxAngleFinalRotation = _transformParent.rotation * (_initialRotation) * Quaternion.Euler(new Vector3(-_maxAngle, 0, 0));
+                _maxAngleFinalRotation = _transformParent.rotation * Quaternion.Euler(new Vector3(-_maxAngle, 0, 0));
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.rotation = _maxAngleFinalRotation;
             }
             else if (_rotationAmount <= _minAngle && _cross.x < 0)
             {
-                _maxAngleFinalRotation = _transformParent.rotation * (_initialRotation) *  Quaternion.Euler(new Vector3(-_minAngle, 0, 0));
+                _maxAngleFinalRotation = _transformParent.rotation * Quaternion.Euler(new Vector3(-_minAngle, 0, 0));
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.rotation = _maxAngleFinalRotation;
             }
 
-            ////Haptics
-            //if(Picked && Hand)
-            //{
-            //    _totalRotationAngle += Rigidbody.angularVelocity.magnitude;
-            //    if (_totalRotationAngle > _hapticsAtAngle)
-            //    {
-            //        HapticFeedbackManager.HapticeFeedback(
-            //            _movementHaptics.SecondsFromNow,
-            //            _movementHaptics.Duration,
-            //            _movementHaptics.Frequency,
-            //            _movementHaptics.Amplitude,
-            //            Hand.InputSource
-            //            );
-            //        _totalRotationAngle = 0;
-            //    }
-            //}
+            //Haptics
+            if (Picked && Hand)
+            {
+                _totalRotationAngle += Rigidbody.angularVelocity.magnitude;
+                if (_totalRotationAngle > _hapticsAtAngle)
+                {
+                    HapticFeedbackManager.HapticeFeedback(
+                        _movementHaptics.SecondsFromNow,
+                        _movementHaptics.Duration,
+                        _movementHaptics.Frequency,
+                        _movementHaptics.Amplitude,
+                        Hand.InputSource
+                        );
+                    _totalRotationAngle = 0;
+                }
+            }
         }
 
         public override void OnCollisionStay(Collision collision)
