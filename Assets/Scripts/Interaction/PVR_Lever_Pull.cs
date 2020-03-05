@@ -18,7 +18,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private float _hapticsAtAngle = 25f;
 
         //calculation infos
-        private float _rotationAmount; //from original position to +/- angle
+        public float _rotationAmount; //from original position to +/- angle
         private Vector3 _cross;
         private Vector3 _angularVelocityDirection;
 
@@ -114,7 +114,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             base.OnDrop();
 
             //recording the lever rotation at the moment when user leaves interacting
-            _lastHandledRotation = Transform.localRotation;
+            _lastHandledRotation = Quaternion.Inverse(Transform.localRotation);
         }
     } 
 }
