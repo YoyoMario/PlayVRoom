@@ -64,7 +64,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             _initialShellEjectRotation = _shellEjectPosition.localRotation;
             _initialSliderPosition = _pistolSlider.localPosition;
-            _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
+            _endSliderPosition = _initialSliderPosition + new Vector3(0, 0, _sliderMovementAmount);
 
             _bulletManager = BulletManager.Instance;
         }
