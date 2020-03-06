@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 using System;
+using Valve.VR.InteractionSystem;
 
 using DivIt.PlayVRoom.Managers;
 using DivIt.PlayVRoom.VR.Visualization;
@@ -48,6 +49,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         #region Private
 
+        Hand _hand;
         HapticFeedbackManager _hapticFeedbackManager;
         LayerManager _layerManager;
         Rigidbody _rigidbody;        
@@ -126,6 +128,8 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _objectDetectionTrigger = GetComponent<SphereCollider>();
             _objectDetectionTrigger.isTrigger = true;
 
+            //Get the SteamVR Hand
+            _hand = GetComponent<Hand>();
 
             //Initialize Lists
             _touching = new List<PVR_Interactable>();
@@ -229,14 +233,14 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             //Hand collider for fist
             //position
-            Vector3 positionDelta = transform.position - _handRigidbody.position;
+            Vector3 positionDelta = _rigidbody.position - _handRigidbody.position;
             positionDelta =
                 positionDelta +
                 (transform.forward * _positionOffset.z) +
                 (transform.up * _positionOffset.y) +
                 (transform.right * _positionOffset.x);
             Vector3 velocityDir = positionDelta * _positionVelocityMultiplier * Time.fixedDeltaTime;
-            _handRigidbody.velocity = velocityDir;
+            _handRigidbody.velocity = velocityDir + _hand.GetTrackedObjectVelocity();
             //otation
             Quaternion rotationDelta = transform.rotation * Quaternion.Inverse(_handRigidbody.rotation);
             float angle;
@@ -249,7 +253,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             Vector3 wantedRotation = (Time.fixedDeltaTime * angle * axis) * _rotationVelocityMultiplier;
             if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
             {
-                _handRigidbody.angularVelocity = wantedRotation;
+                _handRigidbody.angularVelocity = wantedRotation + _hand.GetTrackedObjectAngularVelocity();
             }
         }
 
