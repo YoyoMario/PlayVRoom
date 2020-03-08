@@ -16,13 +16,16 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private HapticFeedback _movementHaptics = null;
         [SerializeField] private float _hapticsAtDeltaMovement = 25f;
 
-        private Vector3 _velocityDirection = Vector3.zero;
-        private Vector3 _cross = Vector3.zero;
-        private float _deltaMovement = 0f;
-        private Quaternion _initialRotation = Quaternion.identity;
-        private Vector3 _lastHandledPosition = Vector3.zero;
+        private Vector3 _pickOffsetValue;
+        private Vector3 _velocityDirection;
+        private Vector3 _cross;
+        private float _deltaMovement;
+        private Quaternion _initialRotation;
+        private Vector3 _lastHandledPosition;
 
         private float _totalMovement;
+
+        private const float ERROR_ACCUMULATION = 0.0001f;
 
         public override void Awake()
         {
@@ -45,7 +48,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
             if (Picked && Hand)
             {
-                _cross = Vector3.Cross(Transform.up, Position - Hand.Rigidbody.position);
+                _cross = Vector3.Cross(Transform.up, Position - Hand.Rigidbody.position + _pickOffsetValue);
                 _cross = Transform.InverseTransformDirection(_cross);
                 _cross *= -1;
                 Rigidbody.velocity = _velocityDirection * _cross.x * ControllerPhysics.LeverSlideVelocityStrength;
@@ -90,22 +93,29 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         private void LateUpdate()
         {
-            _deltaMovement = Transform.localPosition.z;
-            transform.localRotation = _initialRotation;
-            //limiting movement position - transform
-            if (_deltaMovement >= _maxMovement && _cross.x > 0)
-            {
-                Transform.localPosition = new Vector3(0, 0, _maxMovement);
-            }
-            else if (_deltaMovement <= _minMovement && _cross.x < 0)
-            {
-                Transform.localPosition = new Vector3(0, 0, _minMovement);
-            }
+            //_deltaMovement = Transform.localPosition.z;
+            //transform.localRotation = _initialRotation;
+            ////limiting movement position - transform
+            //if (_deltaMovement >= _maxMovement && _cross.x > 0)
+            //{
+            //    Transform.localPosition = new Vector3(0, 0, _maxMovement);
+            //}
+            //else if (_deltaMovement <= _minMovement && _cross.x < 0)
+            //{
+            //    Transform.localPosition = new Vector3(0, 0, _minMovement);
+            //}
         }
 
         public override void OnCollisionStay(Collision collision)
         {
             //base.OnCollisionStay(collision);
+        }
+
+        public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool matchRotationAndPosition = false)
+        {
+            base.OnPick(pVR_Grab_Rigidbody_Object, matchRotationAndPosition);
+
+            _pickOffsetValue = pVR_Grab_Rigidbody_Object.Rigidbody.position - Rigidbody.position;
         }
 
         public override void OnDrop()
