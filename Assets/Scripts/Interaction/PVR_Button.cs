@@ -13,8 +13,8 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private bool _consoleWrite = false;
         [Space(20)]
         [SerializeField] private Transform _transformParent = null;
-        [SerializeField] private float _unclickedPosition = 0.025f; //max peak position
-        [SerializeField] private float _clickedPosition = 0.002f; // min bottom position
+        [SerializeField] private float _topPositionYValue = 0.025f; //max peak position
+        [SerializeField] private float _bottomPositionYValue = 0.002f; // min bottom position
         [SerializeField] private float _buttonVelocityReturn = 0.2f; //to return in original position
         [Space(20)]
         [SerializeField] private int _clickPercentageTreshold = 75; //0% unclicked - 100% fully clicked
@@ -23,7 +23,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] AudioClip[] _audioClipPressSounds = null;
         [SerializeField] AudioClip[] _audioClipReleaseSounds = null;
 
-        private Vector3 _initialPosition;
+        private const float ERROR_ACCUMULATION = 0.0001f;
 
         public Action OnButtonPress;
         public Action OnButtonRelease;
@@ -36,8 +36,6 @@ namespace DivIt.PlayVRoom.VR.Interaction
             Rigidbody.useGravity = false;
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             Rigidbody.mass = 0.1f;
-
-            _initialPosition = Transform.localPosition;
         }
 
         public override void Start()
@@ -57,45 +55,54 @@ namespace DivIt.PlayVRoom.VR.Interaction
             return;
         }
 
+        public float currentPosition;
         public override void FixedUpdate()
         {
+            Rigidbody.angularVelocity = Vector3.zero;
+            Rigidbody.rotation = _transformParent.rotation;
+
             //Move button up
-            if(Transform.localPosition.y < _unclickedPosition)
+            if (Transform.localPosition.y < _topPositionYValue)
             {
-                Rigidbody.velocity = Transform.up * _buttonVelocityReturn;
+                Rigidbody.velocity = (Rigidbody.rotation * Vector3.up).normalized * _buttonVelocityReturn;
             }
             else //Stop moving the button up if we're at the peak
             {
                 Rigidbody.velocity = Vector3.zero;
-                _initialPosition.y = _unclickedPosition;
-                Rigidbody.position = _transformParent.TransformPoint(_initialPosition);
+                currentPosition = _topPositionYValue;
+                Rigidbody.position = _transformParent.position + (Rigidbody.rotation * (Vector3.up * (currentPosition + ERROR_ACCUMULATION)));
             }
 
             //if we are below the minimum treshold hold the button there
-            if(Transform.localPosition.y < _clickedPosition)
+            if (Transform.localPosition.y < _bottomPositionYValue)
             {
-                _initialPosition.y = _clickedPosition;
-                Rigidbody.position = _transformParent.TransformPoint(_initialPosition);
+                currentPosition = _bottomPositionYValue;
+                Rigidbody.position = _transformParent.position + (Rigidbody.rotation * (Vector3.up * (currentPosition + ERROR_ACCUMULATION)));
             }
 
             ClickLogic();
         }
 
-        private void Update()
-        {
-            if (Transform.localPosition.y >= _unclickedPosition) //Stop moving the button up if we're at the peak
-            {
-                Transform.localPosition = _initialPosition;
-            }
-            else if (Transform.localPosition.y < _clickedPosition) //if we are below the minimum treshold hold the button there
-            {
-                Transform.localPosition = _initialPosition;
-            }
+        //private void Update()
+        //{
+        //    if (Transform.localPosition.y >= _unclickedPosition) //Stop moving the button up if we're at the peak
+        //    {
+        //        Transform.localPosition = _initialPosition;
+        //    }
+        //    else if (Transform.localPosition.y < _clickedPosition) //if we are below the minimum treshold hold the button there
+        //    {
+        //        Transform.localPosition = _initialPosition;
+        //    }
 
-            //Fixing the issue where you can push the button sideways
-            Transform.localPosition = new Vector3(_initialPosition.x, Transform.localPosition.y, _initialPosition.z);
-        }
+        //    //Fixing the issue where you can push the button sideways
+        //    Transform.localPosition = new Vector3(_initialPosition.x, Transform.localPosition.y, _initialPosition.z);
+        //}
 
+            public float clickAmountPercentage;
+        public float zeroOffset;
+        public float newBottom;
+        public float newTop;
+        public float currentYpos;
         /// <summary>
         /// Determines if button is clicker or not.
         /// Plays audio.
@@ -103,7 +110,14 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private void ClickLogic()
         {
             //Calculate press percentage - press/release events
-            float clickAmountPercentage = 1 - ((Transform.localPosition.y - _clickedPosition) / (_unclickedPosition - _clickedPosition));
+            zeroOffset = 0 - _bottomPositionYValue;
+            newBottom = _bottomPositionYValue + zeroOffset;
+            newTop = _topPositionYValue + zeroOffset;
+            currentYpos = Transform.localPosition.y + zeroOffset;
+            clickAmountPercentage = 1 - (currentYpos / newTop);
+            //clickAmountPercentage = Mathf.Lerp(_bottomPositionYValue + zeroOffset, _topPositionYValue + zeroOffset)
+            /*float*/
+            //clickAmountPercentage = 1 - (Transform.localPosition.y - Mathf.Abs(_bottomPositionYValue)) / (Mathf.Abs(_bottomPositionYValue) + _topPositionYValue - Mathf.Abs(_bottomPositionYValue)));
             clickAmountPercentage *= 100;
             if (clickAmountPercentage > _clickPercentageTreshold && !_clicked)
             {
