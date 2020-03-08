@@ -16,10 +16,12 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [Space(5)]
         [SerializeField] private HapticFeedback _movementHaptics = null;
         [SerializeField] private float _hapticsAtAngle = 25f;
+                
+        private Vector3 _initialCrossValue;
 
         //calculation infos
         public float _rotationAmount; //from original position to +/- angle
-        private Vector3 _cross;
+        public Vector3 _cross;
         private Vector3 _angularVelocityDirection;
 
         //initial values
@@ -28,6 +30,8 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private Quaternion _lastHandledRotation; //for collisions if something hits this lever.
 
         private float _totalRotationAngle; //for haptics
+
+        private const float ERROR_ACCUMULATION = 0.0001f;
 
         public override void Awake()
         {
@@ -51,7 +55,10 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 //Calculate amount to move and in which direction
                 _cross = Vector3.Cross(Transform.up, Position - Hand.Rigidbody.position);
                 _cross = Transform.InverseTransformDirection(_cross);
-                _rotationAmount = Transform.localRotation.eulerAngles.x;
+                _cross -= Transform.InverseTransformDirection(_initialCrossValue);
+
+                Vector3 localRigidbodyRotation = (Quaternion.Inverse(_transformParent.rotation) * (Rigidbody.rotation)).eulerAngles;
+                _rotationAmount = localRigidbodyRotation.x;
                 if(_rotationAmount > 180)
                 {
                     _rotationAmount -= 360;
@@ -75,13 +82,13 @@ namespace DivIt.PlayVRoom.VR.Interaction
             //limiting rotation angle
             if (_rotationAmount >= _maxAngle && _cross.x > 0)
             {
-                _maxAngleFinalRotation = _transformParent.rotation * Quaternion.Euler(new Vector3(-_maxAngle, 0, 0));
+                _maxAngleFinalRotation = _transformParent.rotation * Quaternion.Euler(new Vector3(-_maxAngle - ERROR_ACCUMULATION, 0, 0));
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.rotation = _maxAngleFinalRotation;
             }
             else if (_rotationAmount <= _minAngle && _cross.x < 0)
             {
-                _maxAngleFinalRotation = _transformParent.rotation * Quaternion.Euler(new Vector3(-_minAngle, 0, 0));
+                _maxAngleFinalRotation = _transformParent.rotation * Quaternion.Euler(new Vector3(-_minAngle + ERROR_ACCUMULATION, 0, 0));
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.rotation = _maxAngleFinalRotation;
             }
@@ -107,6 +114,13 @@ namespace DivIt.PlayVRoom.VR.Interaction
         public override void OnCollisionStay(Collision collision)
         {
             //base.OnCollisionStay(collision);
+        }
+
+        public override void OnPick(PVR_Hand pVR_Grab_Rigidbody_Object, bool matchRotationAndPosition = false)
+        {
+            base.OnPick(pVR_Grab_Rigidbody_Object, matchRotationAndPosition);
+
+            _initialCrossValue = Vector3.Cross(Transform.up, Position - pVR_Grab_Rigidbody_Object.Rigidbody.position);
         }
 
         public override void OnDrop()
