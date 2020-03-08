@@ -73,51 +73,28 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 Rigidbody.position = _transformParent.position + (Rigidbody.rotation * (Vector3.up * (currentPosition + ERROR_ACCUMULATION)));
             }
 
+            //TODO; BAD PRACTICE! CALCULATE RIGIDBODY POSITION FROM WORLD SPACE TO LOCAL, set X and Z to 0 and RETURN TO WORLD SPACE COORDINATES!
             //if we are below the minimum treshold hold the button there
-            if (Transform.localPosition.y < _bottomPositionYValue)
-            {
-                currentPosition = _bottomPositionYValue;
-                Rigidbody.position = _transformParent.position + (Rigidbody.rotation * (Vector3.up * (currentPosition + ERROR_ACCUMULATION)));
-            }
+            //if (Transform.localPosition.y < _bottomPositionYValue)
+            //{
+            //    Rigidbody.velocity = Vector3.zero;
+            //    currentPosition = _bottomPositionYValue;
+            //    Rigidbody.position = _transformParent.position + (Rigidbody.rotation * (Vector3.up * (currentPosition)));
+            //}
+
+            ////Fixing the issue where you can push the button sideways
+            //Transform.localPosition = new Vector3(_initialPosition.x, Transform.localPosition.y, _initialPosition.z);
 
             ClickLogic();
         }
 
-        //private void Update()
-        //{
-        //    if (Transform.localPosition.y >= _unclickedPosition) //Stop moving the button up if we're at the peak
-        //    {
-        //        Transform.localPosition = _initialPosition;
-        //    }
-        //    else if (Transform.localPosition.y < _clickedPosition) //if we are below the minimum treshold hold the button there
-        //    {
-        //        Transform.localPosition = _initialPosition;
-        //    }
-
-        //    //Fixing the issue where you can push the button sideways
-        //    Transform.localPosition = new Vector3(_initialPosition.x, Transform.localPosition.y, _initialPosition.z);
-        //}
-
-            public float clickAmountPercentage;
-        public float zeroOffset;
-        public float newBottom;
-        public float newTop;
-        public float currentYpos;
         /// <summary>
         /// Determines if button is clicker or not.
         /// Plays audio.
         /// </summary>
         private void ClickLogic()
         {
-            //Calculate press percentage - press/release events
-            zeroOffset = 0 - _bottomPositionYValue;
-            newBottom = _bottomPositionYValue + zeroOffset;
-            newTop = _topPositionYValue + zeroOffset;
-            currentYpos = Transform.localPosition.y + zeroOffset;
-            clickAmountPercentage = 1 - (currentYpos / newTop);
-            //clickAmountPercentage = Mathf.Lerp(_bottomPositionYValue + zeroOffset, _topPositionYValue + zeroOffset)
-            /*float*/
-            //clickAmountPercentage = 1 - (Transform.localPosition.y - Mathf.Abs(_bottomPositionYValue)) / (Mathf.Abs(_bottomPositionYValue) + _topPositionYValue - Mathf.Abs(_bottomPositionYValue)));
+            float clickAmountPercentage = 1 - ((Transform.localPosition.y - _bottomPositionYValue) / (_topPositionYValue - _bottomPositionYValue));
             clickAmountPercentage *= 100;
             if (clickAmountPercentage > _clickPercentageTreshold && !_clicked)
             {
@@ -133,10 +110,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                     AudioManager.PlayAudio3D(_audioClipPressSounds, Position);
                 }
 
-                if (OnButtonPress != null)
-                {
-                    OnButtonPress();
-                }
+                OnButtonPress?.Invoke();
             }
             else if (clickAmountPercentage < _clickPercentageTreshold && _clicked)
             {
@@ -152,10 +126,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                     AudioManager.PlayAudio3D(_audioClipReleaseSounds, Position);
                 }
 
-                if (OnButtonRelease != null)
-                {
-                    OnButtonRelease();
-                }
+                OnButtonRelease?.Invoke();
             }
         }
     } 
