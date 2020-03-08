@@ -240,7 +240,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 (transform.up * _positionOffset.y) +
                 (transform.right * _positionOffset.x);
             Vector3 velocityDir = positionDelta * _positionVelocityMultiplier * Time.fixedDeltaTime;
-            _handRigidbody.velocity = velocityDir + _hand.GetTrackedObjectVelocity();
+            Vector3 steamVRHandVelocity = _hand.GetTrackedObjectVelocity();
+            if(!float.IsNaN(steamVRHandVelocity.x) && !float.IsNaN(steamVRHandVelocity.y) && !float.IsNaN(steamVRHandVelocity.z))
+            {
+                _handRigidbody.velocity = velocityDir + steamVRHandVelocity;
+            }
             //otation
             Quaternion rotationDelta = transform.rotation * Quaternion.Inverse(_handRigidbody.rotation);
             float angle;
@@ -251,9 +255,11 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 angle -= 360;
             }
             Vector3 wantedRotation = (Time.fixedDeltaTime * angle * axis) * _rotationVelocityMultiplier;
-            if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
+            Vector3 steamVRHandAngularVelocity = _hand.GetTrackedObjectAngularVelocity();
+            if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z) &&
+                !float.IsNaN(steamVRHandAngularVelocity.x) && !float.IsNaN(steamVRHandAngularVelocity.y) && !float.IsNaN(steamVRHandAngularVelocity.z))
             {
-                _handRigidbody.angularVelocity = wantedRotation + _hand.GetTrackedObjectAngularVelocity();
+                _handRigidbody.angularVelocity = wantedRotation + steamVRHandAngularVelocity;
             }
         }
 

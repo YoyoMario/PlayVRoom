@@ -158,7 +158,7 @@ MonoBehaviour:
   _rotationVelocityMultiplier: 30
   _positionOffset: {x: 0, y: -0.03, z: 0.01}
   _handColliderRadius: 0.1
-  _showMesh: 1
+  _showMesh: 0
   _handRigidbody: {fileID: 0}
   _handCollider: {fileID: 0}
   _hoverHaptics: {fileID: 11400000, guid: 6a82842759d8c8f4a97e66ecdda18065, type: 2}
@@ -224,7 +224,7 @@ MonoBehaviour:
   _rotationVelocityMultiplier: 30
   _positionOffset: {x: 0, y: -0.03, z: 0.01}
   _handColliderRadius: 0.1
-  _showMesh: 1
+  _showMesh: 0
   _handRigidbody: {fileID: 0}
   _handCollider: {fileID: 0}
   _hoverHaptics: {fileID: 11400000, guid: 6a82842759d8c8f4a97e66ecdda18065, type: 2}
@@ -336,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -3.734
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -344,23 +344,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.18
+      value: -2.482
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071061
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071075
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_RootOrder
@@ -372,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

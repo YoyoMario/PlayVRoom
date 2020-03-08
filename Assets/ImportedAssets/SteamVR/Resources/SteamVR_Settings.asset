@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: SteamVR_Settings
   m_EditorClassIdentifier: 
   pauseGameWhenDashboardVisible: 1
-  lockPhysicsUpdateRateToRenderFrequency: 0
+  lockPhysicsUpdateRateToRenderFrequency: 1
   trackingSpace: 1
   actionsFilePath: actions.json
   steamVRInputPath: SteamVR_Input
   inputUpdateMode: 2
-  poseUpdateMode: 4
+  poseUpdateMode: 8
   activateFirstActionSetOnStart: 1
   editorAppKey: application.generated.unity.playvroom.exe
   autoEnableVR: 1
