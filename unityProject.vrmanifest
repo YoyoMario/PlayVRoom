@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.playvroom.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "E:\\Development\\PlayVRoom\\actions.json",
+      "action_manifest_path": "E:\\Development\\Unity\\YoyoMario-PlayVRoom\\actions.json",
       "strings": {
         "en_us": {
           "name": "PlayVRoom [Testing]"
