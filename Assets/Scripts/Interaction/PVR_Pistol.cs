@@ -84,10 +84,13 @@ namespace DivIt.PlayVRoom.VR.Interaction
             }
 
             //Cooldown
-            if (_cooldown >= 0 && _currentBulletCount != 0)
+            if (_cooldown >= 0)
             {
                 _cooldown -= Time.deltaTime * _cooldownSpeed;
-                _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
+                if(_currentBulletCount != 0)
+                {
+                    _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
+                }
             }
         }
 

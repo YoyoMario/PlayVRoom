@@ -520,15 +520,18 @@ MonoBehaviour:
     needsReinit: 0
   _cooldownSpeed: 10
   _pistoleMode: 0
+  _initialBulletCount: 8
   _shellEjectPosition: {fileID: 3222213060210390629}
   _prefabShell: {fileID: 4941148882523683392, guid: 56997a7d586aa954da4f2f3b49d0017f,
     type: 3}
   _shellForce: 14.5
   _shellRandomRotationAmount: 30
-  _sliderMovementAmount: -0.005
+  _sliderMovementAmount: 0.005
   _pistolSlider: {fileID: 2202309942023298888}
   _audioClipShot:
   - {fileID: 8300000, guid: 177109f2531a6bb4595264ecd6a27ab9, type: 3}
+  _emptyClipShot:
+  - {fileID: 8300000, guid: d5760eea49853214f9673f4b3a8536b9, type: 3}
   _minMaxPitch: {x: 0, y: 0}
   _minMaxVolume: {x: 0, y: 0}
   _shootingHaptics: {fileID: 11400000, guid: 6963d5a259ed1be43b3b2d105ddafd31, type: 2}
