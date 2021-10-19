@@ -7,7 +7,7 @@ using DivIt.PlayVRoom.Managers;
 using DivIt.PlayVRoom.ScriptableObjects;
 
 namespace DivIt.PlayVRoom.VR.Interaction
-{    
+{
     [RequireComponent(typeof(Rigidbody))]
     public class PVR_Pistol : PVR_Interactable
     {
@@ -22,6 +22,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private SteamVR_Action_Boolean _triggerPress = null;
         [SerializeField] private float _cooldownSpeed = 1;
         [SerializeField] private PistoleMode _pistoleMode = PistoleMode.SingleFire;
+        [SerializeField] private int _initialBulletCount = -1;
         [Header("Shell settings")]
         [SerializeField] private Transform _shellEjectPosition = null;
         [SerializeField] private GameObject _prefabShell = null;
@@ -32,6 +33,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private Transform _pistolSlider = null;
         [Header("Sound settings")]
         [SerializeField] private AudioClip[] _audioClipShot = null;
+        [SerializeField] private AudioClip[] _emptyClipShot = null;
         [SerializeField] private Vector2 _minMaxPitch = Vector2.zero;
         [SerializeField] private Vector2 _minMaxVolume = Vector2.zero;
         [Header("Haptic pistol feedback")]
@@ -54,6 +56,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private Vector3 _endSliderPosition;
         private float _cooldownValue = 1;
         private float _cooldown;
+        private int _currentBulletCount;
 
         private BulletManager _bulletManager;
 
@@ -66,6 +69,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _endSliderPosition = _initialSliderPosition + (_pistolSlider.forward * _sliderMovementAmount);
 
             _bulletManager = BulletManager.Instance;
+            _currentBulletCount = _initialBulletCount;
         }
 
         private void Update()
@@ -80,7 +84,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             }
 
             //Cooldown
-            if (_cooldown >= 0)
+            if (_cooldown >= 0 && _currentBulletCount != 0)
             {
                 _cooldown -= Time.deltaTime * _cooldownSpeed;
                 _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
@@ -97,7 +101,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 //position
                 Vector3 dir = Hand.Rigidbody.position - Position;
                 Vector3 velocityDir = dir * ControllerPhysics.PositionVelocityMagic * Time.fixedDeltaTime;
-                    Rigidbody.velocity = velocityDir + SteamHand.GetTrackedObjectVelocity();
+                Rigidbody.velocity = velocityDir + SteamHand.GetTrackedObjectVelocity();
 
                 //rotation
                 Quaternion finalRotation = Quaternion.Euler(0, 0, 0);
@@ -119,7 +123,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 Vector3 wantedRotation = (Time.fixedDeltaTime * _angle * _axis) * ControllerPhysics.RotationVelocityMagic;
                 if (!float.IsNaN(wantedRotation.x) && !float.IsNaN(wantedRotation.y) && !float.IsNaN(wantedRotation.z))
                 {
-                     Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
+                    Rigidbody.angularVelocity = wantedRotation + SteamHand.GetTrackedObjectAngularVelocity();
                 }
             }
         }
@@ -169,12 +173,25 @@ namespace DivIt.PlayVRoom.VR.Interaction
 
         private void Shoot()
         {
+            if (_currentBulletCount == 0)
+            {
+                // Play empty sound.
+                AudioManager.PlayAudio3D(
+                    _emptyClipShot,
+                    Position,
+                    _minMaxPitch,
+                    _minMaxVolume
+                    );
+                return;
+            }
+
             _pistolSlider.localPosition = _endSliderPosition;
             _cooldown = _cooldownValue;
+            _currentBulletCount -= 1;
 
             //Randomize shell eject rotation
             _shellEjectPosition.localRotation = _initialShellEjectRotation * Quaternion.Euler(Vector3.up * Random.Range(-_shellRandomRotationAmount, _shellRandomRotationAmount));
-            
+
             //Audio
             AudioManager.PlayAudio3D(
                 _audioClipShot,
@@ -214,5 +231,5 @@ namespace DivIt.PlayVRoom.VR.Interaction
                 Hand.InputSource
                 );
         }
-    } 
+    }
 }

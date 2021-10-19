@@ -528,9 +528,7 @@ MonoBehaviour:
   _sliderMovementAmount: -0.005
   _pistolSlider: {fileID: 2202309942023298888}
   _audioClipShot:
-  - {fileID: 8300000, guid: 3804c83285b4721498ead80b1088a86f, type: 3}
-  - {fileID: 8300000, guid: 0ec7f508d6e5f264aac345eef06d8d93, type: 3}
-  - {fileID: 8300000, guid: 35c6a04c252c55545ad95c81ddc4ce3b, type: 3}
+  - {fileID: 8300000, guid: 177109f2531a6bb4595264ecd6a27ab9, type: 3}
   _minMaxPitch: {x: 0, y: 0}
   _minMaxVolume: {x: 0, y: 0}
   _shootingHaptics: {fileID: 11400000, guid: 6963d5a259ed1be43b3b2d105ddafd31, type: 2}
@@ -565,7 +563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4050434322768138078}
   m_LocalRotation: {x: -0.5914223, y: -0, z: -0, w: 0.80636203}
-  m_LocalPosition: {x: -0.001, y: 0.093, z: 0.019}
+  m_LocalPosition: {x: -0.001, y: 0.063, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4050434322585158017}
