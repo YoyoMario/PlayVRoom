@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460331787476258584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0717, z: 0.1926}
+  m_LocalPosition: {x: 0, y: 0.0837, z: 0.2381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3007604352466746834}
@@ -407,16 +407,14 @@ MonoBehaviour:
     type: 3}
   _shellForce: 14.5
   _shellRandomRotationAmount: 30
-  _sliderMovementAmount: 0.03
+  _sliderMovementAmount: -0.0225
   _pistolSlider: {fileID: 618751974650946425}
   _audioClipShot:
-  - {fileID: 8300000, guid: 3804c83285b4721498ead80b1088a86f, type: 3}
-  - {fileID: 8300000, guid: 0ec7f508d6e5f264aac345eef06d8d93, type: 3}
-  - {fileID: 8300000, guid: 35c6a04c252c55545ad95c81ddc4ce3b, type: 3}
+  - {fileID: 8300000, guid: 56d5337cd80bcd749b7704535a6394a7, type: 3}
   _emptyClipShot:
   - {fileID: 8300000, guid: d5760eea49853214f9673f4b3a8536b9, type: 3}
-  _minMaxPitch: {x: 0, y: 0}
-  _minMaxVolume: {x: 0, y: 0}
+  _minMaxPitch: {x: 0.95, y: 0.95}
+  _minMaxVolume: {x: 0.95, y: 0.95}
   _shootingHaptics: {fileID: 11400000, guid: 6963d5a259ed1be43b3b2d105ddafd31, type: 2}
   _prefabBullet: {fileID: 2859231493164995004, guid: 1923f56965710424a8a8a2ffb04109b0,
     type: 3}
@@ -602,7 +600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5594305704440841667}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.0706, z: 0.1939}
+  m_LocalPosition: {x: -0, y: 0.084, z: 0.2968}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3007604352466746834}

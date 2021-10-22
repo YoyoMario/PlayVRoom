@@ -303,8 +303,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f208943ea8aa35d48a521e3d79ca8e91, type: 3}
   _emptyClipShot:
   - {fileID: 8300000, guid: d5760eea49853214f9673f4b3a8536b9, type: 3}
-  _minMaxPitch: {x: 2, y: 2.5}
-  _minMaxVolume: {x: 0.9, y: 1.24}
+  _minMaxPitch: {x: 1, y: 1}
+  _minMaxVolume: {x: 0.9, y: 0.95}
   _shootingHaptics: {fileID: 11400000, guid: 6963d5a259ed1be43b3b2d105ddafd31, type: 2}
   _prefabBullet: {fileID: 6492637984128062560, guid: bc6c9c44943528342a36287ba7ae36b3,
     type: 3}
@@ -579,7 +579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8811804431236628528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.005, y: 0.1002, z: 0.4238}
+  m_LocalPosition: {x: -0.005, y: 0.0995, z: 0.4572}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1184501618740559070}

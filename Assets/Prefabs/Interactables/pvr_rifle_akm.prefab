@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2819898040422023863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.005, y: 0.0956, z: 0.639}
+  m_LocalPosition: {x: -0.005, y: 0.084, z: 0.6971}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5556222379863686745}
@@ -520,6 +520,7 @@ MonoBehaviour:
     needsReinit: 0
   _cooldownSpeed: 6
   _rifleMode: 1
+  _initialBulletCount: 30
   _shellEjectPosition: {fileID: 1530085216746275594}
   _prefabShell: {fileID: 4941148882523683392, guid: 56997a7d586aa954da4f2f3b49d0017f,
     type: 3}
@@ -528,9 +529,11 @@ MonoBehaviour:
   _sliderMovementAmount: -0.12
   _pistolSlider: {fileID: 4110501267169461370}
   _audioClipShot:
-  - {fileID: 8300000, guid: 89bae43e8ca3c5940954f22545bc154c, type: 3}
-  _minMaxPitch: {x: 2, y: 2.5}
-  _minMaxVolume: {x: 0.9, y: 1.24}
+  - {fileID: 8300000, guid: 561e3db10189ea848b9e3ce54c04ee73, type: 3}
+  _emptyClipShot:
+  - {fileID: 8300000, guid: d5760eea49853214f9673f4b3a8536b9, type: 3}
+  _minMaxPitch: {x: 1, y: 1}
+  _minMaxVolume: {x: 0.95, y: 1.05}
   _shootingHaptics: {fileID: 11400000, guid: 6963d5a259ed1be43b3b2d105ddafd31, type: 2}
   _prefabBullet: {fileID: 6492637984128062560, guid: bc6c9c44943528342a36287ba7ae36b3,
     type: 3}
