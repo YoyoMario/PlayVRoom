@@ -23,6 +23,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private SteamVR_Action_Boolean _triggerPress = null;
         [SerializeField] private float _cooldownSpeed = 1;
         [SerializeField] private RifleMode _rifleMode = RifleMode.SingleFire;
+        [SerializeField] private int _initialBulletCount = -1;
         [Header("Shell settings")]
         [SerializeField] private Transform _shellEjectPosition = null;
         [SerializeField] private GameObject _prefabShell = null;
@@ -33,6 +34,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
         [SerializeField] private Transform _pistolSlider = null;
         [Header("Sound settings")]
         [SerializeField] private AudioClip[] _audioClipShot = null;
+        [SerializeField] private AudioClip[] _emptyClipShot = null;
         [SerializeField] private Vector2 _minMaxPitch = Vector2.zero;
         [SerializeField] private Vector2 _minMaxVolume = Vector2.zero;
         [Header("Haptic pistol feedback")]
@@ -55,6 +57,8 @@ namespace DivIt.PlayVRoom.VR.Interaction
         private Vector3 _endSliderPosition;
         private float _cooldownValue = 1;
         private float _cooldown;
+        private int _currentBulletCount;
+        private bool _playOnce;
 
         private BulletManager _bulletManager;
 
@@ -67,6 +71,7 @@ namespace DivIt.PlayVRoom.VR.Interaction
             _endSliderPosition = _initialSliderPosition + new Vector3(0, 0, _sliderMovementAmount);
 
             _bulletManager = BulletManager.Instance;
+            _currentBulletCount = _initialBulletCount;
         }
 
         private void Update()
@@ -84,7 +89,10 @@ namespace DivIt.PlayVRoom.VR.Interaction
             if (_cooldown >= 0)
             {
                 _cooldown -= Time.deltaTime * _cooldownSpeed;
-                _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
+                if (_currentBulletCount != 0)
+                {
+                    _pistolSlider.localPosition = Vector3.Lerp(_endSliderPosition, _initialSliderPosition, 1 - _cooldown);
+                }
             }
         }
 
@@ -199,13 +207,32 @@ namespace DivIt.PlayVRoom.VR.Interaction
         {
             //Debug.Log("OnTriggerRelease()");
             _triggerState = false;
+            _playOnce = false;
         }
 
         private void Shoot()
         {
+            if (_currentBulletCount == 0)
+            {
+                if (!_playOnce)
+                {
+                    // Play empty sound.
+                    AudioManager.PlayAudio3D(
+                        _emptyClipShot,
+                        Position,
+                        _minMaxPitch,
+                        _minMaxVolume
+                        );
+                    _playOnce = true;
+                }
+                return;
+            }
+
+
             _pistolSlider.localPosition = _endSliderPosition;
             _cooldown = _cooldownValue;
 
+            _currentBulletCount -= 1;
             //Randomize shell eject rotation
             _shellEjectPosition.localRotation = _initialShellEjectRotation * Quaternion.Euler(Vector3.up * Random.Range(-_shellRandomRotationAmount, _shellRandomRotationAmount));
 
