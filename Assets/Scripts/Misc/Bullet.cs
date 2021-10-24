@@ -80,6 +80,12 @@ namespace DivIt.PlayVRoom.Misc
                             _hit.point
                             );
                     }
+
+                    AppearingTargetCollider appearingTargetCollider = _hit.collider.GetComponent<AppearingTargetCollider>();
+                    if (appearingTargetCollider)
+                    {
+                        appearingTargetCollider.AppearingTarget.ApplyBulletDamage(_hit.point);
+                    }
                 }
             }
 
