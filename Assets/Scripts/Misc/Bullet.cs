@@ -69,6 +69,9 @@ namespace DivIt.PlayVRoom.Misc
                     //Create impact effect
                     _bulletManager.CreateImpactParticles(_hit.point, _hit.normal);
 
+                    //Create decal effect.
+                    DecalManager.Instance.ShowDecal(DecalType.Brick, _hit.point, _hit.normal, _hit.collider.transform);
+
                     Rigidbody hitRb;
                     if (hitRb = _hit.rigidbody)
                     {
@@ -93,5 +96,5 @@ namespace DivIt.PlayVRoom.Misc
 
             Destroy(gameObject);
         }
-    } 
+    }
 }
