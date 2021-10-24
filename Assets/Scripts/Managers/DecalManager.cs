@@ -38,6 +38,7 @@ namespace DivIt.PlayVRoom.Managers
             }
             PooledDecals[CurrentIndex].transform.position = position;
             PooledDecals[CurrentIndex].transform.rotation = rotation;
+            PooledDecals[CurrentIndex].transform.SetParent(parent);
             CurrentIndex++;
             if (CurrentIndex == PooledDecals.Length)
             {
