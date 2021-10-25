@@ -9722,17 +9722,21 @@ MonoBehaviour:
     Prefab: {fileID: 909843929186128066, guid: a0ad49cdf6aedd244aa12679ce511cb6, type: 3}
     PooledDecals: []
     CurrentIndex: 0
+    OriginalLocalScale: {x: 0, y: 0, z: 0}
   _decalsMetal:
     Type: 0
     Prefab: {fileID: 0}
     PooledDecals: []
     CurrentIndex: 0
+    OriginalLocalScale: {x: 0, y: 0, z: 0}
   _decalsDirt:
     Type: 0
     Prefab: {fileID: 0}
     PooledDecals: []
     CurrentIndex: 0
+    OriginalLocalScale: {x: 0, y: 0, z: 0}
   AmountOfDecals: 10
+  _aboveSurfaceAmount: 0.01
 --- !u!1001 &1610857355
 PrefabInstance:
   m_ObjectHideFlags: 0
